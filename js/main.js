@@ -2,36 +2,26 @@ const PROJECTS = [
     {
         id: 0,
         name: 'E-Commerce Platform',
-        tech: 'React, Node.js, MongoDB, Stripe',
-        date: 'Mar 2026',
         desc: 'Plataforma completa de comercio electrónico con carrito de compras, pasarela de pagos integrada, panel de administración para gestión de productos y pedidos, y sistema de autenticación de usuarios con roles y permisos.',
     },
     {
         id: 1,
         name: 'Dashboard Analytics',
-        tech: 'Vue.js, D3.js, Express, PostgreSQL',
-        date: 'Ene 2026',
         desc: 'Panel de análisis en tiempo real con gráficos interactivos, filtros dinámicos, exportación de reportes en PDF y CSV, y visualización de datos con múltiples tipos de charts y métricas personalizables para tomada de decisiones basada en datos.',
     },
     {
         id: 2,
         name: 'Social Media App',
-        tech: 'React Native, Firebase, Socket.io',
-        date: 'Nov 2025',
         desc: 'Aplicación de red social con sistema de publicaciones, likes, comentarios, chat en tiempo real, perfil de usuario personalizable, y feed algorítmico con infinite scroll y notificaciones push.',
     },
     {
         id: 3,
         name: 'AI Chat Interface',
-        tech: 'TypeScript, OpenAI API, Next.js',
-        date: 'Dic 2025',
         desc: 'Interfaz de chat con inteligencia artificial que incluye sugerencias contextuales, historial de conversaciones, modo oscuro/claro, y soporte para múltiples modelos de lenguaje con streaming de respuestas.',
     },
     {
         id: 4,
         name: 'Portfolio Generator',
-        tech: 'HTML5, CSS3, JavaScript, Canvas API',
-        date: 'Oct 2025',
         desc: 'Herramienta que genera portafolios personalizados a partir de un formulario interactivo, con múltiples temas, exportación a HTML estático, y preview en tiempo real con descarga directa.',
     }
 ];
@@ -40,6 +30,7 @@ const PROJECTS = [
 let currentSectionIndex = 0;
 let isTransitioning = false;
 let isWheelLocked = false;
+let activeProjectIndex = 0; // Currently active project in the slider
 const sections = [];
 const navLinks = [];
 let wheelTimeout = null;
@@ -47,7 +38,7 @@ let wheelTimeout = null;
 document.addEventListener('DOMContentLoaded', () => {
     initSections();
     initNavbar();
-    initProjects();
+    initProjectsSlider();
     initContactForm();
     initWheelNavigation();
     
@@ -58,6 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Update active nav link
     updateActiveNavLink(0);
+    
+    // Initialize project slider
+    updateProjectSlider();
 });
 
 /* ===========================
@@ -177,65 +171,104 @@ function initWheelNavigation() {
 }
 
 /* ===========================
-   PROJECTS INTERACTIONS
+   PROJECTS SLIDER (3 vertical images)
    =========================== */
-function initProjects() {
-    const projectCards = document.querySelectorAll('.project-card');
-    const detailPanel = document.getElementById('projectDetailPanel');
-    const detailTitle = document.getElementById('detailTitle');
-    const detailDesc = document.getElementById('detailDesc');
-    const detailTags = document.getElementById('detailTags');
-    const detailTech = document.getElementById('detailTech');
-    const detailDate = document.getElementById('detailDate');
-    const closeBtn = document.getElementById('closeDetailPanel');
+function initProjectsSlider() {
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const projectTitle = document.getElementById('projectsTitle');
+    const projectDesc = document.getElementById('projectsDesc');
+    const projectSlides = document.querySelectorAll('.project-slide');
+    const projectTrack = document.getElementById('projectsTrack');
     
-    projectCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const id = parseInt(card.dataset.project);
-            const project = PROJECTS[id];
-            
-            // Update detail panel content
-            detailTitle.textContent = project.name;
-            detailDesc.textContent = project.desc;
-            detailTech.textContent = project.tech;
-            detailDate.textContent = project.date;
-            
-            // Generate tags from tech string (simple split)
-            const tags = project.tech.split(', ').map(tag => `<span class="project-detail__tag">${tag}</span>`).join('');
-            detailTags.innerHTML = tags;
-            
-            // Show panel
-            detailPanel.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when panel open
-            
-            // Optional: Add active class to clicked card for visual feedback
-            projectCards.forEach(c => c.classList.remove('active-project'));
-            card.classList.add('active-project');
+    // Previous button
+    prevBtn.addEventListener('click', () => {
+        activeProjectIndex = (activeProjectIndex - 1 + PROJECTS.length) % PROJECTS.length;
+        updateProjectSlider();
+    });
+    
+    // Next button
+    nextBtn.addEventListener('click', () => {
+        activeProjectIndex = (activeProjectIndex + 1) % PROJECTS.length;
+        updateProjectSlider();
+    });
+    
+    // Click on slides to make them active
+    projectSlides.forEach((slide, index) => {
+        slide.addEventListener('click', () => {
+            // Set the clicked slide as active
+            activeProjectIndex = index;
+            updateProjectSlider();
+        });
+        
+        // Hover effects
+        slide.addEventListener('mouseenter', () => {
+            // Only add hover effect if not the active slide
+            if (!slide.classList.contains('active')) {
+                slide.classList.add('hovered');
+            }
+        });
+        
+        slide.addEventListener('mouseleave', () => {
+            slide.classList.remove('hovered');
         });
     });
+}
+
+function updateProjectSlider() {
+    const projectTitle = document.getElementById('projectsTitle');
+    const projectDesc = document.getElementById('projectsDesc');
+    const projectSlides = document.querySelectorAll('.project-slide');
+    const projectTrack = document.getElementById('projectsTrack');
     
-    // Close panel
-    function closeDetailPanel() {
-        detailPanel.classList.remove('active');
-        document.body.style.overflow = ''; // Restore scrolling
-        document.querySelectorAll('.project-card').forEach(c => c.classList.remove('active-project'));
-    }
+    // Update title and description
+    const activeProject = PROJECTS[activeProjectIndex];
+    projectTitle.textContent = activeProject.name;
+    projectDesc.textContent = activeProject.desc;
     
-    closeBtn.addEventListener('click', closeDetailPanel);
-    
-    // Close when clicking outside content
-    detailPanel.addEventListener('click', (e) => {
-        if (e.target === detailPanel) {
-            closeDetailPanel();
+    // Update slides: prev, active, next
+    projectSlides.forEach((slide, index) => {
+        // Remove all classes first
+        slide.classList.remove('prev', 'active', 'next', 'hovered');
+        
+        const diff = ((index - activeProjectIndex) % PROJECTS.length + PROJECTS.length) % PROJECTS.length;
+        
+        if (diff === 0) {
+            // Active project
+            slide.classList.add('active');
+        } else if (diff === 1) {
+            // Next project
+            slide.classList.add('next');
+        } else if (diff === PROJECTS.length - 1) {
+            // Previous project (since we're going backwards)
+            slide.classList.add('prev');
         }
+        // For projects further away, they stay with no special class (will be hidden by overflow or positioning)
     });
     
-    // Close with Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && detailPanel.classList.contains('active')) {
-            closeDetailPanel();
-        }
-    });
+    // Update track position to center the active slide
+    // Each slide takes about 26vw when active, 18vw when prev/next, with -6rem gap
+    // We want the active slide to be centered
+    const slideWidths = [18, 26, 18]; // prev, active, next in vw
+    const gapInVw = 6 / (window.innerWidth / 100); // Convert 6rem to vw
+    
+    // Calculate offset to center the active slide
+    const slidesBefore = activeProjectIndex;
+    const offsetBefore = slidesBefore * (slideWidths[0] + gapInVw); // prev width + gap
+    const offsetAfter = (PROJECTS.length - slidesBefore - 1) * (slideWidths[2] + gapInVw); // next width + gap
+    
+    // Actually, simpler approach: just translate so active slide is centered
+    // Each slide takes space, we want to center index activeProjectIndex
+    const totalSlides = PROJECTS.length;
+    const centerIndex = Math.floor(totalSlides / 2);
+    const indexDiff = activeProjectIndex - centerIndex;
+    
+    // Approximate width per slide: ~22vw average, gap: -6rem
+    const approxSlideVw = 22;
+    const gapVw = -6 / (window.innerWidth / 100);
+    const totalOffset = indexDiff * (approxSlideVw + gapVw);
+    
+    projectTrack.style.transform = `translateX(${totalOffset}vw)`;
 }
 
 /* ===========================

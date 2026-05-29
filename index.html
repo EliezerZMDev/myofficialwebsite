@@ -83,65 +83,38 @@
             </div>
         </section>
 
-        <!-- Projects Section (Regions-style) -->
+        <!-- Projects Section (Regions-style with 3 vertical images) -->
         <section id="proyectos" class="section section--projects">
-            <h2 class="section__title">Proyectos</h2>
             <div class="projects-container">
-                <div class="projects__grid" id="projectsGrid">
-                    <div class="project-card" data-project="0" data-name="E-Commerce Platform">
-                        <img src="https://picsum.photos/seed/proj1/1200/800" alt="E-Commerce Platform">
-                        <div class="project-card__overlay">
-                            <h3 class="project-card__title">E-Commerce Platform</h3>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="1" data-name="Dashboard Analytics">
-                        <img src="https://picsum.photos/seed/proj2/1200/800" alt="Dashboard Analytics">
-                        <div class="project-card__overlay">
-                            <h3 class="project-card__title">Dashboard Analytics</h3>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="2" data-name="Social Media App">
-                        <img src="https://picsum.photos/seed/proj3/1200/800" alt="Social Media App">
-                        <div class="project-card__overlay">
-                            <h3 class="project-card__title">Social Media App</h3>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="3" data-name="AI Chat Interface">
-                        <img src="https://picsum.photos/seed/proj4/1200/800" alt="AI Chat Interface">
-                        <div class="project-card__overlay">
-                            <h3 class="project-card__title">AI Chat Interface</h3>
-                        </div>
-                    </div>
-                    <div class="project-card" data-project="4" data-name="Portfolio Generator">
-                        <img src="https://picsum.photos/seed/proj5/1200/800" alt="Portfolio Generator">
-                        <div class="project-card__overlay">
-                            <h3 class="project-card__title">Portfolio Generator</h3>
-                        </div>
-                    </div>
+                <!-- Left side: Project Info -->
+                <div class="projects-info">
+                    <h2 class="projects-title" id="projectsTitle">E-Commerce Platform</h2>
+                    <p class="projects-description" id="projectsDesc">
+                        Plataforma completa de comercio electrónico con carrito de compras, pasarela de pagos integrada, panel de administración para gestión de productos y pedidos, y sistema de autenticación de usuarios con roles y permisos.
+                    </p>
                 </div>
 
-                <!-- Project Detail Panel -->
-                <div class="project-detail-panel" id="projectDetailPanel">
-                    <button class="project-detail__close" id="closeDetailPanel">&times;</button>
-                    <div class="project-detail__content">
-                        <h3 class="project-detail__title" id="detailTitle"></h3>
-                        <p class="project-detail__desc" id="detailDesc"></p>
-                        <div class="project-detail__tags" id="detailTags"></div>
-                        <div class="project-detail__stats">
-                            <div class="project-detail__stat">
-                                <span class="stat-label">Desarrollado con</span>
-                                <span class="stat-value" id="detailTech"></span>
-                            </div>
-                            <div class="project-detail__stat">
-                                <span class="stat-label">Fecha</span>
-                                <span class="stat-value" id="detailDate"></span>
-                            </div>
+                <!-- Center: Image Slider -->
+                <div class="projects-slider">
+                    <button class="projects-nav projects-nav--prev" id="prevBtn">&#9664;</button>
+                    <div class="projects-track" id="projectsTrack">
+                        <div class="project-slide" data-index="0">
+                            <img src="https://picsum.photos/seed/proj1/400/600" alt="E-Commerce Platform">
                         </div>
-                        <div class="project-detail__links">
-                            <a href="#" class="project-detail__link">Ver demo</a>
-                            <a href="#" class="project-detail__link">Código fuente</a>
+                        <div class="project-slide" data-index="1">
+                            <img src="https://picsum.photos/seed/proj2/400/600" alt="Dashboard Analytics">
+                        </div>
+                        <div class="project-slide" data-index="2">
+                            <img src="https://picsum.photos/seed/proj3/400/600" alt="Social Media App">
+                        </div>
+                        <div class="project-slide" data-index="3">
+                            <img src="https://picsum.photos/seed/proj4/400/600" alt="AI Chat Interface">
+                        </div>
+                        <div class="project-slide" data-index="4">
+                            <img src="https://picsum.photos/seed/proj5/400/600" alt="Portfolio Generator">
                         </div>
                     </div>
+                    <button class="projects-nav projects-nav--next" id="nextBtn">&#9654;</button>
                 </div>
             </div>
         </section>
