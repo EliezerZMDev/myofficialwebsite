@@ -1058,6 +1058,28 @@ input, textarea { font-family: inherit; font-size: inherit; }
   .contact-matrix {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* ── Projects responsive ── */
+  .project-card {
+    overflow: hidden;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
+
+  .card-label-v {
+    font-size: clamp(0.625rem, 1.5vw, 0.875rem);
+    letter-spacing: 0.1em;
+  }
+
+  .project-card:hover .card-label-v {
+    opacity: 1;
+  }
+
+  .card-content {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1075,5 +1097,11 @@ input, textarea { font-family: inherit; font-size: inherit; }
   .contact-cell {
     min-height: 70px;
     padding: 12px 8px;
+  }
+
+  /* ── Projects responsive ── */
+  .card-label-v {
+    font-size: 0.5rem;
+    letter-spacing: 0.05em;
   }
 }
