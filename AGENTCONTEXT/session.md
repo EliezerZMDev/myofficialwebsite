@@ -52,6 +52,7 @@ Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 | SHA | Mensaje |
 |-----|---------|
 | `2ec7d08` | `feat: rediseño completo ELIEZERDEV — estética Wuthering Waves, video backgrounds, galería proyectos interactiva, transiciones fade` |
+| `6432b60` | `docs: registrar sesión #5 - rediseño completo ELIEZERDEV` |
 
 ---
 
@@ -78,11 +79,11 @@ Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 
 ## Checklist de cierre
 
-- [ ] ¿Todos los cambios tienen commit?
-- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
+- [x] ¿Todos los cambios tienen commit?
+- [x] ¿Están todos los SHAs registrados en `changelog.md`?
 - [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
-- [ ] ¿Está `session.md` actualizado con resumen final?
+- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [x] ¿Está `session.md` actualizado con resumen final?
 
 ---
 
