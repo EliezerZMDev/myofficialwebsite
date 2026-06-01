@@ -25,10 +25,10 @@
 
 ## Última acción realizada
 
-Clip-path romboides en cards, hero buttons más anchos:
+Fixes de artifact blur y projects inclinados:
 
-- **Hero:** left side reducido de 65% → 55%, botones 15% más anchos (right ~45%). Sin cambios en clip-path ni hover.
-- **Projects:** eliminados `::after` diagonales decorativas. Añadido clip-path por nth-child: Card 0 trapecio (right cut), Cards 1-3 romboides (both cut, leaning right), Card 4 trapecio (left cut). Flex-expand hover preservado.
+- **Hero:** removido `backdrop-filter` de `.hero-side.right` — el blur causaba artifact diagonal borroso en modo claro. Botón hover más llamativo: `rgba(240,242,245, 0.15)`.
+- **Projects:** offset clip-path aumentado 5% → 15% para inclinación visible. Background/blur movido de `.project-card` a `.projects-gallery` para eliminar gaps — el surface unificado tapa los espacios entre rhomboides.
 
 ---
 
@@ -57,6 +57,7 @@ Revisar visualmente en navegador.
 | `69ca18c` | `docs: update changelog with sesión #7 fix SHA` |
 | `1f95c22` | `fix: hero clip-path diagonal, trapezoidal buttons, project flex-expand` |
 | `d3539cf` | `feat: clip-path romboides en projects, hero buttons 15% wider` |
+| `4a817a5` | `fix: hero blur artifact removed, projects 15% offset, no gaps` |
 
 ---
 
