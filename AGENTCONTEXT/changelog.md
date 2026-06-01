@@ -146,18 +146,12 @@
 
 ### Commit: `166f789`
 ### Mensaje: feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados
-### Commits relacionados:
-- `166f789` — feat (principal)
-- `dda0e0b` — docs: registrar sesión #6
-- `93cfd0e` — docs: ADR, knowledge, session checklist
 ### Archivos:
 - `css/main.css` (reescrito)
 - `index.html`
 - `js/main.js`
 - `AGENTCONTEXT/changelog.md`
 - `AGENTCONTEXT/session.md`
-- `AGENTCONTEXT/decisions.md` (nuevo ADR)
-- `AGENTCONTEXT/knowledge.md` (actualizado)
 ### Detalle:
 - **Eliminado todo border-radius** del CSS — bordes rectos y cortantes
 - **Eliminados todos los gradientes** — colores sólidos planos
