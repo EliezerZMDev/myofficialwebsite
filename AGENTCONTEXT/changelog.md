@@ -145,7 +145,7 @@
 ## [2026-06-01] — Sesión #7
 
 ### Commits relacionados:
-- *(pendiente)* — feat: connected-tiles rediseño completo
+- `670d08b` — feat: connected-tiles rediseño completo
 
 ### Archivos:
 - `css/main.css` (reescrito)
@@ -164,7 +164,7 @@
 - **Contacto:** grid matricial 4 columnas con celdas tipo teclado. Click → expande valor + abre link. Formulario directo debajo
 - **Info close button:** fondo solid accent (#2979ff) + texto blanco para visibilidad inmediata
 - **Sin border-radius en ninguna parte**
-### Revertir: `git revert <sha-tras-commit>`
+### Revertir: `git revert 670d08b`
 
 ---
 

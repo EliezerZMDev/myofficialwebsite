@@ -51,8 +51,7 @@ Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
 
 | SHA | Mensaje |
 |-----|---------|
-| *(pendiente)* | `feat: connected-tiles rediseño completo — diagonales, hexágonos, circuito, zigzag, matrix` |
-| *(pendiente)* | `docs: registrar sesión #7` |
+| `670d08b` | `feat: connected-tiles rediseño completo — diagonales, hexágonos, circuito, zigzag, matrix keyboard` |
 
 ---
 
