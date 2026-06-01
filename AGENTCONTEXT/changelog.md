@@ -186,4 +186,22 @@
 - **JS:** removidas funciones `createParticles()`, `initMouseReaction()`, hero hover flex, info-thumbnails rendering. Queries huérfanos eliminados
 - **CSS:** orphans removidos (`hero-side-inner`, `hero-right-inner`, `tech-grid`, `tech-particle`)
 - Mantenido about hover flex, circuit PCB, hexagonal honeycomb, contact matrix
-### Revertir: `git revert <SHA del commit actual>`
+### Revertir: `git revert 87d3be5`
+
+---
+
+## [2026-06-01] — Sesión #7 (fix 2)
+
+### Commits relacionados:
+- `1f95c22`
+
+### Mensaje: fix: hero clip-path diagonal, trapezoidal buttons, project flex-expand
+### Archivos:
+- `css/main.css`
+- `AGENTCONTEXT/session.md`
+
+### Detalle:
+- **Hero:** restaurado clip-path diagonal. Left 65% con padding generoso (48px 64px). Right side con `clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 0% 100%)` que crea zona trapezoidal para botones (más angostos arriba, más anchos abajo). Sin `::before` decorativo ni hover flex en sides. Hover button: `rgba(240,242,245,0.06)` (blanco apagado, no azul)
+- **Projects:** añadido flex-expand real: `.hovered { flex: 2.2 }`, `.dimmed { flex: 0.6 }`
+
+### Revertir: `git revert 1f95c22`

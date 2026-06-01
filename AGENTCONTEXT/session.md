@@ -18,7 +18,7 @@
 ## Sesión actual
 
 - **Fecha:** 2026-06-01
-- **Objetivo:** Connected-tiles rediseño — fijar hero 3-zone, diagonales projects, quitar thumbs
+- **Objetivo:** Hero clip-path diagonal + trapezoidal buttons + project flex-expand
 - **Sesión anterior:** Revertida sesión #6 (industrial HUD), base sesión #5 (Wuthering Waves)
 
 ---
@@ -56,6 +56,7 @@ Revisar visualmente en navegador — confirmar hero text visible, diagonales pro
 | `352e191` | `docs: finalizar sesión #7 con checklist completo` |
 | `87d3be5` | `feat: hero 3-zone layout, project diagonal overlay, remove thumbs` |
 | `69ca18c` | `docs: update changelog with sesión #7 fix SHA` |
+| `1f95c22` | `fix: hero clip-path diagonal, trapezoidal buttons, project flex-expand` |
 
 ---
 
