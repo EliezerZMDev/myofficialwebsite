@@ -349,7 +349,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
   border-bottom: 1px solid var(--border);
 }
 
-/* ===== PROYECTOS — Diagonal Cut Cards ===== */
+/* ===== PROYECTOS — Paneles Arquitectónicos ===== */
 .projects-wrapper {
   flex: 1;
   display: flex;
@@ -364,82 +364,197 @@ input, textarea { font-family: inherit; font-size: inherit; }
   background: var(--surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  position: relative;
 }
 
+/* Card base — posición fija en flex */
 .project-card {
   flex: 1;
   height: 100%;
   position: relative;
   cursor: pointer;
-  overflow: hidden;
-  transition: flex 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  border-right: none;
 }
 
-.project-card:nth-child(1) { clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(2) { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(3) { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(4) { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(5) { clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%); }
+/* Card shape — el romboide visible */
+.card-shape {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
 
+.project-card:nth-child(1) .card-shape { clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%); }
+.project-card:nth-child(2) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+.project-card:nth-child(3) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+.project-card:nth-child(4) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
+.project-card:nth-child(5) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%); }
+
+/* Gradient tint background */
 .project-card-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
   opacity: 0.12;
-  transition: transform 0.6s ease, opacity 0.3s ease;
 }
 
-.project-card:hover .project-card-bg {
-  transform: scale(1.1);
-  opacity: 0.2;
-}
-
-.project-card::before {
+/* Gradient fade at bottom */
+.card-shape::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+  background: linear-gradient(180deg, transparent 40%, var(--bg-primary) 100%);
   z-index: 1;
   pointer-events: none;
 }
 
-.project-card:hover .project-card-bg {
-  transform: scale(1.1);
-}
-
-.project-card-label {
+/* Vertical title (visible siempre) */
+.card-label-v {
   position: absolute;
-  bottom: 24px;
-  left: 24px;
-  right: 24px;
+  bottom: 32px;
+  right: 12px;
   z-index: 2;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: clamp(1.125rem, 2vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
-.project-card-label h3 {
-  font-size: 0.8125rem;
-  font-weight: 700;
+.project-card.hovered .card-label-v {
+  opacity: 0;
+}
+
+/* Card overlay — panel flotante sobre vecinos */
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+}
+
+.project-card.hovered .card-overlay {
+  opacity: 1;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+/* Overlay clip-paths — mismo ángulo que card-shape pero 5% offset (300% width) */
+.project-card:nth-child(1) .card-overlay { clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(2) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(3) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(4) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(5) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 100% 100%, 0% 100%); }
+
+.card-overlay-inner {
+  width: 60%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.card-overlay-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 900;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+
+.card-overlay-tech {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+}
+
+.card-overlay-tech span {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.card-overlay-desc {
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+}
+
+.card-overlay-section {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
+}
+
+.card-overlay-section h4 {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
   margin-bottom: 4px;
 }
 
-.project-card-label span {
+.card-overlay-section p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.card-overlay-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease 0.4s, transform 0.4s ease 0.4s;
+}
+
+.card-overlay-actions .btn {
   font-size: 0.6875rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  padding: 8px 20px;
 }
 
-.project-card.dimmed {
-  flex: 0.6;
-  filter: brightness(0.3) saturate(0.5);
-}
-
-.project-card.hovered {
-  flex: 2.2;
-  border-color: var(--accent);
-  z-index: 3;
+/* Hover reveal animations */
+.project-card.hovered .card-overlay-title,
+.project-card.hovered .card-overlay-tech,
+.project-card.hovered .card-overlay-desc,
+.project-card.hovered .card-overlay-section,
+.project-card.hovered .card-overlay-actions {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .project-card.active-card {

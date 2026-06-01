@@ -246,14 +246,38 @@
   function renderProjects () {
     PROJECTS.forEach(function (project, i) {
       var card = document.createElement('div')
-      card.className = 'project-card' + (i === 0 ? ' active-card' : '')
+      card.className = 'project-card'
       card.dataset.index = i
 
       card.innerHTML =
-        '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
-        '<div class="project-card-label">' +
-          '<h3>' + project.name + '</h3>' +
-          '<span>' + project.summary + '</span>' +
+        '<div class="card-shape">' +
+          '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
+          '<div class="card-label-v">' + project.name + '</div>' +
+        '</div>' +
+        '<div class="card-overlay">' +
+          '<div class="card-overlay-inner">' +
+            '<h3 class="card-overlay-title">' + project.name + '</h3>' +
+            '<div class="card-overlay-tech">' +
+              project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
+            '</div>' +
+            '<p class="card-overlay-desc">' + project.description + '</p>' +
+            '<div class="card-overlay-section">' +
+              '<h4>Rol</h4>' +
+              '<p>' + project.role + '</p>' +
+            '</div>' +
+            '<div class="card-overlay-section">' +
+              '<h4>Problema</h4>' +
+              '<p>' + project.problem + '</p>' +
+            '</div>' +
+            '<div class="card-overlay-section">' +
+              '<h4>Aprendizajes</h4>' +
+              '<p>' + project.learnings + '</p>' +
+            '</div>' +
+            '<div class="card-overlay-actions">' +
+              '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
+              '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
+            '</div>' +
+          '</div>' +
         '</div>'
 
       card.addEventListener('mouseenter', function () {
@@ -276,22 +300,16 @@
 
   function expandProjectCard (index) {
     var cards = projectsGallery.querySelectorAll('.project-card')
-    var total = cards.length
-
     cards.forEach(function (c, i) {
-      c.classList.remove('hovered', 'dimmed')
-      if (i === index) {
-        c.classList.add('hovered')
-      } else {
-        c.classList.add('dimmed')
-      }
+      c.classList.remove('hovered')
+      if (i === index) c.classList.add('hovered')
     })
   }
 
   function resetProjectCards () {
     var cards = projectsGallery.querySelectorAll('.project-card')
     cards.forEach(function (c) {
-      c.classList.remove('hovered', 'dimmed')
+      c.classList.remove('hovered')
     })
   }
 
@@ -303,9 +321,8 @@
     var cards = projectsGallery.querySelectorAll('.project-card')
 
     cards.forEach(function (c, i) {
-      c.classList.remove('active-card', 'hovered', 'dimmed')
+      c.classList.remove('active-card', 'hovered')
       if (i === index) c.classList.add('active-card')
-      else c.classList.add('dimmed')
     })
 
     infoBody.innerHTML =
@@ -344,7 +361,7 @@
 
     var cards = projectsGallery.querySelectorAll('.project-card')
     cards.forEach(function (c) {
-      c.classList.remove('active-card', 'dimmed', 'hovered')
+      c.classList.remove('active-card', 'hovered')
     })
 
     var sectionVideo = document.querySelector('#proyectos .section-video')
