@@ -53,6 +53,7 @@ Revisar visualmente en navegador. Ajustar animaciones o estilos si es necesario.
 |-----|---------|
 | `166f789` | `feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados` |
 | `dda0e0b` | `docs: registrar sesión #6 — estética industrial HUD` |
+| `93cfd0e` | `docs: ADR industrial HUD, knowledge update, session checklist finalizado` |
 
 ---
 
