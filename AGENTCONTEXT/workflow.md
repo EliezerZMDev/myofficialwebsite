@@ -1,44 +1,88 @@
-# workflow.md — Cómo Trabajamos
+<!-- ============================================================
+  INSTRUCCIONES PARA EL AGENTE IA
+  ============================================================
+  Propósito: Define el ciclo de trabajo operativo: cómo se hacen cambios, commits y reverts.
+  Leer: Quinto. Implementa este ciclo en cada sesión.
+  Actualizar: Cuando se mejore o cambie el proceso de trabajo.
+  Formato: Markdown. Ciclo paso a paso.
+  Relación: guidelines.md define las reglas. changelog.md registra los resultados.
+  ============================================================ -->
+
+# workflow.md — Ciclo de Trabajo
 
 ## Rol del agente IA
-- Leer AGENTCONTEXT/ al iniciar para entender el proyecto
-- Sugerir, implementar, preguntar, documentar
-- Mantener session.md actualizado durante la sesión
-- Preguntar cuando falte información para decidir
 
-## Rol del humano
-- Decidir el rumbo del proyecto
+- Leer y entender el contexto (AGENTCONTEXT/)
+- Sugerir e implementar cambios
+- Hacer commits por cada cambio significativo
+- Documentar todo en AGENTCONTEXT/
+- Preguntar cuando algo no esté claro
+
+## Rol del humano (usuario)
+
+- Decidir prioridades y dirección
 - Revisar y aprobar cambios
-- Probar el resultado
-- Ejecutar contextflow init / session start / session end
+- Probar funcionalmente
+- Proveer feedback y requerimientos
 
-## Flujo completo para CUALQUIER proyecto
+---
 
-```powershell
-# 1. Crear/abrir carpeta del proyecto
-mkdir mi-proyecto
-cd mi-proyecto
+## Ciclo de trabajo estándar
 
-# 2. Solo la primera vez — inicializar contexto
-contextflow init
+### Fase 1: Inicio de sesión
 
-# 3. Cada sesión — iniciar sesión
-contextflow session start
-
-# 4. Abrir el agente IA (opencode, Claude Code, etc.)
-opencode
-
-# 5. Decirle al agente: "revisa AGENTCONTEXT/"
-# El agente lee los archivos y retoma el contexto
-
-# 6. Trabajar... el agente actualiza session.md solo
-
-# 7. Al terminar — cerrar sesión
-contextflow session end
+```
+1. Leer _index.md
+2. Leer TODOS los archivos de AGENTCONTEXT/ en orden
+3. Leer session.md → saber dónde se quedó la sesión anterior
+4. Resumir al usuario
+5. Actualizar session.md con fecha y objetivo de la sesión actual
 ```
 
-## Reglas de operación
-- No borrar código del proyecto sin preguntar
-- Preguntar antes de refactorizar
-- No modificar AGENTCONTEXT/ sin propósito
-- Documentar decisiones importantes en decisions.md
+### Fase 2: Ejecución de cambios
+
+```
+1. Preguntar al usuario: "¿Qué sigue?"
+2. Entender el requerimiento
+3. Hacer los cambios en el código
+4. git add <archivos>
+5. git commit -m "tipo: descripción clara"
+6. Obtener el SHA: git rev-parse HEAD
+7. Registrar en changelog.md con el SHA
+8. Actualizar session.md (archivos modificados, progreso)
+```
+
+### Fase 3: Revertir cambios (cuando el usuario lo pida)
+
+```
+1. Preguntar: "¿Qué cambio quieres revertir? (describe o dame el SHA)"
+2. Si da descripción: buscar en changelog.md la entrada que coincida
+3. Si da SHA: usar directamente
+4. Ejecutar: git revert <SHA>
+5. Registrar el revert en changelog.md con el nuevo SHA
+6. Actualizar session.md
+```
+
+### Fase 4: Cierre de sesión
+
+```
+1. Verificar que NO haya cambios sin commit (git status debe estar limpio)
+2. Confirmar que changelog.md tenga todas las entradas con SHAs
+3. Actualizar session.md con resumen final
+4. Si hay decisiones nuevas → agregar a decisions.md
+5. Si hay nuevo conocimiento → agregar a knowledge.md
+6. Informar al usuario: "Sesión documentada en AGENTCONTEXT/."
+```
+
+---
+
+## Notas importantes
+
+- **No avances** a la siguiente fase sin completar la actual
+- **Cada commit debe ser atómico**: un cambio lógico por commit
+- **Los SHAs son obligatorios** en changelog.md — sin SHA no vale
+- **Si el usuario dice "revisa AGENTCONTEXT/"** → ve directo a Fase 1
+
+---
+
+*Última actualización: 2026-06-01*

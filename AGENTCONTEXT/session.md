@@ -1,24 +1,84 @@
-# session.md — Estado Vivo de la Sesión Actual
+<!-- ============================================================
+  INSTRUCCIONES PARA EL AGENTE IA
+  ============================================================
+  Propósito: Estado VIVO de la sesión actual. Se actualiza constantemente.
+  Leer: Noveno (último). También consultar al inicio para saber dónde se quedó.
+  Actualizar: EN TIEMPO REAL durante toda la sesión.
+  Formato: Markdown. Secciones: Acción actual, Próximo paso, Archivos, Commits, Dudas, Notas.
+  Relación: Al cerrar, su resumen alimenta changelog.md. workflow.md guía el ciclo.
+  ============================================================ -->
 
-> ⚡ Sesión activa — Implementación FINAL del portfolio con transiciones tipo presentación y estilo Regions.
+# session.md — Estado Vivo de la Sesión
+
+> ⚡ **Este archivo se actualiza constantemente durante la sesión.**
+> Al iniciar una sesión nueva, léelo para saber dónde se quedó la anterior.
+
+---
+
+## Sesión actual
+
+- **Fecha:** 2026-06-01
+- **Objetivo:** Documentar y estructurar AGENTCONTEXT/ con instrucciones para agentes IA
+- **Sesión anterior:** (primera sesión documentada)
+
+---
 
 ## Última acción realizada
-Implementación completa del portfolio con:
-- Transiciones tipo presentación (como Wuthering Waves): al girar rueda del mouse, la sección actual hace fade-out y la siguiente aparece con fade-in, sin efecto de scroll visual
-- Sección de proyectos estilo Regions: imágenes grandes apiladas horizontalmente, la central es más grande, al hacer click se expande y muestra panel de información al lado izquierdo
-- Tema dark con acentos dorados inspirado en Wuthering Waves
-- Branding: EliZuMdev
-- Navbar con blur al scroll
-- Secciones sobre mí, habilidades y contacto completadas
+
+Estructuración completa de AGENTCONTEXT/ con instrucciones embebidas para agentes IA.
+
+---
 
 ## Próximo paso
-Abrir index.html en navegador para probar las transiciones tipo presentación y la interacción de proyectos. Ajustar contenido placeholder con información real, agregar screenshots reales de proyectos, probar en diferentes dispositivos.
+
+Esperar instrucciones del usuario.
+
+---
 
 ## Archivos modificados en esta sesión
-- [x] index.html — reescrito con sistema de secciones absolutas para transiciones tipo presentación
-- [x] css/main.css — reescrito con tema dark, transiciones fade-in/fade-out, layout estilo Regions para proyectos
-- [x] js/main.js — reescrito con lógica de wheel navigation (transiciones tipo presentación), proyecto detail panel estilo Regions
-- [x] AGENTCONTEXT/ — todos los archivos actualizados para reflejar el estado final
 
-## Estado al cierre
-Implementación completa y funcional del portfolio con experiencia de usuario similar a Wuthering Waves: transiciones suaves entre secciones como diapositivas, sección de proyectos interactiva estilo Regions, tema dark elegante. Listo para contenido real.
+- [x] `AGENTCONTEXT/_index.md` — Creado (archivo de entrada)
+- [x] `AGENTCONTEXT/project.md` — Corregido y expandido
+- [x] `AGENTCONTEXT/architecture.md` — Poblado con estructura real
+- [x] `AGENTCONTEXT/guidelines.md` — Expandido con onboarding y reglas
+- [x] `AGENTCONTEXT/workflow.md` — Ciclo concreto con commits
+- [x] `AGENTCONTEXT/changelog.md` — Formato con SHAs + commits existentes
+- [x] `AGENTCONTEXT/decisions.md` — ADRs poblados
+- [x] `AGENTCONTEXT/knowledge.md` — Template mejorado
+- [x] `AGENTCONTEXT/session.md` — Sesión actual documentada
+
+---
+
+## Commits de esta sesión
+
+| SHA | Mensaje |
+|-----|---------|
+| `%(por determinar tras commit)%` | `feat: documentar AGENTCONTEXT/ con instrucciones IA, SHAs y estructura` |
+
+---
+
+## Preguntas pendientes
+
+*(ninguna)*
+
+---
+
+## Ideas / Notas rápidas
+
+- Todos los archivos ahora tienen instrucciones IA al inicio (bloque HTML comment)
+- El orden de lectura está definido en `_index.md`
+- Cada changelog entry requiere SHA obligatorio
+
+---
+
+## Checklist de cierre
+
+- [ ] ¿Todos los cambios tienen commit?
+- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
+- [ ] ¿Hay decisiones nuevas en `decisions.md`?
+- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [ ] ¿Está `session.md` actualizado con resumen final?
+
+---
+
+*Última actualización: 2026-06-01*

@@ -1,80 +1,75 @@
-# architecture.md — Estructura Técnica del Portfolio
+<!-- ============================================================
+  INSTRUCCIONES PARA EL AGENTE IA
+  ============================================================
+  Propósito: Documenta la estructura técnica, stack, patrones y datos.
+  Leer: Tercero, para entender cómo está organizado el código.
+  Actualizar: Cuando cambie la estructura, se añadan archivos, o se tome una decisión técnica.
+  Formato: Markdown. Secciones: Estructura, Stack, Decisiones técnicas, Patrones, Flujo.
+  Relación: Se basa en project.md. decisions.md registra por qué.
+  ============================================================ -->
+
+# architecture.md — Estructura Técnica y Decisiones de Arquitectura
 
 ## Estructura del proyecto
+
 ```
 myofficialwebsite/
-├── index.html              # Punto de entrada principal (5 secciones)
+├── AGENTCONTEXT/         # ← Contexto para agentes IA (este directorio)
+│   ├── _index.md
+│   ├── architecture.md
+│   ├── changelog.md
+│   ├── decisions.md
+│   ├── guidelines.md
+│   ├── knowledge.md
+│   ├── project.md
+│   ├── session.md
+│   └── workflow.md
 ├── css/
-│   └── main.css            # Estilos completos: variables, layout full-width, tema dark, animaciones
+│   └── main.css          # Estilos principales (769 líneas)
 ├── js/
-│   └── main.js             # Toda la lógica: navbar, wheel navigation, proyectos, detail panel, contacto
-├── assets/
-│   ├── images/             # Screenshots de proyectos, fotos personales
-│   └── fonts/              # Tipografías personalizadas si se usan
-└── AGENTCONTEXT/           # Contexto persistente para IA-humanía
+│   └── main.js           # Lógica JS (297 líneas)
+├── index.html            # Página principal (147 líneas)
+└── .git/
 ```
 
 ## Stack detallado
-- **HTML5**: Uso semántico de elementos (section, nav, main, form)
-- **CSS3**: 
-  - Variables CSS (:root) para tema dark (#0a0a0f fondo, #c8a84e acentos dorados)
-  - Layout full-width con padding 5vw (sin contenedores centrados)
-  - Flexbox para detail panel de proyectos (50% info + 50% imagen)
-  - Grid para skills (auto-fill minmax)
-  - Transiciones cubic-bezier para animaciones fluidas
-  - Ocultar scrollbar: scrollbar-width: none + ::-webkit-scrollbar { display: none }
-- **JavaScript ES6+**:
-  - Sin módulos (un solo archivo main.js) — simplificado para portafolio pequeño
-  - Wheel event listener para transiciones tipo presentación entre secciones
-  - Touch event listener para swipe navigation en mobile
-  - Detail panel con fixed positioning y transiciones slide/fade
-  - Labels flotantes en formulario de contacto
-- **Posibles extensiones futuras**:
-  - GSAP para animaciones más complejas
-  - React/Vue si el portfolio crece significativamente
+
+| Capa | Tecnología | Versión/Detalle |
+|------|-----------|----------------|
+| **HTML** | HTML5 | Semántico, single-page |
+| **CSS** | CSS3 | Variables CSS, Flexbox, Grid, animaciones |
+| **JS** | ES6+ | Vanilla, sin librerías |
+| **Fuentes** | Google Fonts | Inter |
+| **Build** | Ninguno | Sin npm, sin bundlers |
+| **Hosting** | — | Pendiente de definir |
 
 ## Decisiones técnicas importantes
-- **Transiciones tipo presentación**: En lugar de scroll natural, las secciones usan position absolute con fade-in/fade-out al cambiar (efecto diapositiva)
-- **Layout full-width**: Aprovechar todo el espacio horizontal, sin contenedores max-width centrados
-- **Tema dark**: Fondo oscuro (#0a0a0f) con acentos dorados (#c8a84e) inspirado en Wuthering Waves
-- **Proyectos estilo Regions**: Imágenes apiladas horizontalmente con gap negativo, central más grande, click abre panel lateral
-- **Un solo JS file**: Consolidado en main.js para mantener simplicidad
-- **Responsive**: Mobile-first con breakpoints en 480px, 768px, 1024px que ajustan tamaños y espaciados
 
-## Flujo de datos e interacciones
+| Decisión | Opción elegida | Alternativas | Commit |
+|----------|---------------|--------------|--------|
+| Tema visual | Dark theme con acentos dorados (#c8a84e) | Light theme, otros colores | `28a0858` |
+| Transiciones | Slide-show tipo presentación entre secciones | Scroll suave, tabs, routing | `28a0858` |
+| Layout proyectos | Regions (3 imágenes verticales + flechas) | Cards, grid simple, carrusel | `be70779` |
+| Framework | Vanilla JS | React, Vue, Svelte | `28a0858` |
+
+## Patrones de diseño
+
+- **CSS Custom Properties** para theming y consistencia de colores
+- **Módulo IIFE** en JS para encapsulamiento (patrón módulo clásico)
+- **Renderizado condicional** de secciones tipo presentación
+- **Array de objetos** para datos de proyectos (PROJECTS en main.js)
+
+## Flujo de datos
+
 ```
-Usuario → [Gira rueda del mouse]
-         → wheel event previene scroll nativo
-         → determina dirección (deltaY > 0 = siguiente, < 0 = anterior)
-         → llama a goToSection() con índice calculado
-         → sección actual: remove class 'active' (fade-out)
-         → nueva sección: add class 'active' (fade-in)
-         → actualiza navbar link activo
-         
-Usuario → [Swipe en mobile]
-         → touchstart/touchend detecta dirección
-         → mismo flujo que wheel event
-         
-Usuario → [Click en nav link]
-         → previene comportamiento default
-         → llama a goToSection() con índice del enlace
-         → misma animación de transición
-         
-Usuario → [Hover en project card]
-         → card img: scale(1.05) + brightness increase
-         → card overlay: opacity transition to 1
-         
-Usuario → [Click en project card]
-         → detail panel: add class 'active' (fade-in)
-         → body: overflow hidden (prevent scroll detrás)
-         → actualiza título, descripción, tags, stats, enlaces
-         
-Usuario → [Click × en detail panel / click fuera / Escape]
-         → detail panel: remove class 'active' (fade-out)
-         → body: overflow restaurado
-         
-Usuario → [Formulario contacto]
-         → input focus: label se mueve arriba y cambia color
-         → input blur: label vuelve si está vacío
-         → submit: feedback visual + reset después de 2s
+Usuario → index.html
+            ├── css/main.css → Estilos visuales
+            └── js/main.js → Lógica:
+                 ├── Manejo de navegación/secciones
+                 ├── Renderizado de proyectos (PROJECTS array)
+                 └── Interacciones (flechas, transiciones)
 ```
+
+---
+
+*Última actualización: 2026-06-01*
