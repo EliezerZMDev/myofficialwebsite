@@ -14,7 +14,6 @@
   --text-muted: #4a5568;
   --navbar-h: 80px;
   --transition: 300ms;
-  --card-offset: 28px;
 }
 
 [data-theme="light"] {
@@ -380,14 +379,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
 .project-card:hover {
   transform: scale(1.06);
   z-index: 2;
-}
-
-/* Hero-style diagonal left edge (cards 2-5) */
-.project-card:nth-child(2),
-.project-card:nth-child(3),
-.project-card:nth-child(4),
-.project-card:nth-child(5) {
-  clip-path: polygon(var(--card-offset) 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 /* Suppress hover when info panel is open */
