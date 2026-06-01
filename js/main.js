@@ -1,297 +1,272 @@
-const PROJECTS = [
+/* ============================================================
+   ELIEZERDEV Portfolio — Main JavaScript
+   ============================================================ */
+
+;(function () {
+  'use strict'
+
+  // ===== PROJECT DATA =====
+  const PROJECTS = [
     {
-        id: 0,
-        name: 'E-Commerce Platform',
-        desc: 'Plataforma completa de comercio electrónico con carrito de compras, pasarela de pagos integrada, panel de administración para gestión de productos y pedidos, y sistema de autenticación de usuarios con roles y permisos.',
+      id: 0,
+      name: 'Corazón Azul VH',
+      summary: 'Sitio web para organización de apoyo a niños con autismo.',
+      description: 'Plataforma web diseñada para visibilizar el trabajo de una organización dedicada al apoyo de niños con autismo. Incluye secciones informativas, galería de actividades y medios de contacto directo.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'Responsive'],
+      problem: 'La organización carecía de presencia digital para difundir su labor y recibir apoyo de la comunidad.',
+      learnings: 'Diseño centrado en accesibilidad, componentes reutilizables y optimización para dispositivos móviles.',
+      github: '#',
+      demo: '#',
+      gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+      initials: 'CA'
     },
     {
-        id: 1,
-        name: 'Dashboard Analytics',
-        desc: 'Panel de análisis en tiempo real con gráficos interactivos, filtros dinámicos, exportación de reportes en PDF y CSV, y visualización de datos con múltiples tipos de charts y métricas personalizables para tomada de decisiones basada en datos.',
+      id: 1,
+      name: 'Sitio Artista Musical',
+      summary: 'Página profesional para artista independiente.',
+      description: 'Sitio web profesional para músico independiente, con integración de redes sociales, galería de medios, discografía y sistema de contacto para contrataciones.',
+      tech: ['HTML', 'CSS', 'JavaScript', 'APIs'],
+      problem: 'El artista necesitaba una presencia web profesional que centralizara su música, videos y redes en un solo lugar.',
+      learnings: 'Integración de APIs de streaming, optimización de medios audiovisuales y diseño con identidad de marca.',
+      github: '#',
+      demo: '#',
+      gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+      initials: 'AM'
     },
     {
-        id: 2,
-        name: 'Social Media App',
-        desc: 'Aplicación de red social con sistema de publicaciones, likes, comentarios, chat en tiempo real, perfil de usuario personalizable, y feed algorítmico con infinite scroll y notificaciones push.',
-    },
-    {
-        id: 3,
-        name: 'AI Chat Interface',
-        desc: 'Interfaz de chat con inteligencia artificial que incluye sugerencias contextuales, historial de conversaciones, modo oscuro/claro, y soporte para múltiples modelos de lenguaje con streaming de respuestas.',
-    },
-    {
-        id: 4,
-        name: 'Portfolio Generator',
-        desc: 'Herramienta que genera portafolios personalizados a partir de un formulario interactivo, con múltiples temas, exportación a HTML estático, y preview en tiempo real con descarga directa.',
+      id: 2,
+      name: 'Ecommerce',
+      summary: 'Próximamente — Tienda en línea.',
+      description: 'Plataforma de comercio electrónico en desarrollo. Implementación de catálogo de productos, carrito de compras y procesamiento de pagos.',
+      tech: ['Node.js', 'JavaScript', 'MySQL', 'APIs'],
+      problem: 'Proyecto en fase de planificación y desarrollo inicial.',
+      learnings: 'Arquitectura de sistemas ecommerce, pasarelas de pago y gestión de inventario.',
+      github: '#',
+      demo: '#',
+      gradient: 'linear-gradient(135deg, #10b981, #047857)',
+      initials: 'EC'
     }
-];
+  ]
 
-// State
-let currentSectionIndex = 0;
-let isTransitioning = false;
-let isWheelLocked = false;
-let activeProjectIndex = 0; // Currently active project in the slider
-const sections = [];
-const navLinks = [];
-let wheelTimeout = null;
+  // ===== DOM REFS =====
+  const $ = (s, c) => (c || document).querySelector(s)
+  const $$ = (s, c) => [...(c || document).querySelectorAll(s)]
 
-document.addEventListener('DOMContentLoaded', () => {
-    initSections();
-    initNavbar();
-    initProjectsSlider();
-    initContactForm();
-    initWheelNavigation();
-    
-    // Set first section as active
-    if (sections.length > 0) {
-        sections[0].classList.add('active');
+  const sections = $$('.section')
+  const navLinks = $$('.nav-link')
+  const projectsGallery = $('#projectsGallery')
+  const projectDetail = $('#projectDetail')
+  const detailContent = $('#detailContent')
+  const detailClose = $('#detailClose')
+  const themeToggle = $('#themeToggle')
+  const navToggle = $('#navToggle')
+  const navLinksContainer = $('#navLinks')
+  const contactForm = $('#contactForm')
+  const html = document.documentElement
+
+  // ===== HASH-BASED NAVIGATION =====
+  function navigateToSection (hash) {
+    if (!hash) return
+    const target = document.querySelector(hash)
+    if (!target) return
+
+    target.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  function updateActiveLink (hash) {
+    navLinks.forEach(function (link) {
+      var linkHash = link.getAttribute('href')
+      link.classList.toggle('active', linkHash === hash)
+    })
+  }
+
+  // Nav link clicks
+  navLinks.forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault()
+      var hash = this.getAttribute('href')
+
+      // Update URL without triggering hashchange
+      history.pushState(null, null, hash)
+
+      navigateToSection(hash)
+      updateActiveLink(hash)
+
+      // Close mobile menu
+      navLinksContainer.classList.remove('open')
+      navToggle.classList.remove('active')
+    })
+  })
+
+  // Browser back/forward
+  window.addEventListener('popstate', function () {
+    var hash = window.location.hash || '#inicio'
+    navigateToSection(hash)
+    updateActiveLink(hash)
+  })
+
+  // Initial load
+  if (window.location.hash) {
+    setTimeout(function () {
+      navigateToSection(window.location.hash)
+      updateActiveLink(window.location.hash)
+    }, 100)
+  }
+
+  // ===== INTERSECTION OBSERVER (active section) =====
+  function handleIntersection (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.id
+        var hash = '#' + id
+
+        // Update URL without scroll
+        if (window.location.hash !== hash) {
+          history.replaceState(null, null, hash)
+        }
+
+        updateActiveLink(hash)
+      }
+    })
+  }
+
+  var observer = new IntersectionObserver(handleIntersection, {
+    rootMargin: '-30% 0px -30% 0px',
+    threshold: 0
+  })
+
+  sections.forEach(function (section) {
+    observer.observe(section)
+  })
+
+  // ===== THEME TOGGLE =====
+  function getPreferredTheme () {
+    var stored = localStorage.getItem('eliezertheme')
+    if (stored) return stored
+    return window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light'
+      : 'dark'
+  }
+
+  function setTheme (theme) {
+    html.setAttribute('data-theme', theme)
+    localStorage.setItem('eliezertheme', theme)
+  }
+
+  // Init theme
+  setTheme(getPreferredTheme())
+
+  themeToggle.addEventListener('click', function () {
+    var current = html.getAttribute('data-theme')
+    var next = current === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+  })
+
+  // ===== PROJECTS GALLERY =====
+  function renderProjects () {
+    PROJECTS.forEach(function (project) {
+      var card = document.createElement('div')
+      card.className = 'project-card'
+      card.dataset.project = project.id
+
+      card.innerHTML =
+        '<div class="project-card-image" style="background: ' + project.gradient + '">' +
+          '<span style="opacity: 0.3; font-size: 4rem; font-weight: 900; color: #fff;">' + project.initials + '</span>' +
+        '</div>' +
+        '<div class="project-card-info">' +
+          '<h3>' + project.name + '</h3>' +
+          '<p class="project-card-summary">' + project.summary + '</p>' +
+        '</div>'
+
+      card.addEventListener('click', function () {
+        openProjectDetail(project)
+      })
+
+      projectsGallery.appendChild(card)
+    })
+  }
+
+  function openProjectDetail (project) {
+    detailContent.innerHTML =
+      '<div class="detail-header">' +
+        '<h3>' + project.name + '</h3>' +
+        '<div class="detail-tech">' +
+          project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
+        '</div>' +
+      '</div>' +
+      '<div class="detail-body">' +
+        '<p>' + project.description + '</p>' +
+        '<h4>Problema resuelto</h4>' +
+        '<p>' + project.problem + '</p>' +
+        '<h4>Aprendizajes</h4>' +
+        '<p>' + project.learnings + '</p>' +
+      '</div>' +
+      '<div class="detail-buttons">' +
+        '<a href="' + project.github + '" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>' +
+        '<a href="' + project.demo + '" class="btn btn-primary" target="_blank" rel="noopener">Demo</a>' +
+      '</div>'
+
+    projectDetail.classList.add('active')
+    document.body.style.overflow = 'hidden'
+  }
+
+  function closeProjectDetail () {
+    projectDetail.classList.remove('active')
+    document.body.style.overflow = ''
+  }
+
+  detailClose.addEventListener('click', closeProjectDetail)
+
+  projectDetail.addEventListener('click', function (e) {
+    if (e.target === this) closeProjectDetail()
+  })
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeProjectDetail()
+  })
+
+  renderProjects()
+
+  // ===== MOBILE NAV =====
+  navToggle.addEventListener('click', function () {
+    navLinksContainer.classList.toggle('open')
+    navToggle.classList.toggle('active')
+  })
+
+  // Close on outside click
+  document.addEventListener('click', function (e) {
+    if (
+      navLinksContainer.classList.contains('open') &&
+      !e.target.closest('.navbar')
+    ) {
+      navLinksContainer.classList.remove('open')
+      navToggle.classList.remove('active')
     }
-    
-    // Update active nav link
-    updateActiveNavLink(0);
-    
-    // Initialize project slider
-    updateProjectSlider();
-});
+  })
 
-/* ===========================
-   SECTIONS & NAVBAR
-   =========================== */
-function initSections() {
-    const sectionEls = document.querySelectorAll('.section');
-    sections.push(...sectionEls);
-}
+  // ===== CONTACT FORM =====
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault()
 
-function initNavbar() {
-    const navbar = document.getElementById('navbar');
-    const navLinkEls = document.querySelectorAll('.nav-link');
-    navLinks.push(...navLinkEls);
-    
-    navLinks.forEach((link, index) => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!isTransitioning) {
-                goToSection(index);
-            }
-        });
-    });
-    
-    // Hide navbar on scroll down, show on scroll up (optional)
-    let lastScrollY = window.scrollY;
-    window.addEventListener('scroll', () => {
-        // Since we disabled scrolling, this might not trigger
-        // But keep it for safety
-        if (window.scrollY > lastScrollY && window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        lastScrollY = window.scrollY;
-    });
-}
+    var name = $('#formName').value.trim()
+    var email = $('#formEmail').value.trim()
+    var message = $('#formMessage').value.trim()
 
-function goToSection(index) {
-    if (isTransitioning || index < 0 || index >= sections.length || index === currentSectionIndex) return;
-    
-    isTransitioning = true;
-    
-    // Deactivate current section
-    sections[currentSectionIndex].classList.remove('active');
-    
-    // Activate new section
-    sections[index].classList.add('active');
-    
-    // Update nav
-    updateActiveNavLink(index);
-    
-    currentSectionIndex = index;
-    
-    // Reset transition flag after delay
-    setTimeout(() => {
-        isTransitioning = false;
-    }, 800); // Match CSS transition duration
-}
+    if (!name || !email || !message) {
+      alert('Por favor, completa todos los campos.')
+      return
+    }
 
-function updateActiveNavLink(index) {
-    navLinks.forEach((link, i) => {
-        link.classList.toggle('active', i === index);
-    });
-}
+    // Placeholder — integrar con servicio de email posteriormente
+    var mailto = 'mailto:eliezerzm0312@gmail.com?subject=Contacto desde portfolio - ' +
+      encodeURIComponent(name) + '&body=' + encodeURIComponent(
+        'Nombre: ' + name + '\n' +
+        'Correo: ' + email + '\n\n' +
+        'Mensaje:\n' + message
+      )
 
-/* ===========================
-   WHEEL NAVIGATION (slide-like)
-   =========================== */
-function initWheelNavigation() {
-    let lastWheelTime = 0;
-    const wheelDelay = 800; // Match transition duration
-    
-    window.addEventListener('wheel', (e) => {
-        // Prevent default scroll behavior
-        e.preventDefault();
-        
-        // Ignore if transitioning or too fast
-        const now = Date.now();
-        if (isTransitioning || now - lastWheelTime < wheelDelay) return;
-        
-        lastWheelTime = now;
-        
-        // Determine direction
-        if (e.deltaY > 0) {
-            // Scroll down / next section
-            goToSection((currentSectionIndex + 1) % sections.length);
-        } else {
-            // Scroll up / previous section
-            goToSection((currentSectionIndex - 1 + sections.length) % sections.length);
-        }
-    }, { passive: false }); // Important: prevent default
-    
-    // Also handle touch swipe for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    window.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-    
-    window.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        
-        // Only act if swipe is significant
-        if (Math.abs(diff) > 50) {
-            if (diff > 0) {
-                // Swipe left -> next section
-                goToSection((currentSectionIndex + 1) % sections.length);
-            } else {
-                // Swipe right -> previous section
-                goToSection((currentSectionIndex - 1 + sections.length) % sections.length);
-            }
-        }
-    }, { passive: true });
-}
+    window.location.href = mailto
+    contactForm.reset()
+  })
 
-/* ===========================
-   PROJECTS SLIDER (3 vertical images)
-   =========================== */
-function initProjectsSlider() {
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const projectTitle = document.getElementById('projectsTitle');
-    const projectDesc = document.getElementById('projectsDesc');
-    const projectSlides = document.querySelectorAll('.project-slide');
-    const projectTrack = document.getElementById('projectsTrack');
-    
-    // Previous button
-    prevBtn.addEventListener('click', () => {
-        activeProjectIndex = (activeProjectIndex - 1 + PROJECTS.length) % PROJECTS.length;
-        updateProjectSlider();
-    });
-    
-    // Next button
-    nextBtn.addEventListener('click', () => {
-        activeProjectIndex = (activeProjectIndex + 1) % PROJECTS.length;
-        updateProjectSlider();
-    });
-    
-    // Click on slides to make them active
-    projectSlides.forEach((slide, index) => {
-        slide.addEventListener('click', () => {
-            // Set the clicked slide as active
-            activeProjectIndex = index;
-            updateProjectSlider();
-        });
-        
-        // Hover effects
-        slide.addEventListener('mouseenter', () => {
-            // Only add hover effect if not the active slide
-            if (!slide.classList.contains('active')) {
-                slide.classList.add('hovered');
-            }
-        });
-        
-        slide.addEventListener('mouseleave', () => {
-            slide.classList.remove('hovered');
-        });
-    });
-}
-
-function updateProjectSlider() {
-    const projectTitle = document.getElementById('projectsTitle');
-    const projectDesc = document.getElementById('projectsDesc');
-    const projectSlides = document.querySelectorAll('.project-slide');
-    const projectTrack = document.getElementById('projectsTrack');
-    
-    // Update title and description
-    const activeProject = PROJECTS[activeProjectIndex];
-    projectTitle.textContent = activeProject.name;
-    projectDesc.textContent = activeProject.desc;
-    
-    // Update slides: prev, active, next
-    projectSlides.forEach((slide, index) => {
-        // Remove all classes first
-        slide.classList.remove('prev', 'active', 'next', 'hovered');
-        
-        const diff = ((index - activeProjectIndex) % PROJECTS.length + PROJECTS.length) % PROJECTS.length;
-        
-        if (diff === 0) {
-            // Active project
-            slide.classList.add('active');
-        } else if (diff === 1) {
-            // Next project
-            slide.classList.add('next');
-        } else if (diff === PROJECTS.length - 1) {
-            // Previous project (since we're going backwards)
-            slide.classList.add('prev');
-        }
-        // For projects further away, they stay with no special class (will be hidden by overflow or positioning)
-    });
-    
-    // Update track position to center the active slide
-    // Each slide takes about 26vw when active, 18vw when prev/next, with -6rem gap
-    // We want the active slide to be centered
-    const slideWidths = [18, 26, 18]; // prev, active, next in vw
-    const gapInVw = 6 / (window.innerWidth / 100); // Convert 6rem to vw
-    
-    // Calculate offset to center the active slide
-    const slidesBefore = activeProjectIndex;
-    const offsetBefore = slidesBefore * (slideWidths[0] + gapInVw); // prev width + gap
-    const offsetAfter = (PROJECTS.length - slidesBefore - 1) * (slideWidths[2] + gapInVw); // next width + gap
-    
-    // Actually, simpler approach: just translate so active slide is centered
-    // Each slide takes space, we want to center index activeProjectIndex
-    const totalSlides = PROJECTS.length;
-    const centerIndex = Math.floor(totalSlides / 2);
-    const indexDiff = activeProjectIndex - centerIndex;
-    
-    // Approximate width per slide: ~22vw average, gap: -6rem
-    const approxSlideVw = 22;
-    const gapVw = -6 / (window.innerWidth / 100);
-    const totalOffset = indexDiff * (approxSlideVw + gapVw);
-    
-    projectTrack.style.transform = `translateX(${totalOffset}vw)`;
-}
-
-/* ===========================
-   CONTACT FORM
-   =========================== */
-function initContactForm() {
-    const form = document.getElementById('contactForm');
-    if (!form) return;
-    
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const btn = form.querySelector('.contact__submit');
-        const originalText = btn.textContent;
-        
-        btn.textContent = 'Enviado!';
-        btn.style.background = 'var(--accent)';
-        btn.style.color = 'var(--bg-primary)';
-        
-        setTimeout(() => {
-            btn.textContent = originalText;
-            btn.style.background = '';
-            btn.style.color = '';
-            form.reset();
-        }, 2000);
-    });
-}
+})()

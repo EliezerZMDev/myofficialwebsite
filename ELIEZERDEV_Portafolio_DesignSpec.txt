@@ -1,0 +1,291 @@
+
+ELIEZERDEV PORTFOLIO — DISEÑO Y ESTRUCTURA COMPLETA
+
+OBJETIVO GENERAL
+Crear un portafolio moderno, elegante y profesional inspirado en la sensación visual de Wuthering Waves, pero orientado a desarrollo de software, diseño de sistemas y proyectos personales.
+
+FILOSOFÍA DE DISEÑO
+- Pantalla completa (Full Viewport Design).
+- Sin grandes espacios vacíos laterales.
+- Componentes amplios y cinematográficos.
+- Transiciones suaves entre secciones.
+- Glassmorphism sutil.
+- Apariencia tecnológica y profesional.
+- Diseño modular y escalable.
+- Priorizar experiencia visual antes que cantidad de texto.
+
+IDENTIDAD VISUAL
+
+Nombre:
+ELIEZERDEV
+
+Estilo tipográfico:
+- Inspirado en la contundencia visual de MAPPA.
+- Letras mayúsculas.
+- Geométricas.
+- Peso alto.
+- Limpias.
+- Modernas.
+- Sin decoraciones exageradas.
+
+Paleta modo oscuro:
+- Fondo principal: negro azulado profundo.
+- Paneles: gris grafito.
+- Acentos: azul eléctrico.
+- Acentos secundarios: violeta suave.
+- Texto principal: blanco.
+
+Paleta modo claro:
+- Fondo principal: blanco ligeramente grisáceo.
+- Paneles: blanco puro.
+- Acentos: azul profundo.
+- Texto principal: negro suave.
+
+CAMBIO DE TEMA
+
+No usar emojis.
+Utilizar:
+- Icono minimalista de círculo.
+- Icono minimalista de contraste.
+- Animación suave entre temas.
+
+NAVEGACIÓN
+
+Navbar Sticky.
+Siempre visible.
+
+Características:
+- Glassmorphism.
+- Fondo semitransparente.
+- Blur.
+- Borde sutil.
+- Logo ELIEZERDEV a la izquierda.
+- Navegación al centro.
+- Selector tema a la derecha.
+
+Secciones:
+- Inicio
+- Proyectos
+- Habilidades
+- Experiencia
+- Sobre Mí
+- Contacto
+
+SCROLL
+
+No usar scroll tradicional visible.
+
+Implementar:
+- Scroll snapping.
+o
+- Transiciones tipo fade-in / fade-out.
+
+Sensación:
+Cada sección aparece y desaparece suavemente.
+
+SECCIÓN 1 — HERO
+
+Ocupar 100% del viewport.
+
+Distribución:
+Izquierda:
+- Nombre ELIEZERDEV.
+- Rol profesional.
+- Descripción corta.
+
+Derecha:
+- Imagen o ilustración tecnológica.
+- Fondo dinámico.
+
+Texto:
+Desarrollador de Software
+Diseñador de Sistemas
+Arquitecto de Soluciones Digitales
+
+Botones:
+- Ver proyectos.
+- Contactar.
+
+SECCIÓN 2 — PROYECTOS DESTACADOS
+
+Inspiración:
+Galería de personajes de Wuthering Waves.
+
+ESTADO NORMAL
+
+Tarjetas verticales.
+Varias visibles simultáneamente.
+
+Cada tarjeta contiene:
+- Imagen proyecto.
+- Nombre proyecto.
+
+ESTADO HOVER
+
+La tarjeta:
+- Se expande horizontalmente.
+- Crece ligeramente.
+- Aumenta brillo.
+- Muestra resumen corto.
+
+Las demás:
+- Se contraen ligeramente.
+
+ESTADO CLICK
+
+Animación:
+- Tarjeta se desplaza.
+- Se reorganiza el layout.
+
+Contenido mostrado:
+- Imagen grande.
+- Nombre.
+- Tecnologías.
+- Descripción completa.
+- Problema resuelto.
+- Aprendizajes.
+- Botón GitHub.
+- Botón Demo.
+
+PROYECTOS INICIALES
+
+1. Corazón Azul VH
+   Sitio web para organización de apoyo a niños con autismo.
+
+2. Sitio Artista Musical
+   Página profesional para artista independiente.
+
+3. Ecommerce (Próximamente)
+   Proyecto futuro.
+
+SECCIÓN 3 — HABILIDADES
+
+Diseño tipo panel tecnológico.
+
+Categorías:
+
+Frontend
+- HTML
+- CSS
+- JavaScript
+- Responsive Design
+
+Backend
+- PHP
+- Node.js
+- APIs
+
+Bases de Datos
+- MySQL
+- SQL
+
+Herramientas
+- Git
+- GitHub
+- VS Code
+- Opencode
+
+IA y Automatización
+- Agentes IA
+- Context Engineering
+- Documentación Automatizada
+
+SECCIÓN 4 — EXPERIENCIA
+
+Timeline vertical.
+
+Cada punto contiene:
+- Fecha.
+- Proyecto.
+- Resultado.
+
+Ejemplos:
+2026
+Primer sitio profesional.
+
+2026
+Primer cliente recurrente.
+
+2026
+Implementación sistema AGENTCONTEXT.
+
+SECCIÓN 5 — SOBRE MÍ
+
+Diseño dividido.
+
+Izquierda:
+Fotografía.
+
+Derecha:
+Historia profesional.
+
+Temas:
+- Ingeniería en Sistemas.
+- Desarrollo web.
+- Videojuegos.
+- IA.
+- Startups.
+
+SECCIÓN 6 — CONTACTO
+
+Diseño limpio.
+
+Correo principal:
+eliezerzm0312@gmail.com
+
+Formulario:
+- Nombre.
+- Correo.
+- Mensaje.
+
+Botón:
+Enviar.
+
+FOOTER
+
+Siempre al final.
+
+Redes sociales:
+- GitHub
+- LinkedIn
+- Instagram
+- Facebook
+
+Contenido:
+ELIEZERDEV
+Desarrollador de Software
+
+EFECTOS VISUALES
+
+Glassmorphism:
+- Navbar.
+- Modales.
+- Tarjetas especiales.
+
+Animaciones:
+- Fade In.
+- Fade Out.
+- Scale.
+- Translate.
+- Blur suave.
+
+Evitar:
+- Animaciones exageradas.
+- Efectos llamativos innecesarios.
+
+ARQUITECTURA VISUAL
+
+Sensación final:
+
+No parecer plantilla genérica.
+No parecer sitio generado por IA.
+
+Debe transmitir:
+- Profesionalismo.
+- Tecnología.
+- Creatividad.
+- Organización.
+- Escalabilidad.
+
+Referencia conceptual:
+"Wuthering Waves + Portafolio profesional de ingeniería de software".
