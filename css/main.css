@@ -14,6 +14,7 @@
   --text-muted: #4a5568;
   --navbar-h: 80px;
   --transition: 300ms;
+  --card-offset: 28px;
 }
 
 [data-theme="light"] {
@@ -373,6 +374,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
   position: relative;
   cursor: pointer;
   transition: flex 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid var(--border);
 }
 
 .project-card:hover {
@@ -384,19 +386,17 @@ input, textarea { font-family: inherit; font-size: inherit; }
   flex: 1;
 }
 
-.card-shape {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+.project-card:nth-child(1) {
+  clip-path: polygon(0% 0%, 100% 0%, calc(100% - var(--card-offset)) 100%, 0% 100%);
 }
-
-.project-card:nth-child(1) .card-shape { clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(2) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(3) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(4) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
-.project-card:nth-child(5) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%); }
+.project-card:nth-child(2),
+.project-card:nth-child(3),
+.project-card:nth-child(4) {
+  clip-path: polygon(var(--card-offset) 0%, 100% 0%, calc(100% - var(--card-offset)) 100%, 0% 100%);
+}
+.project-card:nth-child(5) {
+  clip-path: polygon(var(--card-offset) 0%, 100% 0%, 100% 100%, 0% 100%);
+}
 
 .project-card-bg {
   position: absolute;
@@ -405,7 +405,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
   opacity: 0.12;
 }
 
-.card-shape::after {
+.project-card::after {
   content: '';
   position: absolute;
   inset: 0;

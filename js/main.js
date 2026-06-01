@@ -250,24 +250,22 @@
       card.dataset.index = i
 
       card.innerHTML =
-        '<div class="card-shape">' +
-          '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
-          '<div class="card-label-v">' + project.name + '</div>' +
-          '<div class="card-content">' +
-            '<h3 class="card-content-title">' + project.name + '</h3>' +
-            '<div class="card-content-tech">' +
-              project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
-            '</div>' +
-            '<p class="card-content-desc">' + project.description + '</p>' +
-            '<div class="card-content-sections">' +
-              '<div class="cs"><h4>Rol</h4><p>' + project.role + '</p></div>' +
-              '<div class="cs"><h4>Problema</h4><p>' + project.problem + '</p></div>' +
-              '<div class="cs"><h4>Aprendizajes</h4><p>' + project.learnings + '</p></div>' +
-            '</div>' +
-            '<div class="card-content-actions">' +
-              '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
-              '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
-            '</div>' +
+        '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
+        '<div class="card-label-v">' + project.name + '</div>' +
+        '<div class="card-content">' +
+          '<h3 class="card-content-title">' + project.name + '</h3>' +
+          '<div class="card-content-tech">' +
+            project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
+          '</div>' +
+          '<p class="card-content-desc">' + project.description + '</p>' +
+          '<div class="card-content-sections">' +
+            '<div class="cs"><h4>Rol</h4><p>' + project.role + '</p></div>' +
+            '<div class="cs"><h4>Problema</h4><p>' + project.problem + '</p></div>' +
+            '<div class="cs"><h4>Aprendizajes</h4><p>' + project.learnings + '</p></div>' +
+          '</div>' +
+          '<div class="card-content-actions">' +
+            '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
+            '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
           '</div>' +
         '</div>'
 
