@@ -52,6 +52,7 @@ Revisar visualmente en navegador. Ajustar animaciones o estilos si es necesario.
 | SHA | Mensaje |
 |-----|---------|
 | `166f789` | `feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados` |
+| `dda0e0b` | `docs: registrar sesión #6 — estética industrial HUD` |
 
 ---
 
@@ -72,11 +73,11 @@ Revisar visualmente en navegador. Ajustar animaciones o estilos si es necesario.
 
 ## Checklist de cierre
 
-- [ ] ¿Todos los cambios tienen commit?
-- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
+- [x] ¿Todos los cambios tienen commit?
+- [x] ¿Están todos los SHAs registrados en `changelog.md`?
 - [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
-- [ ] ¿Está `session.md` actualizado con resumen final?
+- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [x] ¿Está `session.md` actualizado con resumen final?
 
 ---
 
