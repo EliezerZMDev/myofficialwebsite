@@ -80,4 +80,35 @@
 
 ---
 
+## [2026-06-01] — Sesión #4
+
+### Commit: `2af1c1b`
+### Mensaje: feat: portafolio ELIEZERDEV completo con diseño spec, hash-nav, tema dark/light y proyectos interactivos
+### Archivos:
+- `index.html` (reescrito)
+- `css/main.css` (reescrito)
+- `js/main.js` (reescrito)
+- `AGENTCONTEXT/session.md`
+- `ELIEZERDEV_Portafolio_DesignSpec.txt` (nuevo — spec del usuario)
+### Detalle:
+- Portfolio construido desde cero basado en  `ELIEZERDEV_Portafolio_DesignSpec.txt`
+- **Hash-based navigation:** `pushState` al clickear nav, `popstate` para back/forward, el hash en URL cambia sin recargar página
+- **Navbar glassmorphism:** sticky, blur, semitransparente, active link con indicador
+- **Tema dark/light:** paleta completa (negro azulado/gris grafito/azul eléctrico/violeta — blanco grisáceo/azul profundo), toggle con iconos minimalistas, persiste en localStorage
+- **Hero:** 100vh, left=texto+botones, right=visual dinámico (gradiente+grid+glow)
+- **Proyectos:** 3 tarjetas verticales estilo Wuthering Waves gallery — hover expande una (flex 2.5), contrae las demás (flex 0.6), click abre detail overlay con animación panelIn
+- **Habilidades:** grid de categorías con glassmorphism cards, hover elevate
+- **Experiencia:** timeline vertical con dots y hover effect
+- **Sobre mí:** split layout (foto placeholder + texto + topic tags)
+- **Contacto:** email + formulario con mailto:
+- **Footer:** brand + redes sociales (GitHub, LinkedIn, Instagram, Facebook)
+- **Sin scrollbar visible** — scrollbar-width: none
+- **Sin emojis** — iconos SVG minimalistas
+- **Responsive:** mobile menu, layout adjustments para tablets y móviles
+- **IntersectionObserver** para actualizar nav active y hash en scroll
+- **Datos de proyectos** en array JS modificable (PROJECTS)
+### Revertir: `git revert 2af1c1b`
+
+---
+
 *Próxima entrada aquí tras el siguiente commit.*

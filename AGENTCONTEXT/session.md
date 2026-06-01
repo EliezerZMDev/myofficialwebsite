@@ -49,7 +49,9 @@ Verificar que todo funcione correctamente y hacer ajustes si es necesario.
 
 ## Commits de esta sesión
 
-*(pendiente)*
+| SHA | Mensaje |
+|-----|---------|
+| `2af1c1b` | `feat: portafolio ELIEZERDEV completo con diseño spec, hash-nav, tema dark/light y proyectos interactivos` |
 
 ---
 
@@ -72,10 +74,10 @@ Verificar que todo funcione correctamente y hacer ajustes si es necesario.
 
 ## Checklist de cierre
 
-- [ ] ¿Todos los cambios tienen commit?
-- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
+- [x] ¿Todos los cambios tienen commit?
+- [x] ¿Están todos los SHAs registrados en `changelog.md`?
 - [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
 - [ ] ¿Está `session.md` actualizado con resumen final?
 
 ---
