@@ -170,7 +170,8 @@
 
 ## [2026-06-01] — Sesión #7 (fix)
 
-### Commit: (pendiente — ejecutar tras este changelog)
+### Commits relacionados:
+- `87d3be5`
 ### Mensaje: feat: hero 3-zone layout, project diagonal overlay, remove thumbs
 ### Archivos:
 - `css/main.css`
