@@ -144,7 +144,7 @@
 
 ## [2026-06-01] — Sesión #6
 
-### Commit: `166f789`
+### Commit: `(pendiente — tras este commit)`
 ### Mensaje: feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados
 ### Archivos:
 - `css/main.css` (reescrito)
@@ -165,7 +165,7 @@
 - **Videos intercambiados** para testing: Hero→fondoweb2, Proyectos→fondoweb3, Habilidades→fondoweb4, Experiencia→fondoweb5, Sobre mí→fondo6, Contacto→fondoweb1
 - **PROJECTS array** en JS: `gradient` reemplazado por `bg` (color sólido hex)
 - **Render proyectos** incluye `<span class="card-bracket-*">` en cada card
-### Revertir: `git revert 166f789`
+### Revertir: `git revert <sha-tras-commit>`
 
 ---
 

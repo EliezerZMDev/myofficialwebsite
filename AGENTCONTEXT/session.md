@@ -51,7 +51,7 @@ Revisar visualmente en navegador. Ajustar animaciones o estilos si es necesario.
 
 | SHA | Mensaje |
 |-----|---------|
-| `166f789` | `feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados` |
+| *(pendiente)* | `feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados` |
 
 ---
 
