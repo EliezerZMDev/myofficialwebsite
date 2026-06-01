@@ -111,4 +111,35 @@
 
 ---
 
+## [2026-06-01] — Sesión #5
+
+### Commits: `%(pendiente)%`
+### Mensaje: feat: rediseño completo ELIEZERDEV — estética Wuthering Waves, video backgrounds, galería proyectos interactiva, transiciones fade
+### Archivos:
+- `index.html` (reescrito)
+- `css/main.css` (reescrito)
+- `js/main.js` (reescrito)
+- `AGENTCONTEXT/session.md`
+- `src/videos/fondoweb1.mp4` a `fondoweb5.mp4` + `fondo6.mp4` (nuevos — backgrounds)
+### Detalle:
+- **Rediseño completo** del portafolio con estética de videojuego AAA / sistema operativo futurista
+- **6 pantallas completas** (100vw x 100vh), cada una con video background, overlay, y layout específico
+- **Sin scroll tradicional** — scroll wheel capturado con transiciones fade out/in de 300ms
+- **Navbar glassmorphism** (80px, blur 20px), logo izq, nav centro, theme toggle der
+- **Hero:** split 40/60. Izquierda: ELIEZERDEV enorme con gradiente, roles, descripción, botones. Derecha: composición técnica con grid interactivo + partículas reactivas al mouse
+- **Proyectos:** 5 columnas verticales (220x520px). Hover: scale(1.05) + dim resto (brightness 0.3). Click: panel detalle con info body 65% + selector thumbnails 35%
+- **Habilidades:** 7 categorías en grid glassmorphism. Sin barras, sin círculos, sin porcentajes
+- **Experiencia:** timeline vertical con nodos, tags tecnológicos y aprendizajes
+- **Sobre mí:** split con frame visual + texto de historia personal
+- **Contacto:** grid 1/1 con formulario elegante + email/socials
+- **Theme toggle dark/light** con paleta completa (negro profundo → gris claro, azul eléctrico → azul profundo)
+- **Hash navigation** con `pushState`/`popstate` sincronizado
+- **Keyboard nav** (flechas arriba/abajo/izq/der)
+- **Videos:** se gestionan con play/pausa según sección activa (solo uno reproduce a la vez)
+- **Paleta:** `#03050a` (negro profundo), `#2979ff` (azul eléctrico), `#f0f2f5` (blanco), `#8892a4` (gris suave)
+- Sin márgenes laterales, sin centrado genérico, sin tarjetas típicas
+### Revertir: `git revert %(pendiente)%`
+
+---
+
 *Próxima entrada aquí tras el siguiente commit.*

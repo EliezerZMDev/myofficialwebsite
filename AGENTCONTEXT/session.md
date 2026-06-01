@@ -18,37 +18,38 @@
 ## Sesión actual
 
 - **Fecha:** 2026-06-01
-- **Objetivo:** Construir portafolio web ELIEZERDEV desde cero según DesignSpec
-- **Sesión anterior:** Documentación de AGENTCONTEXT/ (sesión #3)
+- **Objetivo:** Rediseño completo del portafolio — estética Wuthering Waves / AAA / OS futurista
+- **Sesión anterior:** Portafolio inicial construido desde DesignSpec (sesión #4)
 
 ---
 
 ## Última acción realizada
 
-Sesión completada. Portfolio construido y documentado. Pendiente: agregar decisiones técnicas y conocimiento a decisions.md + knowledge.md.
+Rediseño completo implementado:
+
+- **index.html** — 6 pantallas completas (100vw x 100vh), cada una con video de fondo, overlay, layout específico
+- **css/main.css** — REESCRITO: paleta negro profundo + azul eléctrico, glassmorphism, transiciones fade 300ms, sin márgenes laterales
+- **js/main.js** — REESCRITO: scroll wheel capturado + fade entre secciones, video management (play/pausa por sección activa), galería proyectos Wuthering Waves (5 columnas, hover scale + dim, click → panel detalle 65/35), hero particles + grid reactivo al mouse, theme toggle, keyboard nav, contact form
 
 ---
 
 ## Próximo paso
 
-Esperar instrucciones del usuario — posiblemente revisar el portafolio visualmente y hacer ajustes.
+Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 
 ---
 
 ## Archivos modificados en esta sesión
 
-- [x] `index.html` — Reescribito desde cero con diseño ELIEZERDEV (397 líneas)
-- [x] `css/main.css` — Reescribito desde cero con nueva paleta (aprox 500 líneas)
-- [x] `js/main.js` — Reescribito desde cero con hash-nav + proyectos (aprox 270 líneas)
+- [x] `index.html` — REESCRITO con 6 pantallas + videos fondo
+- [x] `css/main.css` — REESCRITO con nueva paleta y estética AAA
+- [x] `js/main.js` — REESCRITO con scroll capturado y proyectos Wuthering Waves
 
 ---
 
 ## Commits de esta sesión
 
-| SHA | Mensaje |
-|-----|---------|
-| `2af1c1b` | `feat: portafolio ELIEZERDEV completo con diseño spec, hash-nav, tema dark/light y proyectos interactivos` |
-| `4fad56b` | `docs: registrar sesión #4 - portafolio ELIEZERDEV completo` |
+*(pendiente)*
 
 ---
 
@@ -60,21 +61,25 @@ Esperar instrucciones del usuario — posiblemente revisar el portafolio visualm
 
 ## Ideas / Notas rápidas
 
-- Hash-based navigation implementada: `pushState` + `popstate` + `IntersectionObserver`
-- Theme toggle persiste en localStorage como `eliezertheme`
-- Proyectos: hover expand (flex: 2.5 / flex: 0.6), click abre detail overlay con animación
-- Scroll snapping no implementado porque las transiciones fade con IntersectionObserver dan mejor UX con hash-nav
-- Datos de proyectos en JS (PROJECTS array), fácil de modificar
-- Formulario usa `mailto:` como placeholder
+- 6 videos: fondoweb1.mp4 (Hero) → fondoweb5.mp4 (Sobre mí) + fondo6.mp4 (Contacto)
+- Hero: 40/60 split. Izquierda: ELIEZERDEV enorme (clamp 3rem-5.5rem), roles, desc, botones. Derecha: tech grid + particles flotantes reactivos al mouse
+- Proyectos: 5 cards verticales (220x520px). Hover: scale(1.05) + dim resto. Click: panel info con body 65% + thumbnails 35%
+- Skills: 7 categorías en grid glassmorphism (sin barras, sin círculos, sin porcentajes)
+- Experiencia: timeline vertical con nodos, tags tech, aprendizajes
+- Sobre mí: split con frame acento azul
+- Contacto: grid 1/1 con form + email/socials
+- Transiciones: opacity fade 300ms, clase `.leaving` para z-index control
+- Sin scrollbar, sin scroll tradicional, sin márgenes laterales grandes
+- Hash nav con pushState/popstate
 
 ---
 
 ## Checklist de cierre
 
-- [x] ¿Todos los cambios tienen commit?
-- [x] ¿Están todos los SHAs registrados en `changelog.md`?
+- [ ] ¿Todos los cambios tienen commit?
+- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
 - [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
 - [ ] ¿Está `session.md` actualizado con resumen final?
 
 ---
