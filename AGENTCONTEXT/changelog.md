@@ -142,4 +142,30 @@
 
 ---
 
+## [2026-06-01] — Sesión #7
+
+### Commits relacionados:
+- *(pendiente)* — feat: connected-tiles rediseño completo
+
+### Archivos:
+- `css/main.css` (reescrito)
+- `index.html` (reescrito)
+- `js/main.js` (reescrito)
+- `AGENTCONTEXT/session.md`
+- `AGENTCONTEXT/changelog.md`
+
+### Detalle:
+- **Revertidas sesión #6** (industrial HUD) para volver a base Wuthering Waves
+- **Hero:** split diagonal con clip-path polygon (izquierda 100%/88%, derecha 12%/0%). Hover → flex-expand del lado hovereado
+- **Proyectos:** 5 cards en flex row ocupando 100% del ancho, glassmorphism + backdrop-filter, gradiente de fondo con opacidad 0.12. Sin border-radius. Hover → dim resto (brightness 0.3). Click → info panel con X visible (fondo accent)
+- **Habilidades:** panal hexagonal con clip-path polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%). Grid 4 columnas, 7 hexágonos en patrón honeycomb (filas 2-3-2). Click → expande items
+- **Experiencia:** circuito PCB con línea punteada intermitente (repeating-linear-gradient), nodos cuadrados rotados 45°, body con clip-path angulado. Click → expande aprendizajes
+- **Sobre mí:** split zigzag con clip-path (foto 100%/92%, bio 8%/0%). Glassmorphism en lado foto. Hover → flex-expand
+- **Contacto:** grid matricial 4 columnas con celdas tipo teclado. Click → expande valor + abre link. Formulario directo debajo
+- **Info close button:** fondo solid accent (#2979ff) + texto blanco para visibilidad inmediata
+- **Sin border-radius en ninguna parte**
+### Revertir: `git revert <sha-tras-commit>`
+
+---
+
 *Próxima entrada aquí tras el siguiente commit.*

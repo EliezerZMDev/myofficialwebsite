@@ -18,32 +18,32 @@
 ## Sesión actual
 
 - **Fecha:** 2026-06-01
-- **Objetivo:** Rediseño completo del portafolio — estética Wuthering Waves / AAA / OS futurista
-- **Sesión anterior:** Portafolio inicial construido desde DesignSpec (sesión #4)
+- **Objetivo:** Connected-tiles rediseño con diagonales, hexágonos, circuito PCB, zigzag, matrix keyboard
+- **Sesión anterior:** Revertida sesión #6 (industrial HUD), base sesión #5 (Wuthering Waves)
 
 ---
 
 ## Última acción realizada
 
-Rediseño completo implementado:
+Rediseño connected-tiles completo implementado:
 
-- **index.html** — 6 pantallas completas (100vw x 100vh), cada una con video de fondo, overlay, layout específico
-- **css/main.css** — REESCRITO: paleta negro profundo + azul eléctrico, glassmorphism, transiciones fade 300ms, sin márgenes laterales
-- **js/main.js** — REESCRITO: scroll wheel capturado + fade entre secciones, video management (play/pausa por sección activa), galería proyectos Wuthering Waves (5 columnas, hover scale + dim, click → panel detalle 65/35), hero particles + grid reactivo al mouse, theme toggle, keyboard nav, contact form
+- **css/main.css** — REESCRITO sin border-radius. Hero: split diagonal 45°. Proyectos: glassmorphism, full-width flex. Skills: hex honeycomb grid. Experience: circuit PCB con dots + clip-path angulado. About: zigzag split. Contact: matrix keyboard grid.
+- **index.html** — REESCRITO. 6 secciones con nuevas estructuras. Contacto: matrix grid generado por JS + formulario directo debajo.
+- **js/main.js** — REESCRITO. PROJECTS con gradients (glassmorphism overlay). renderSkills() con rowLayout honeycomb. renderContact() con matrix cells. initCircuit() con expand toggle. Hero/about hover flex-expand.
 
 ---
 
 ## Próximo paso
 
-Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
+Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
 
 ---
 
 ## Archivos modificados en esta sesión
 
-- [x] `index.html` — REESCRITO con 6 pantallas + videos fondo
-- [x] `css/main.css` — REESCRITO con nueva paleta y estética AAA
-- [x] `js/main.js` — REESCRITO con scroll capturado y proyectos Wuthering Waves
+- [x] `css/main.css` — REESCRITO
+- [x] `index.html` — REESCRITO
+- [x] `js/main.js` — REESCRITO
 
 ---
 
@@ -51,8 +51,8 @@ Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 
 | SHA | Mensaje |
 |-----|---------|
-| `2ec7d08` | `feat: rediseño completo ELIEZERDEV — estética Wuthering Waves, video backgrounds, galería proyectos interactiva, transiciones fade` |
-| `6432b60` | `docs: registrar sesión #5 - rediseño completo ELIEZERDEV` |
+| *(pendiente)* | `feat: connected-tiles rediseño completo — diagonales, hexágonos, circuito, zigzag, matrix` |
+| *(pendiente)* | `docs: registrar sesión #7` |
 
 ---
 
@@ -64,26 +64,22 @@ Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 
 ## Ideas / Notas rápidas
 
-- 6 videos: fondoweb1.mp4 (Hero) → fondoweb5.mp4 (Sobre mí) + fondo6.mp4 (Contacto)
-- Hero: 40/60 split. Izquierda: ELIEZERDEV enorme (clamp 3rem-5.5rem), roles, desc, botones. Derecha: tech grid + particles flotantes reactivos al mouse
-- Proyectos: 5 cards verticales (220x520px). Hover: scale(1.05) + dim resto. Click: panel info con body 65% + thumbnails 35%
-- Skills: 7 categorías en grid glassmorphism (sin barras, sin círculos, sin porcentajes)
-- Experiencia: timeline vertical con nodos, tags tech, aprendizajes
-- Sobre mí: split con frame acento azul
-- Contacto: grid 1/1 con form + email/socials
-- Transiciones: opacity fade 300ms, clase `.leaving` para z-index control
-- Sin scrollbar, sin scroll tradicional, sin márgenes laterales grandes
-- Hash nav con pushState/popstate
+- Hero: flex container con `clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%)` en left, `12% 0%, 100% 0%, 100% 100%, 0% 100%` en right. Hover: flex 1.3 vs 0.8
+- Proyectos: 5 cards en flex, glassmorphism (bg surface + backdrop-filter blur 12px), gradient background con opacity 0.12. Hover: dimmed=0.3 brightness. Click: info panel con close button accent
+- Skills: grid 4 cols, 5 rows de elementos (con spacificers invisibles). Honeycomb posiciones: [[null,null,0,1,null], [2,null,3,null,4], [null,null,5,6,null]]
+- Experience: `circuit-container::before` con `repeating-linear-gradient` para línea punteada. Dots: 16px cuadrados rotados 45°. Body: `clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%)`
+- About: split zigzag. Photo side: glassmorphism. Bio side: texto descriptivo.
+- Contact: matrix grid 4 cols, 7 celdas. Email: span 2. Click expande + abre link. Formulario debajo.
 
 ---
 
 ## Checklist de cierre
 
-- [x] ¿Todos los cambios tienen commit?
-- [x] ¿Están todos los SHAs registrados en `changelog.md`?
+- [ ] ¿Todos los cambios tienen commit?
+- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
 - [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
-- [x] ¿Está `session.md` actualizado con resumen final?
+- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [ ] ¿Está `session.md` actualizado con resumen final?
 
 ---
 

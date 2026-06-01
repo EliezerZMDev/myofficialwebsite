@@ -1,15 +1,6 @@
-/* ============================================================
-   ELIEZERDEV Portfolio — Main JavaScript
-   Rediseño: navegación por pantallas, video backgrounds,
-   galería proyectos Wuthering Waves, partículas hero
-   ============================================================ */
-
 ;(function () {
   'use strict'
 
-  /* =================================================================
-     DATA
-     ================================================================= */
   const PROJECTS = [
     {
       id: 0,
@@ -83,11 +74,28 @@
     }
   ]
 
+  const SKILLS = [
+    { id: 0, name: 'Frontend', items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'], col: 2 },
+    { id: 1, name: 'Backend', items: ['PHP', 'Node.js', 'APIs REST'], col: 3 },
+    { id: 2, name: 'Arquitectura', items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'], col: 1 },
+    { id: 3, name: 'IA', items: ['Agentes IA', 'Context Engineering', 'Prompting'], col: 2 },
+    { id: 4, name: 'Automatización', items: ['Docs Automatizada', 'Workflows', 'DevOps'], col: 3 },
+    { id: 5, name: 'UX/UI', items: ['Figma', 'Prototipado', 'Sistemas Diseño'], col: 2 },
+    { id: 6, name: 'Gestión', items: ['Git/GitHub', 'VS Code', 'Opencode'], col: 3 }
+  ]
+
+  const CONTACT_CELLS = [
+    { label: 'Email', value: 'eliezerzm0312@gmail.com', href: 'mailto:eliezerzm0312@gmail.com', icon: 'mail', cols: 2 },
+    { label: 'GitHub', value: '@EliezerZM', href: 'https://github.com/EliezerZM', icon: 'github', cols: 1 },
+    { label: 'LinkedIn', value: '/in/eliezerzm', href: 'https://linkedin.com/in/eliezerzm', icon: 'linkedin', cols: 1 },
+    { label: 'Instagram', value: '@eliezerzm_03', href: 'https://instagram.com/eliezerzm_03', icon: 'instagram', cols: 1 },
+    { label: 'Facebook', value: '/eliezerzm', href: 'https://facebook.com/eliezerzm', icon: 'facebook', cols: 1 },
+    { label: 'Ubicación', value: 'México', href: null, icon: 'location', cols: 1 },
+    { label: 'Idiomas', value: 'Español / Inglés', href: null, icon: 'globe', cols: 1 }
+  ]
+
   const TOTAL_SECTIONS = 6
 
-  /* =================================================================
-     DOM REFS
-     ================================================================= */
   function q (s, c) { return (c || document).querySelector(s) }
   function qa (s, c) { return [...(c || document).querySelectorAll(s)] }
 
@@ -106,6 +114,8 @@
   let currentIndex = 0
   let isTransitioning = false
   let isProjectOpen = false
+  let skillExpandId = null
+  let contactExpandId = null
 
   /* =================================================================
      SECTION NAVIGATION
@@ -120,31 +130,24 @@
     const current = sections[currentIndex]
     const next = sections[index]
 
-    // Pause current video, play next
     const currentVideo = q('.section-video', current)
     const nextVideo = q('.section-video', next)
     if (currentVideo) { currentVideo.pause(); currentVideo.muted = true }
     if (nextVideo) { nextVideo.play().catch(function () {}); nextVideo.muted = true }
 
-    // Trigger leaving state
     current.classList.remove('active')
     current.classList.add('leaving')
-
-    // Bring in next
     next.classList.add('active')
 
-    // After transition, clean up
     setTimeout(function () {
       current.classList.remove('leaving')
       isTransitioning = false
     }, 350)
 
-    // Update nav
     navLinks.forEach(function (link, i) {
       link.classList.toggle('active', i === index)
     })
 
-    // Update URL hash
     var id = sections[index].id
     if (window.location.hash !== '#' + id) {
       history.pushState(null, null, '#' + id)
@@ -153,19 +156,9 @@
     currentIndex = index
   }
 
-  function nextSection () {
-    goToSection(currentIndex + 1)
-  }
+  function nextSection () { goToSection(currentIndex + 1) }
+  function prevSection () { goToSection(currentIndex - 1) }
 
-  function prevSection () {
-    goToSection(currentIndex - 1)
-  }
-
-  /* =================================================================
-     WHEEL / KEYBOARD / CLICK NAV
-     ================================================================= */
-
-  // Wheel capture
   sectionsContainer.addEventListener('wheel', function (e) {
     e.preventDefault()
     if (isTransitioning || isProjectOpen) return
@@ -173,7 +166,6 @@
     else prevSection()
   }, { passive: false })
 
-  // Keyboard
   document.addEventListener('keydown', function (e) {
     if (isProjectOpen) {
       if (e.key === 'Escape') closeProjectInfo()
@@ -188,7 +180,6 @@
     }
   })
 
-  // Nav link clicks
   navLinks.forEach(function (link, i) {
     link.addEventListener('click', function (e) {
       e.preventDefault()
@@ -196,7 +187,6 @@
     })
   })
 
-  // Hero action buttons
   document.querySelectorAll('[data-section]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault()
@@ -205,7 +195,6 @@
     })
   })
 
-  // Hash change (back/forward)
   window.addEventListener('popstate', function () {
     var hash = window.location.hash || '#inicio'
     var targetIndex = 0
@@ -215,7 +204,6 @@
     goToSection(targetIndex)
   })
 
-  // Initial hash
   if (window.location.hash) {
     var initialHash = window.location.hash
     sections.forEach(function (s, i) {
@@ -225,11 +213,6 @@
     })
   }
 
-  /* =================================================================
-     VIDEO AUTO-PLAY ON LOAD
-     ================================================================= */
-
-  // Ensure hero video plays
   setTimeout(function () {
     var heroVideo = document.querySelector('#inicio .section-video')
     if (heroVideo) heroVideo.play().catch(function () {})
@@ -258,7 +241,7 @@
   })
 
   /* =================================================================
-     HERO — TECH COMPOSITION (particles + interactive grid)
+     HERO — Particles + Interactive Grid
      ================================================================= */
 
   function createParticles () {
@@ -291,7 +274,6 @@
         grid.style.backgroundPosition = (50 + x * 4) + '% ' + (50 + y * 4) + '%'
       }
 
-      // Parallax for particles
       var particles = heroRight.querySelectorAll('.tech-particle')
       particles.forEach(function (p) {
         var speed = parseFloat(p.dataset.speed) || (0.3 + Math.random() * 0.5)
@@ -307,11 +289,8 @@
     })
   }
 
-  createParticles()
-  initMouseReaction()
-
   /* =================================================================
-     PROJECTS GALLERY
+     PROJECTS — Diagonal Cut Cards + Clip-Path Recalculation
      ================================================================= */
 
   function renderProjects () {
@@ -327,29 +306,42 @@
           '<span>' + project.summary + '</span>' +
         '</div>'
 
-      // Hover effects
       card.addEventListener('mouseenter', function () {
         if (isProjectOpen) return
-        var cards = projectsGallery.querySelectorAll('.project-card')
-        cards.forEach(function (c) {
-          if (c !== card) c.classList.add('dimmed')
-        })
-        card.classList.add('hovered')
+        expandProjectCard(i)
       })
 
       card.addEventListener('mouseleave', function () {
-        var cards = projectsGallery.querySelectorAll('.project-card')
-        cards.forEach(function (c) {
-          c.classList.remove('dimmed', 'hovered')
-        })
+        if (isProjectOpen) return
+        resetProjectCards()
       })
 
-      // Click to open detail
       card.addEventListener('click', function () {
         openProjectInfo(i)
       })
 
       projectsGallery.appendChild(card)
+    })
+  }
+
+  function expandProjectCard (index) {
+    var cards = projectsGallery.querySelectorAll('.project-card')
+    var total = cards.length
+
+    cards.forEach(function (c, i) {
+      c.classList.remove('hovered', 'dimmed')
+      if (i === index) {
+        c.classList.add('hovered')
+      } else {
+        c.classList.add('dimmed')
+      }
+    })
+  }
+
+  function resetProjectCards () {
+    var cards = projectsGallery.querySelectorAll('.project-card')
+    cards.forEach(function (c) {
+      c.classList.remove('hovered', 'dimmed')
     })
   }
 
@@ -360,14 +352,12 @@
     var project = PROJECTS[index]
     var cards = projectsGallery.querySelectorAll('.project-card')
 
-    // Mark active card
     cards.forEach(function (c, i) {
       c.classList.remove('active-card', 'hovered', 'dimmed')
       if (i === index) c.classList.add('active-card')
       else c.classList.add('dimmed')
     })
 
-    // Build info body
     infoBody.innerHTML =
       '<h2>' + project.name + '</h2>' +
       '<div class="info-tech">' +
@@ -391,7 +381,6 @@
         '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
       '</div>'
 
-    // Build thumbnails
     infoThumbnails.innerHTML = ''
     PROJECTS.forEach(function (p, i) {
       var thumb = document.createElement('div')
@@ -405,7 +394,6 @@
 
     projectInfoPanel.classList.add('open')
 
-    // Pause section video for performance
     var sectionVideo = document.querySelector('#proyectos .section-video')
     if (sectionVideo) sectionVideo.pause()
   }
@@ -420,7 +408,6 @@
       c.classList.remove('active-card', 'dimmed', 'hovered')
     })
 
-    // Resume section video
     var sectionVideo = document.querySelector('#proyectos .section-video')
     if (sectionVideo) sectionVideo.play().catch(function () {})
   }
@@ -431,7 +418,124 @@
     if (e.key === 'Escape' && isProjectOpen) closeProjectInfo()
   })
 
-  renderProjects()
+  /* =================================================================
+     SKILLS — Hexagonal Honeycomb Grid
+     ================================================================= */
+
+  function renderSkills () {
+    var grid = q('#skillsHexGrid')
+    if (!grid) return
+
+    var rowLayout = [
+      [null, null, 0, 1, null],
+      [2, null, 3, null, 4],
+      [null, null, 5, 6, null]
+    ]
+
+    rowLayout.forEach(function (row) {
+      row.forEach(function (skillId) {
+        if (skillId === null) {
+          var spacer = document.createElement('div')
+          spacer.style.visibility = 'hidden'
+          spacer.style.pointerEvents = 'none'
+          grid.appendChild(spacer)
+          return
+        }
+        var skill = SKILLS[skillId]
+        if (!skill) return
+        var cell = document.createElement('div')
+        cell.className = 'hex-cell'
+        cell.dataset.id = skill.id
+        cell.innerHTML =
+          '<div class="hex-cell-title">' + skill.name + '</div>' +
+          '<div class="hex-cell-items">' +
+            skill.items.map(function (item) { return '<span>' + item + '</span>' }).join('') +
+          '</div>'
+
+        cell.addEventListener('click', function () {
+          if (skillExpandId === skill.id) {
+            skillExpandId = null
+            cell.classList.remove('is-expanded')
+          } else {
+            if (skillExpandId !== null) {
+              var prev = grid.querySelector('.hex-cell.is-expanded')
+              if (prev) prev.classList.remove('is-expanded')
+            }
+            skillExpandId = skill.id
+            cell.classList.add('is-expanded')
+          }
+        })
+
+        grid.appendChild(cell)
+      })
+    })
+  }
+
+  /* =================================================================
+     EXPERIENCE — Circuit Board (already in HTML)
+     ================================================================= */
+
+  function initCircuit () {
+    var nodes = qa('.circuit-node')
+    nodes.forEach(function (node) {
+      node.addEventListener('click', function () {
+        var wasExpanded = node.classList.contains('is-expanded')
+        nodes.forEach(function (n) { n.classList.remove('is-expanded') })
+        if (!wasExpanded) node.classList.add('is-expanded')
+      })
+    })
+  }
+
+  /* =================================================================
+     CONTACT — Matrix Keyboard
+     ================================================================= */
+
+  function getIconSVG (type) {
+    var icons = {
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>',
+      github: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+      instagram: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
+      facebook: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>',
+      location: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+      globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>'
+    }
+    return icons[type] || ''
+  }
+
+  function renderContact () {
+    var matrix = q('#contactMatrix')
+    if (!matrix) return
+
+    CONTACT_CELLS.forEach(function (cell, i) {
+      var el = document.createElement('div')
+      el.className = 'contact-cell' + (cell.cols > 1 ? ' span-' + cell.cols : '')
+      el.dataset.id = i
+
+      el.innerHTML =
+        getIconSVG(cell.icon) +
+        '<span class="contact-cell-label">' + cell.label + '</span>' +
+        '<span class="contact-cell-value">' + cell.value + '</span>'
+
+      el.addEventListener('click', function () {
+        if (contactExpandId === i) {
+          contactExpandId = null
+          el.classList.remove('is-expanded')
+          if (cell.href) window.open(cell.href, '_blank')
+        } else {
+          if (contactExpandId !== null) {
+            var prev = matrix.querySelector('.contact-cell.is-expanded')
+            if (prev) prev.classList.remove('is-expanded')
+          }
+          contactExpandId = i
+          el.classList.add('is-expanded')
+          if (cell.href) window.open(cell.href, '_blank')
+        }
+      })
+
+      matrix.appendChild(el)
+    })
+  }
 
   /* =================================================================
      CONTACT FORM
@@ -461,11 +565,9 @@
   })
 
   /* =================================================================
-     MOBILE MENU TOGGLE (simple fallback)
+     MOBILE MENU
      ================================================================= */
 
-  // Add a hamburger toggle functionality: clicking the nav-logo on mobile shows menu
-  // Simple approach: logo toggles nav-links on small screens
   var logoToggle = document.querySelector('.nav-logo')
   logoToggle.addEventListener('click', function (e) {
     if (window.innerWidth <= 768) {
@@ -474,10 +576,54 @@
     }
   })
 
-  // Close mobile menu on link click
   navLinks.forEach(function (link) {
     link.addEventListener('click', function () {
       document.querySelector('.nav-links').classList.remove('open')
+    })
+  })
+
+  /* =================================================================
+     INIT
+     ================================================================= */
+
+  createParticles()
+  initMouseReaction()
+  renderProjects()
+  renderSkills()
+  renderContact()
+  initCircuit()
+
+  /* =================================================================
+     PRESERVE HERO DIAGONAL HOVER (flex expand)
+     ================================================================= */
+  var heroSides = qa('.hero-side')
+  heroSides.forEach(function (side) {
+    side.addEventListener('mouseenter', function () {
+      heroSides.forEach(function (s) {
+        if (s !== side) s.style.flex = '0.8'
+      })
+    })
+    side.addEventListener('mouseleave', function () {
+      heroSides.forEach(function (s) {
+        s.style.flex = '1'
+      })
+    })
+  })
+
+  /* =================================================================
+     PRESERVE ABOUT DIAGONAL HOVER (flex expand)
+     ================================================================= */
+  var aboutSides = qa('.about-side')
+  aboutSides.forEach(function (side) {
+    side.addEventListener('mouseenter', function () {
+      aboutSides.forEach(function (s) {
+        if (s !== side) s.style.flex = '0.8'
+      })
+    })
+    side.addEventListener('mouseleave', function () {
+      aboutSides.forEach(function (s) {
+        s.style.flex = '1'
+      })
     })
   })
 
