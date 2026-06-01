@@ -53,7 +53,7 @@ Esperar instrucciones del usuario.
 
 | SHA | Mensaje |
 |-----|---------|
-| `%(por determinar tras commit)%` | `feat: documentar AGENTCONTEXT/ con instrucciones IA, SHAs y estructura` |
+| `89ca84a` | `feat: documentar AGENTCONTEXT/ con instrucciones IA, SHAs obligatorios y estructura de contexto` |
 
 ---
 

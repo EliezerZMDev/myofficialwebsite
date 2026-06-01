@@ -50,4 +50,34 @@
 
 ---
 
+## [2026-06-01] — Sesión #3
+
+### Commit: `89ca84a`
+### Mensaje: feat: documentar AGENTCONTEXT/ con instrucciones IA, SHAs obligatorios y estructura de contexto
+### Archivos:
+- `AGENTCONTEXT/_index.md` (nuevo)
+- `AGENTCONTEXT/project.md`
+- `AGENTCONTEXT/architecture.md`
+- `AGENTCONTEXT/guidelines.md`
+- `AGENTCONTEXT/workflow.md`
+- `AGENTCONTEXT/changelog.md`
+- `AGENTCONTEXT/decisions.md`
+- `AGENTCONTEXT/knowledge.md`
+- `AGENTCONTEXT/session.md`
+### Detalle:
+- Creado `_index.md` como archivo de entrada obligatorio con orden de lectura
+- Cada archivo ahora tiene un bloque de **instrucciones para el agente IA** al inicio (propósito, cuándo leer, cuándo actualizar, formato, relación)
+- `project.md`: corregido stack (vanilla HTML/CSS/JS, no React), agregado commit de referencia
+- `architecture.md`: poblado con árbol real, stack detallado, tabla de decisiones técnicas con commits, patrones y flujo de datos
+- `guidelines.md`: sección de onboarding para agente sin contexto previo, reglas de commits obligatorios y revert workflow
+- `workflow.md`: ciclo de 4 fases con pasos concretos (inicio, ejecución, revert, cierre)
+- `changelog.md`: formato nuevo con SHA obligatorio por entrada + commits históricos registrados
+- `decisions.md`: 3 ADRs poblados (dark theme, vanilla JS, Regions layout) con sus commits de referencia
+- `knowledge.md`: secciones con ejemplos de qué registrar
+- `session.md`: tracking de commits con SHA, checklist de cierre
+- Los SHAs en changelog permiten a futuros agentes revertir cambios exactos
+### Revertir: `git revert 89ca84a`
+
+---
+
 *Próxima entrada aquí tras el siguiente commit.*
