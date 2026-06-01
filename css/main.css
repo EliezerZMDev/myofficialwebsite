@@ -283,21 +283,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
   flex: 1;
   display: flex;
   overflow: hidden;
-  position: relative;
-}
-
-.hero-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 60%;
-  width: 32px;
-  z-index: 5;
-  pointer-events: none;
-  background: linear-gradient(135deg, transparent 45%, var(--accent) 48%, transparent 52%);
-  transform: translateX(-50%);
-  opacity: 0.35;
 }
 
 .hero-side {
@@ -309,12 +294,16 @@ input, textarea { font-family: inherit; font-size: inherit; }
   flex: 0 0 65%;
   flex-direction: column;
   justify-content: center;
-  padding: 48px 56px 48px 48px;
+  padding: 48px 64px 48px 48px;
 }
 
 .hero-side.right {
   flex: 1;
   flex-direction: column;
+  clip-path: polygon(40% 0%, 100% 0%, 100% 100%, 0% 100%);
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .hero-name {
@@ -349,18 +338,13 @@ input, textarea { font-family: inherit; font-size: inherit; }
   letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all var(--transition) ease;
+  transition: background var(--transition) ease;
   border: none;
-  border-left: 1px solid var(--border);
   color: var(--text-primary);
-  background: var(--surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .hero-btn:hover {
-  background: var(--accent);
-  color: #fff;
+  background: rgba(240, 242, 245, 0.06);
 }
 
 .hero-btn-top {
@@ -466,10 +450,12 @@ input, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .project-card.dimmed {
+  flex: 0.6;
   filter: brightness(0.3) saturate(0.5);
 }
 
 .project-card.hovered {
+  flex: 2.2;
   border-color: var(--accent);
   z-index: 3;
 }
@@ -941,9 +927,8 @@ input, textarea { font-family: inherit; font-size: inherit; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-  .hero-side.left { flex: 1; padding: 32px 24px; text-align: center; }
+  .hero-side.left { flex: 1; padding: 32px 24px; text-align: center; clip-path: none; }
   .hero-side.right { display: none; }
-  .hero-container::before { display: none; }
   .hero-desc { margin: 0 auto; }
 
   .skills-hex-grid { grid-template-columns: repeat(4, 1fr); padding: 0 24px; }

@@ -18,24 +18,24 @@
 ## Sesión actual
 
 - **Fecha:** 2026-06-01
-- **Objetivo:** Connected-tiles rediseño con diagonales, hexágonos, circuito PCB, zigzag, matrix keyboard
+- **Objetivo:** Connected-tiles rediseño — fijar hero 3-zone, diagonales projects, quitar thumbs
 - **Sesión anterior:** Revertida sesión #6 (industrial HUD), base sesión #5 (Wuthering Waves)
 
 ---
 
 ## Última acción realizada
 
-Rediseño connected-tiles completo implementado:
+Fix hero/projects/issues post-sesión #7:
 
-- **css/main.css** — REESCRITO sin border-radius. Hero: split diagonal 45°. Proyectos: glassmorphism, full-width flex. Skills: hex honeycomb grid. Experience: circuit PCB con dots + clip-path angulado. About: zigzag split. Contact: matrix keyboard grid.
-- **index.html** — REESCRITO. 6 secciones con nuevas estructuras. Contacto: matrix grid generado por JS + formulario directo debajo.
-- **js/main.js** — REESCRITO. PROJECTS con gradients (glassmorphism overlay). renderSkills() con rowLayout honeycomb. renderContact() con matrix cells. initCircuit() con expand toggle. Hero/about hover flex-expand.
+- **Hero:** removidos tech-grid + partículas. Nuevo layout 3-zone: left 65% (title+desc), right 35% (2 buttons apilados). Diagonal decorativa via `::before` en container (no clip-path en hijos)
+- **Proyectos:** diagonales decorativas entre cards via `::after` pseudo-elemento. Info-thumbnails removido (info-body 100% ahora)
+- **JS/HTML/CSS:** removidas funciones y elementos huérfanos (createParticles, initMouseReaction, hero hover flex, info-thumbnails)
 
 ---
 
 ## Próximo paso
 
-Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
+Revisar visualmente en navegador — confirmar hero text visible, diagonales projects, info panel sin thumbs.
 
 ---
 
@@ -54,6 +54,8 @@ Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
 | `670d08b` | `feat: connected-tiles rediseño completo — diagonales, hexágonos, circuito, zigzag, matrix keyboard` |
 | `ec23c24` | `docs: registrar sesión #7 — connected-tiles rediseño` |
 | `352e191` | `docs: finalizar sesión #7 con checklist completo` |
+| `87d3be5` | `feat: hero 3-zone layout, project diagonal overlay, remove thumbs` |
+| `69ca18c` | `docs: update changelog with sesión #7 fix SHA` |
 
 ---
 
@@ -65,12 +67,13 @@ Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
 
 ## Ideas / Notas rápidas
 
-- Hero: flex container con `clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%)` en left, `12% 0%, 100% 0%, 100% 100%, 0% 100%` en right. Hover: flex 1.3 vs 0.8
-- Proyectos: 5 cards en flex, glassmorphism (bg surface + backdrop-filter blur 12px), gradient background con opacity 0.12. Hover: dimmed=0.3 brightness. Click: info panel con close button accent
-- Skills: grid 4 cols, 5 rows de elementos (con spacificers invisibles). Honeycomb posiciones: [[null,null,0,1,null], [2,null,3,null,4], [null,null,5,6,null]]
-- Experience: `circuit-container::before` con `repeating-linear-gradient` para línea punteada. Dots: 16px cuadrados rotados 45°. Body: `clip-path: polygon(0% 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%)`
-- About: split zigzag. Photo side: glassmorphism. Bio side: texto descriptivo.
-- Contact: matrix grid 4 cols, 7 celdas. Email: span 2. Click expande + abre link. Formulario debajo.
+- Hero: left 65% (title+desc, no roles/botones), right 35% (2 botones apilados 50% c/u). Diagonal decorativa via `hero-container::before` con `linear-gradient(135deg)` centrado en la división. Sin clip-path en sides para evitar clipping de texto
+- Proyectos: 5 cards en flex, glassmorphism, diagonal separators via `::after`. Card `position: relative`, `::after` con `right: -1px`, `width: 20px`, `z-index: 5`, `opacity: 0.3-0.9`. Info panel sin thumbnails (100% body)
+- Skills: honeycomb grid 4 cols, rowLayout [[null,null,0,1,null], [2,null,3,null,4], [null,null,5,6,null]]
+- Experience: circuit PCB con `::before` dashed line, dots 45°, body clip-path angulado
+- About: zigzag split con clip-path 100%/92% y 8%/0% + margin-left -1px
+- Contact: matrix grid 4 cols, 7 celdas con iconos SVG. Email: span 2. Click: expande + abre link
+- Sin border-radius en nada
 
 ---
 
