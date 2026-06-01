@@ -350,7 +350,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
   border-bottom: 1px solid var(--border);
 }
 
-/* ===== PROYECTOS — Flex-Expand Cards ===== */
+/* ===== PROYECTOS — Hero-style diagonals + scale hover ===== */
 .projects-wrapper {
   flex: 1;
   display: flex;
@@ -373,29 +373,26 @@ input, textarea { font-family: inherit; font-size: inherit; }
   height: 100%;
   position: relative;
   cursor: pointer;
-  transition: flex 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  border: 1px solid var(--border);
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform;
 }
 
 .project-card:hover {
-  flex: 1.3;
+  transform: scale(1.06);
+  z-index: 2;
+}
+
+/* Hero-style diagonal left edge (cards 2-5) */
+.project-card:nth-child(2),
+.project-card:nth-child(3),
+.project-card:nth-child(4),
+.project-card:nth-child(5) {
+  clip-path: polygon(var(--card-offset) 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 /* Suppress hover when info panel is open */
 .projects-gallery.is-panel-open .project-card:hover {
-  flex: 1;
-}
-
-.project-card:nth-child(1) {
-  clip-path: polygon(0% 0%, 100% 0%, calc(100% - var(--card-offset)) 100%, 0% 100%);
-}
-.project-card:nth-child(2),
-.project-card:nth-child(3),
-.project-card:nth-child(4) {
-  clip-path: polygon(var(--card-offset) 0%, 100% 0%, calc(100% - var(--card-offset)) 100%, 0% 100%);
-}
-.project-card:nth-child(5) {
-  clip-path: polygon(var(--card-offset) 0%, 100% 0%, 100% 100%, 0% 100%);
+  transform: none;
 }
 
 .project-card-bg {
@@ -416,19 +413,25 @@ input, textarea { font-family: inherit; font-size: inherit; }
 
 .card-label-v {
   position: absolute;
-  bottom: 32px;
-  right: 12px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  font-size: clamp(1.125rem, 2vw, 1.75rem);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
   font-weight: 800;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--text-primary);
   text-shadow: 0 2px 8px rgba(0,0,0,0.5);
   pointer-events: none;
   transition: opacity 0.3s ease;
+}
+
+.project-card:hover .card-label-v {
+  opacity: 0;
 }
 
 .card-content {
@@ -527,10 +530,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
 .card-content-actions .btn {
   font-size: 0.625rem;
   padding: 6px 16px;
-}
-
-.project-card.active-card {
-  border-color: var(--accent);
 }
 
 .project-info-panel {

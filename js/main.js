@@ -282,14 +282,8 @@
     isProjectOpen = true
 
     var project = PROJECTS[index]
-    var cards = projectsGallery.querySelectorAll('.project-card')
 
     projectsGallery.classList.add('is-panel-open')
-
-    cards.forEach(function (c, i) {
-      c.classList.remove('active-card')
-      if (i === index) c.classList.add('active-card')
-    })
 
     infoBody.innerHTML =
       '<h2>' + project.name + '</h2>' +
@@ -326,11 +320,6 @@
     projectInfoPanel.classList.remove('open')
 
     projectsGallery.classList.remove('is-panel-open')
-
-    var cards = projectsGallery.querySelectorAll('.project-card')
-    cards.forEach(function (c) {
-      c.classList.remove('active-card')
-    })
 
     var sectionVideo = document.querySelector('#proyectos .section-video')
     if (sectionVideo) sectionVideo.play().catch(function () {})
