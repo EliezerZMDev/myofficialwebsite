@@ -49,7 +49,9 @@ Esperar instrucciones del usuario — revisar visualmente, ajustar, o desplegar.
 
 ## Commits de esta sesión
 
-*(pendiente)*
+| SHA | Mensaje |
+|-----|---------|
+| `2ec7d08` | `feat: rediseño completo ELIEZERDEV — estética Wuthering Waves, video backgrounds, galería proyectos interactiva, transiciones fade` |
 
 ---
 

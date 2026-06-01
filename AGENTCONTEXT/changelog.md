@@ -113,7 +113,7 @@
 
 ## [2026-06-01] — Sesión #5
 
-### Commits: `%(pendiente)%`
+### Commit: `2ec7d08`
 ### Mensaje: feat: rediseño completo ELIEZERDEV — estética Wuthering Waves, video backgrounds, galería proyectos interactiva, transiciones fade
 ### Archivos:
 - `index.html` (reescrito)
@@ -138,7 +138,7 @@
 - **Videos:** se gestionan con play/pausa según sección activa (solo uno reproduce a la vez)
 - **Paleta:** `#03050a` (negro profundo), `#2979ff` (azul eléctrico), `#f0f2f5` (blanco), `#8892a4` (gris suave)
 - Sin márgenes laterales, sin centrado genérico, sin tarjetas típicas
-### Revertir: `git revert %(pendiente)%`
+### Revertir: `git revert 2ec7d08`
 
 ---
 
