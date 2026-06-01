@@ -79,4 +79,35 @@ Regions layout — cada proyecto muestra 3 imágenes en vertical con flechas de 
 
 ---
 
+## [2026-06-01] Estética industrial HUD — sin border-radius, sin gradientes, sin glassmorphism
+
+### Contexto
+Tras el rediseño Wuthering Waves (sesión #5), el usuario rechazó las esquinas redondeadas, los gradientes y el glassmorphism. Solicitó explícitamente bordes rectos, colores sólidos, línea técnica tipo HUD industrial.
+
+### Opciones consideradas
+- **Industrial HUD:** Bordes rectos, diagonal wipe, esquineros L, colores sólidos, paneles conectados
+- **Minimalista limpio:** Menos agresivo, pero no era lo que el usuario pedía
+- **Retro/CRT:** Demasiado niche, no encaja con portfolio profesional
+
+### Decisión
+Industrial HUD con:
+- Cero `border-radius` en todo el CSS
+- Colores sólidos planos (sin `gradient`, sin `box-shadow`)
+- `.section-wipe` con animación diagonal (clip-path polygon) para transiciones entre secciones
+- `.card-bracket-*` (tl/tr/bl/br) con spans de 2 bordes cada uno para esquineros tipo L
+- `.section-header-bar` como separador técnico (línea de 2px + label)
+- Skills grid con `gap:0` y bordes compartidos entre celdas
+- Videos intercambiados temporalmente para testing visual
+- PROJECTS usa `bg` (hex sólido) en vez de `gradient`
+
+### Consecuencias
+- La paleta se simplifica: sin stops de gradiente, solo hex values
+- El CSS se vuelve más predecible (colores sólidos no interpolan)
+- Los esquineros requieren 4 spans por card → más markup en JS
+- El wipe diagonal necesita clip-path con animación → polyfill no requerido (browsers modernos)
+- Las transiciones son más rápidas visualmente (wipe en vez de fade)
+- Commit: `166f789`
+
+---
+
 *Próxima entrada aquí tras la próxima decisión importante.*

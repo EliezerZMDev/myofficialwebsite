@@ -75,7 +75,7 @@ Revisar visualmente en navegador. Ajustar animaciones o estilos si es necesario.
 
 - [x] ¿Todos los cambios tienen commit?
 - [x] ¿Están todos los SHAs registrados en `changelog.md`?
-- [ ] ¿Hay decisiones nuevas en `decisions.md`?
+- [x] ¿Hay decisiones nuevas en `decisions.md`?
 - [x] ¿Hay conocimiento nuevo en `knowledge.md`?
 - [x] ¿Está `session.md` actualizado con resumen final?
 
