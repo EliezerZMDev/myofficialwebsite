@@ -291,7 +291,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
 }
 
 .hero-side.left {
-  flex: 0 0 65%;
+  flex: 0 0 55%;
   flex-direction: column;
   justify-content: center;
   padding: 48px 64px 48px 48px;
@@ -378,27 +378,11 @@ input, textarea { font-family: inherit; font-size: inherit; }
   -webkit-backdrop-filter: blur(12px);
 }
 
-.project-card:last-child::after {
-  display: none;
-}
-
-.project-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: -1px;
-  width: 20px;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-  background: linear-gradient(135deg, transparent 47%, var(--accent) 49%, transparent 51%);
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-
-.project-card.hovered::after {
-  opacity: 0.9;
-}
+.project-card:nth-child(1) { clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(2) { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(3) { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(4) { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
+.project-card:nth-child(5) { clip-path: polygon(5% 0%, 100% 0%, 100% 100%, 0% 100%); }
 
 .project-card-bg {
   position: absolute;
