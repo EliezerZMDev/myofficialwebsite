@@ -25,13 +25,13 @@
 
 ## Última acción realizada
 
-Estructuración completa de AGENTCONTEXT/ con instrucciones embebidas para agentes IA.
+Sesión completada y documentada. Todos los cambios commiteados y registrados en changelog.md con SHAs.
 
 ---
 
 ## Próximo paso
 
-Esperar instrucciones del usuario.
+Esperar instrucciones del usuario para la siguiente sesión.
 
 ---
 
@@ -54,6 +54,7 @@ Esperar instrucciones del usuario.
 | SHA | Mensaje |
 |-----|---------|
 | `89ca84a` | `feat: documentar AGENTCONTEXT/ con instrucciones IA, SHAs obligatorios y estructura de contexto` |
+| `ed364f8` | `docs: registrar sesión #3 en changelog y session.md con SHA` |
 
 ---
 
@@ -73,11 +74,11 @@ Esperar instrucciones del usuario.
 
 ## Checklist de cierre
 
-- [ ] ¿Todos los cambios tienen commit?
-- [ ] ¿Están todos los SHAs registrados en `changelog.md`?
-- [ ] ¿Hay decisiones nuevas en `decisions.md`?
-- [ ] ¿Hay conocimiento nuevo en `knowledge.md`?
-- [ ] ¿Está `session.md` actualizado con resumen final?
+- [x] ¿Todos los cambios tienen commit?
+- [x] ¿Están todos los SHAs registrados en `changelog.md`?
+- [x] ¿Hay decisiones nuevas en `decisions.md`?
+- [x] ¿Hay conocimiento nuevo en `knowledge.md`?
+- [x] ¿Está `session.md` actualizado con resumen final?
 
 ---
 
