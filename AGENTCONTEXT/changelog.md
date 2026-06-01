@@ -142,31 +142,4 @@
 
 ---
 
-## [2026-06-01] — Sesión #6
-
-### Commit: `(pendiente — tras este commit)`
-### Mensaje: feat: estética industrial HUD — diagonal wipe, esquineros, sin border-radius, colores sólidos, videos intercambiados
-### Archivos:
-- `css/main.css` (reescrito)
-- `index.html`
-- `js/main.js`
-- `AGENTCONTEXT/changelog.md`
-- `AGENTCONTEXT/session.md`
-### Detalle:
-- **Eliminado todo border-radius** del CSS — bordes rectos y cortantes
-- **Eliminados todos los gradientes** — colores sólidos planos
-- **Eliminadas todas las sombras** — sin box-shadow, sin glassmorphism blur
-- **Agregado `.section-wipe`** — overlay de wipe diagonal (bottom-right → top-left) con `@keyframes wipeReveal`
-- **Agregados `.card-bracket-*`** — esquineros tipo L bracket solo en tarjetas de proyectos
-- **Panel Hero** ahora con fondo glassmorphism + brackets de acento
-- **Separadores técnicos** con `.section-header-bar` (línea horizontal de 2px + label de categoría)
-- **Skills grid** con gap:0 y bordes compartidos, hover → 2px accent top border
-- **Botones de navegación** con bordes rectos (sin border-radius) y hover con fondo sólido
-- **Videos intercambiados** para testing: Hero→fondoweb2, Proyectos→fondoweb3, Habilidades→fondoweb4, Experiencia→fondoweb5, Sobre mí→fondo6, Contacto→fondoweb1
-- **PROJECTS array** en JS: `gradient` reemplazado por `bg` (color sólido hex)
-- **Render proyectos** incluye `<span class="card-bracket-*">` en cada card
-### Revertir: `git revert <sha-tras-commit>`
-
----
-
 *Próxima entrada aquí tras el siguiente commit.*

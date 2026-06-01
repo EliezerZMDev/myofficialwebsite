@@ -20,7 +20,7 @@
       role: 'Desarrollador Frontend',
       problem: 'La organización carecía de presencia digital para difundir su labor y recibir apoyo comunitario.',
       learnings: 'Diseño centrado en accesibilidad, componentes reutilizables, optimización móvil.',
-      bg: '#1a5fd9',
+      gradient: 'linear-gradient(135deg, #1a5fd9, #0d3a8c)',
       initials: 'CA',
       url: '#',
       repo: '#'
@@ -34,7 +34,7 @@
       role: 'Desarrollador Fullstack',
       problem: 'El artista necesitaba centralizar su música, videos y redes en una sola plataforma profesional.',
       learnings: 'Integración de APIs de streaming, optimización de medios, identidad de marca digital.',
-      bg: '#7c3aed',
+      gradient: 'linear-gradient(135deg, #7c3aed, #4c1d95)',
       initials: 'AM',
       url: '#',
       repo: '#'
@@ -48,7 +48,7 @@
       role: 'Arquitecto de Sistemas',
       problem: 'Proyecto en fase de planificación y desarrollo de arquitectura.',
       learnings: 'Arquitectura de sistemas transaccionales, pasarelas de pago, gestión de inventario.',
-      bg: '#0d9488',
+      gradient: 'linear-gradient(135deg, #0d9488, #065f46)',
       initials: 'EC',
       url: '#',
       repo: '#'
@@ -62,7 +62,7 @@
       role: 'Desarrollador Fullstack',
       problem: 'Los datos del negocio estaban dispersos sin una vista unificada para la toma de decisiones.',
       learnings: 'Visualización de datos, rendimiento con grandes volúmenes, diseño de dashboards.',
-      bg: '#dc2626',
+      gradient: 'linear-gradient(135deg, #dc2626, #991b1b)',
       initials: 'DA',
       url: '#',
       repo: '#'
@@ -76,7 +76,7 @@
       role: 'Ingeniero Backend',
       problem: 'Los sistemas legacy no tenían una API unificada para integrar servicios.',
       learnings: 'Seguridad en APIs, CI/CD, documentación técnica, patrones REST.',
-      bg: '#ca8a04',
+      gradient: 'linear-gradient(135deg, #ca8a04, #854d0e)',
       initials: 'API',
       url: '#',
       repo: '#'
@@ -321,15 +321,11 @@
       card.dataset.index = i
 
       card.innerHTML =
-        '<div class="project-card-bg" style="background: ' + project.bg + '"></div>' +
+        '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
         '<div class="project-card-label">' +
           '<h3>' + project.name + '</h3>' +
           '<span>' + project.summary + '</span>' +
-        '</div>' +
-        '<span class="card-bracket-tl"></span>' +
-        '<span class="card-bracket-tr"></span>' +
-        '<span class="card-bracket-bl"></span>' +
-        '<span class="card-bracket-br"></span>'
+        '</div>'
 
       // Hover effects
       card.addEventListener('mouseenter', function () {
