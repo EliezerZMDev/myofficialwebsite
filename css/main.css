@@ -349,7 +349,7 @@ input, textarea { font-family: inherit; font-size: inherit; }
   border-bottom: 1px solid var(--border);
 }
 
-/* ===== PROYECTOS — Paneles Arquitectónicos ===== */
+/* ===== PROYECTOS — Flex-Expand Cards ===== */
 .projects-wrapper {
   flex: 1;
   display: flex;
@@ -367,15 +367,23 @@ input, textarea { font-family: inherit; font-size: inherit; }
   position: relative;
 }
 
-/* Card base — posición fija en flex */
 .project-card {
   flex: 1;
   height: 100%;
   position: relative;
   cursor: pointer;
+  transition: flex 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Card shape — el romboide visible */
+.project-card:hover {
+  flex: 1.3;
+}
+
+/* Suppress hover when info panel is open */
+.projects-gallery.is-panel-open .project-card:hover {
+  flex: 1;
+}
+
 .card-shape {
   width: 100%;
   height: 100%;
@@ -390,7 +398,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
 .project-card:nth-child(4) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%); }
 .project-card:nth-child(5) .card-shape { clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%); }
 
-/* Gradient tint background */
 .project-card-bg {
   position: absolute;
   inset: 0;
@@ -398,7 +405,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
   opacity: 0.12;
 }
 
-/* Gradient fade at bottom */
 .card-shape::after {
   content: '';
   position: absolute;
@@ -408,7 +414,6 @@ input, textarea { font-family: inherit; font-size: inherit; }
   pointer-events: none;
 }
 
-/* Vertical title (visible siempre) */
 .card-label-v {
   position: absolute;
   bottom: 32px;
@@ -426,52 +431,30 @@ input, textarea { font-family: inherit; font-size: inherit; }
   transition: opacity 0.3s ease;
 }
 
-.project-card.hovered .card-label-v {
-  opacity: 0;
-}
-
-/* Card overlay — panel flotante sobre vecinos */
-.card-overlay {
+.card-content {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 300%;
-  height: 100%;
-  z-index: 1;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  background: var(--bg-primary);
-  border: 1px solid var(--border);
-}
-
-.project-card.hovered .card-overlay {
-  opacity: 1;
-  z-index: 20;
-  pointer-events: auto;
-}
-
-/* Overlay clip-paths — mismo ángulo que card-shape pero 5% offset (300% width) */
-.project-card:nth-child(1) .card-overlay { clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 0% 100%); }
-.project-card:nth-child(2) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
-.project-card:nth-child(3) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
-.project-card:nth-child(4) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%); }
-.project-card:nth-child(5) .card-overlay { clip-path: polygon(5% 0%, 100% 0%, 100% 100%, 0% 100%); }
-
-.card-overlay-inner {
-  width: 60%;
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 40px;
-  height: 100%;
+  inset: 0;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 12px;
+  padding: 32px 28px;
+  opacity: 0;
+  transition: opacity 0.3s ease 0.15s;
+  pointer-events: none;
 }
 
-.card-overlay-title {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+.project-card:hover .card-content {
+  opacity: 1;
+}
+
+/* Suppress hover content when panel open */
+.projects-gallery.is-panel-open .project-card:hover .card-content {
+  opacity: 0;
+}
+
+.card-content-title {
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -480,81 +463,70 @@ input, textarea { font-family: inherit; font-size: inherit; }
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+  margin-bottom: 8px;
 }
 
-.card-overlay-tech {
+.card-content-tech {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+  margin-bottom: 10px;
 }
 
-.card-overlay-tech span {
-  font-size: 0.625rem;
+.card-content-tech span {
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border: 1px solid var(--border);
   color: var(--text-secondary);
 }
 
-.card-overlay-desc {
-  font-size: 0.8125rem;
+.card-content-desc {
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.7;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.card-overlay-section {
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.4s ease 0.35s, transform 0.4s ease 0.35s;
+.card-content-sections {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
 }
 
-.card-overlay-section h4 {
-  font-size: 0.625rem;
+.card-content-sections .cs {
+  flex: 1;
+}
+
+.card-content-sections .cs h4 {
+  font-size: 0.5625rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
-.card-overlay-section p {
-  font-size: 0.75rem;
+.card-content-sections .cs p {
+  font-size: 0.625rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.card-overlay-actions {
+.card-content-actions {
   display: flex;
-  gap: 8px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.4s ease 0.4s, transform 0.4s ease 0.4s;
+  gap: 6px;
 }
 
-.card-overlay-actions .btn {
-  font-size: 0.6875rem;
-  padding: 8px 20px;
-}
-
-/* Hover reveal animations */
-.project-card.hovered .card-overlay-title,
-.project-card.hovered .card-overlay-tech,
-.project-card.hovered .card-overlay-desc,
-.project-card.hovered .card-overlay-section,
-.project-card.hovered .card-overlay-actions {
-  opacity: 1;
-  transform: translateY(0);
+.card-content-actions .btn {
+  font-size: 0.625rem;
+  padding: 6px 16px;
 }
 
 .project-card.active-card {

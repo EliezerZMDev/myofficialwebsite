@@ -253,63 +253,29 @@
         '<div class="card-shape">' +
           '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
           '<div class="card-label-v">' + project.name + '</div>' +
-        '</div>' +
-        '<div class="card-overlay">' +
-          '<div class="card-overlay-inner">' +
-            '<h3 class="card-overlay-title">' + project.name + '</h3>' +
-            '<div class="card-overlay-tech">' +
+          '<div class="card-content">' +
+            '<h3 class="card-content-title">' + project.name + '</h3>' +
+            '<div class="card-content-tech">' +
               project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
             '</div>' +
-            '<p class="card-overlay-desc">' + project.description + '</p>' +
-            '<div class="card-overlay-section">' +
-              '<h4>Rol</h4>' +
-              '<p>' + project.role + '</p>' +
+            '<p class="card-content-desc">' + project.description + '</p>' +
+            '<div class="card-content-sections">' +
+              '<div class="cs"><h4>Rol</h4><p>' + project.role + '</p></div>' +
+              '<div class="cs"><h4>Problema</h4><p>' + project.problem + '</p></div>' +
+              '<div class="cs"><h4>Aprendizajes</h4><p>' + project.learnings + '</p></div>' +
             '</div>' +
-            '<div class="card-overlay-section">' +
-              '<h4>Problema</h4>' +
-              '<p>' + project.problem + '</p>' +
-            '</div>' +
-            '<div class="card-overlay-section">' +
-              '<h4>Aprendizajes</h4>' +
-              '<p>' + project.learnings + '</p>' +
-            '</div>' +
-            '<div class="card-overlay-actions">' +
+            '<div class="card-content-actions">' +
               '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
               '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
             '</div>' +
           '</div>' +
         '</div>'
 
-      card.addEventListener('mouseenter', function () {
-        if (isProjectOpen) return
-        expandProjectCard(i)
-      })
-
-      card.addEventListener('mouseleave', function () {
-        if (isProjectOpen) return
-        resetProjectCards()
-      })
-
       card.addEventListener('click', function () {
         openProjectInfo(i)
       })
 
       projectsGallery.appendChild(card)
-    })
-  }
-
-  function expandProjectCard (index) {
-    var cards = projectsGallery.querySelectorAll('.project-card')
-    cards.forEach(function (c, i) {
-      c.classList.remove('hovered')
-      if (i === index) c.classList.add('hovered')
-    })
-  }
-
-  function resetProjectCards () {
-    var cards = projectsGallery.querySelectorAll('.project-card')
-    cards.forEach(function (c) {
-      c.classList.remove('hovered')
     })
   }
 
@@ -320,8 +286,10 @@
     var project = PROJECTS[index]
     var cards = projectsGallery.querySelectorAll('.project-card')
 
+    projectsGallery.classList.add('is-panel-open')
+
     cards.forEach(function (c, i) {
-      c.classList.remove('active-card', 'hovered')
+      c.classList.remove('active-card')
       if (i === index) c.classList.add('active-card')
     })
 
@@ -359,9 +327,11 @@
     isProjectOpen = false
     projectInfoPanel.classList.remove('open')
 
+    projectsGallery.classList.remove('is-panel-open')
+
     var cards = projectsGallery.querySelectorAll('.project-card')
     cards.forEach(function (c) {
-      c.classList.remove('active-card', 'hovered')
+      c.classList.remove('active-card')
     })
 
     var sectionVideo = document.querySelector('#proyectos .section-video')
