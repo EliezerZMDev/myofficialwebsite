@@ -29,19 +29,13 @@ Ejemplos de qué registrar:
 -->
 
 ### Convenciones CSS
-- Variables CSS: `--bg-primary` (#03050a), `--accent` (#2979ff), `--text-primary` (#f0f2f5)
-- Sin border-radius en ninguna parte — estética industrial/HUD
-- Sin gradientes ni box-shadow — colores sólidos planos
-- `.section-wipe` overlay con clip-path polygon para diagonal reveal (bottom-right → top-left)
-- Esquineros L (`card-bracket-tl/tr/bl/br`): spans con 2 bordes cada uno (top/left, top/right, bottom/left, bottom/right) de 2px, gap de 6px entre líneas
-- Skills grid: `gap: 0` con bordes compartidos (`border: 1px solid` en cada celda), hover → `border-top: 2px solid var(--accent)`
+- Variables CSS para colores: `--bg-primary`, `--accent`, `--text-primary`, etc.
+- Tema oscuro con acento dorado `#c8a84e`
 
 ### Convenciones JS
 - IIFE para encapsulamiento
-- Array `PROJECTS` con objetos de proyecto — campo `bg` (color sólido hex), no `gradient`
+- Array `PROJECTS` con objetos de proyecto
 - Funciones de navegación entre secciones
-- Scroll wheel capturado con `wheel` event + transiciones fade 300ms
-- Videos gestionados con `play()`/`pause()` según sección activa (solo uno reproduce a la vez)
 
 ## Workarounds y notas técnicas
 
