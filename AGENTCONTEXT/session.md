@@ -25,17 +25,16 @@
 
 ## Última acción realizada
 
-Fix hero/projects/issues post-sesión #7:
+Clip-path romboides en cards, hero buttons más anchos:
 
-- **Hero:** removidos tech-grid + partículas. Nuevo layout 3-zone: left 65% (title+desc), right 35% (2 buttons apilados). Diagonal decorativa via `::before` en container (no clip-path en hijos)
-- **Proyectos:** diagonales decorativas entre cards via `::after` pseudo-elemento. Info-thumbnails removido (info-body 100% ahora)
-- **JS/HTML/CSS:** removidas funciones y elementos huérfanos (createParticles, initMouseReaction, hero hover flex, info-thumbnails)
+- **Hero:** left side reducido de 65% → 55%, botones 15% más anchos (right ~45%). Sin cambios en clip-path ni hover.
+- **Projects:** eliminados `::after` diagonales decorativas. Añadido clip-path por nth-child: Card 0 trapecio (right cut), Cards 1-3 romboides (both cut, leaning right), Card 4 trapecio (left cut). Flex-expand hover preservado.
 
 ---
 
 ## Próximo paso
 
-Revisar visualmente en navegador — confirmar hero text visible, diagonales projects, info panel sin thumbs.
+Revisar visualmente en navegador.
 
 ---
 
@@ -57,6 +56,7 @@ Revisar visualmente en navegador — confirmar hero text visible, diagonales pro
 | `87d3be5` | `feat: hero 3-zone layout, project diagonal overlay, remove thumbs` |
 | `69ca18c` | `docs: update changelog with sesión #7 fix SHA` |
 | `1f95c22` | `fix: hero clip-path diagonal, trapezoidal buttons, project flex-expand` |
+| `d3539cf` | `feat: clip-path romboides en projects, hero buttons 15% wider` |
 
 ---
 
