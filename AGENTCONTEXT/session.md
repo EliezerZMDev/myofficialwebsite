@@ -53,12 +53,13 @@ Revisar visualmente en navegador, ajustar animaciones o styles si es necesario.
 |-----|---------|
 | `670d08b` | `feat: connected-tiles rediseño completo — diagonales, hexágonos, circuito, zigzag, matrix keyboard` |
 | `ec23c24` | `docs: registrar sesión #7 — connected-tiles rediseño` |
+| `352e191` | `docs: finalizar sesión #7 con checklist completo` |
 
 ---
 
 ## Preguntas pendientes
 
-*(ninguna)*
+*(ninguna — sesión lista para revisión visual)*
 
 ---
 

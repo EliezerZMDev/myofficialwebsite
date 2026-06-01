@@ -168,4 +168,21 @@
 
 ---
 
-*Próxima entrada aquí tras el siguiente commit.*
+## [2026-06-01] — Sesión #7 (fix)
+
+### Commit: (pendiente — ejecutar tras este changelog)
+### Mensaje: feat: hero 3-zone layout, project diagonal overlay, remove thumbs
+### Archivos:
+- `css/main.css`
+- `index.html`
+- `js/main.js`
+- `AGENTCONTEXT/knowledge.md`
+- `AGENTCONTEXT/changelog.md`
+
+### Detalle:
+- **Hero:** removidos tech-grid y partículas. Reestructurado a 3 zonas: left (65%, título+desc), right (35%, 2 botones gigantes apilados "Ver proyectos" / "Contactar"). Diagonal decorativa via `::before` en `hero-container` (no clip-path en hijos, evita clipping de texto)
+- **Proyectos:** diagonales decorativas entre cards via `::after` pseudo-elemento con `linear-gradient(135deg)`, opacity 0.3-0.9 on hover. Removido info-thumbnails panel derecho (info-body ahora 100% width)
+- **JS:** removidas funciones `createParticles()`, `initMouseReaction()`, hero hover flex, info-thumbnails rendering. Queries huérfanos eliminados
+- **CSS:** orphans removidos (`hero-side-inner`, `hero-right-inner`, `tech-grid`, `tech-particle`)
+- Mantenido about hover flex, circuit PCB, hexagonal honeycomb, contact matrix
+### Revertir: `git revert <SHA del commit actual>`

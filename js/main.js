@@ -107,7 +107,6 @@
   const projectsGallery = q('#projectsGallery')
   const projectInfoPanel = q('#projectInfoPanel')
   const infoBody = q('#infoBody')
-  const infoThumbnails = q('#infoThumbnails')
   const infoClose = q('#infoClose')
   const contactForm = q('#contactForm')
 
@@ -241,56 +240,7 @@
   })
 
   /* =================================================================
-     HERO — Particles + Interactive Grid
-     ================================================================= */
-
-  function createParticles () {
-    var container = q('#particleContainer')
-    if (!container) return
-    var count = 40
-    for (var i = 0; i < count; i++) {
-      var p = document.createElement('div')
-      p.className = 'tech-particle'
-      p.style.left = Math.random() * 100 + '%'
-      p.style.animationDuration = (8 + Math.random() * 12) + 's'
-      p.style.animationDelay = (Math.random() * 10) + 's'
-      p.style.width = p.style.height = (1 + Math.random() * 2) + 'px'
-      container.appendChild(p)
-    }
-  }
-
-  function initMouseReaction () {
-    var heroRight = q('#heroTech')
-    if (!heroRight) return
-    var grid = q('#techGrid')
-
-    heroRight.addEventListener('mousemove', function (e) {
-      var rect = heroRight.getBoundingClientRect()
-      var x = (e.clientX - rect.left) / rect.width - 0.5
-      var y = (e.clientY - rect.top) / rect.height - 0.5
-
-      if (grid) {
-        grid.style.transform = 'translate(' + (x * 10) + 'px, ' + (y * 10) + 'px)'
-        grid.style.backgroundPosition = (50 + x * 4) + '% ' + (50 + y * 4) + '%'
-      }
-
-      var particles = heroRight.querySelectorAll('.tech-particle')
-      particles.forEach(function (p) {
-        var speed = parseFloat(p.dataset.speed) || (0.3 + Math.random() * 0.5)
-        p.dataset.speed = speed
-        var px = parseFloat(p.dataset.baseX) || parseFloat(p.style.left)
-        var py = parseFloat(p.dataset.baseY) || 0
-        if (!p.dataset.baseX) {
-          p.dataset.baseX = px
-          p.dataset.baseY = py
-        }
-        p.style.transform = 'translate(' + (x * 15 * speed) + 'px, ' + (y * 15 * speed) + 'px)'
-      })
-    })
-  }
-
-  /* =================================================================
-     PROJECTS — Diagonal Cut Cards + Clip-Path Recalculation
+     PROJECTS — Diagonal Cut Cards + Diagonal Separators
      ================================================================= */
 
   function renderProjects () {
@@ -380,17 +330,6 @@
         '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
         '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
       '</div>'
-
-    infoThumbnails.innerHTML = ''
-    PROJECTS.forEach(function (p, i) {
-      var thumb = document.createElement('div')
-      thumb.className = 'info-thumb' + (i === index ? ' active-thumb' : '')
-      thumb.innerHTML = '<h4>' + p.name + '</h4><span>' + p.summary + '</span>'
-      thumb.addEventListener('click', function () {
-        openProjectInfo(i)
-      })
-      infoThumbnails.appendChild(thumb)
-    })
 
     projectInfoPanel.classList.add('open')
 
@@ -586,29 +525,10 @@
      INIT
      ================================================================= */
 
-  createParticles()
-  initMouseReaction()
   renderProjects()
   renderSkills()
   renderContact()
   initCircuit()
-
-  /* =================================================================
-     PRESERVE HERO DIAGONAL HOVER (flex expand)
-     ================================================================= */
-  var heroSides = qa('.hero-side')
-  heroSides.forEach(function (side) {
-    side.addEventListener('mouseenter', function () {
-      heroSides.forEach(function (s) {
-        if (s !== side) s.style.flex = '0.8'
-      })
-    })
-    side.addEventListener('mouseleave', function () {
-      heroSides.forEach(function (s) {
-        s.style.flex = '1'
-      })
-    })
-  })
 
   /* =================================================================
      PRESERVE ABOUT DIAGONAL HOVER (flex expand)

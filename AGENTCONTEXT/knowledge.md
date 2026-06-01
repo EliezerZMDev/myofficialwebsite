@@ -29,15 +29,49 @@ Ejemplos de qué registrar:
 -->
 
 ### Convenciones CSS
-- Variables CSS para colores: `--bg-primary`, `--accent`, `--text-primary`, etc.
-- Tema oscuro con acento dorado `#c8a84e`
+- Variables CSS: `--bg-primary` (#03050a), `--accent` (#2979ff), `--text-primary` (#f0f2f5)
+- Sin `border-radius` en ninguna parte del diseño
+- Glassmorphism via `background: var(--surface)` + `backdrop-filter: blur(12px)`
+- Diagonales decorativas: no clip-path en elementos individuales de layout, sino `::after` en cada card con `linear-gradient(135deg, ...)` para líneas finas accent entre cards
+- Hexágonos en skills: `clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)`
+- Circuito en experiencia: `::before` en container con `repeating-linear-gradient` para línea punteada, dots rotados 45deg, body con clip-path angulado
 
 ### Convenciones JS
 - IIFE para encapsulamiento
-- Array `PROJECTS` con objetos de proyecto
-- Funciones de navegación entre secciones
+- Array `PROJECTS` con objetos de proyecto (campo `gradient` para fondo glassmorphism)
+- Array `SKILLS` con honeycomb rows: `rowLayout = [[null,null,0,1,null], [2,null,3,null,4], [null,null,5,6,null]]`
+- Array `CONTACT_CELLS` con iconos SVG embebidos, labels, hrefs
+- Navegación entre secciones: scroll wheel capturado, keyboard arrows, nav clicks, hash pushState/popstate
+- Videos gestionados: solo el de la sección activa reproduce, los demás pausan
 
 ## Workarounds y notas técnicas
+
+### Hero
+- Layout: flex container con 2 hijos (left 65%, right 35%) + `::before` con `linear-gradient(135deg)` para línea diagonal decorativa entre ellos
+- Left: ELIEZERDEV título + descripción. Sin roles, sin botones, sin tech-grid, sin partículas
+- Right: 2 botones apilados (cada uno 50% height, full width) "Ver proyectos" y "Contactar" con `data-section`
+- Sin clip-path en los hijos — la diagonal es puramente decorativa via pseudo-elemento
+
+### Proyectos
+- 5 cards en flex row, glassmorphism, gradient tint con opacity 0.12
+- Diagonales decorativas entre cards: cada card tiene `::after` con `linear-gradient(135deg, transparent 47%, var(--accent) 49%, transparent 51%)` en `right: -1px`, `width: 20px`, `opacity: 0.3`. En hover: opacity 0.8
+- Hover: flex grow + dim al resto
+- Click: panel detalle 100% width (sin thumbnails a la derecha)
+- Botón X con `background: var(--accent)` + `color: #fff`
+
+### Habilidades
+- Grid 4 columnas, honeycomb pattern via `rowLayout` en JS
+- 7 hexágonos + espacios invisibles para patrón 2-3-2
+- Hexágonos: clip-path + margin-bottom negativo para overlap visual
+- Click: expande items internos
+
+### Experiencia
+- Circuito PCB con línea punteada vertical (repeating-linear-gradient), dots cuadrados rotados 45°, body con clip-path angulado
+- Click: expande aprendizajes (.is-expanded)
+
+### Sobre mí
+- Split zigzag con clip-path en cada lado (foto: 100%/92%, bio: 8%/0%) y margin-left -1px entre ellos
+- Glassmorphism en lado foto. Hover: flex-expand
 
 <!--
 Ejemplos:
