@@ -375,14 +375,37 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ⑥ CONTACTO — Canales + formulario terminal
    ================================================================= */
 
-.contact-grid { flex: 1; display: flex; gap: 32px; overflow: hidden; align-items: center; }
-.contact-channels { flex: 0 0 36%; display: flex; flex-direction: column; gap: 1px; }
-.contact-cell { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--hud-panel); border: 1px solid var(--border); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); cursor: pointer; transition: all 0.3s ease; }
-.contact-cell:hover { border-color: var(--hud-line); background: var(--surface-hover); transform: translateX(6px); }
-.contact-cell svg { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
-.contact-cell-label { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
-.contact-cell-value { font-size: 0.78rem; color: var(--text-primary); margin-left: auto; }
-.contact-term { flex: 1; max-width: 560px; display: flex; flex-direction: column; gap: 10px; padding: 28px; background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%, 0 24px); }
+.contact-stage { flex: 1; position: relative; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+
+/* Tiles gigantes de canales */
+.contact-hero { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.contact-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); cursor: pointer; transition: all 0.35s cubic-bezier(0.23,1,0.32,1); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%); position: relative; overflow: hidden; }
+.contact-tile::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+.contact-tile:hover { background: var(--surface-active); border-color: var(--accent); transform: translateY(-8px); }
+.contact-tile:hover::after { transform: scaleX(1); }
+.contact-tile svg { width: 46px; height: 46px; color: var(--accent); transition: transform 0.35s ease; }
+.contact-tile:hover svg { transform: scale(1.15); }
+.contact-tile-label { font-size: 0.85rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-primary); }
+.contact-tile-value { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.04em; color: var(--text-secondary); text-align: center; padding: 0 8px; }
+
+/* Strip de datos (ubicación, idiomas) */
+.contact-strip { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; flex-shrink: 0; }
+.contact-strip-item { display: flex; align-items: center; gap: 10px; font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.05em; }
+.contact-strip-item svg { width: 16px; height: 16px; color: var(--accent); }
+.contact-strip-item b { color: var(--text-primary); font-weight: 700; }
+
+.contact-scroll-cue { text-align: center; flex-shrink: 0; font-size: 0.7rem; letter-spacing: 0.25em; color: var(--accent); padding: 6px 0; animation: cueBob 1.6s ease-in-out infinite; }
+@keyframes cueBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+/* Vista formulario (aparece al último scroll) */
+.contact-form-view { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: rgba(3,5,10,0.92); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+[data-theme="light"] .contact-form-view { background: rgba(238,240,243,0.94); }
+.contact-stage.form-open .contact-form-view { transform: translateY(0); }
+.contact-stage.form-open .contact-scroll-cue { opacity: 0; }
+.cfv-title { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary); }
+.contact-back-cue { font-size: 0.65rem; letter-spacing: 0.2em; color: var(--text-muted); }
+
+.contact-term { width: 100%; max-width: 560px; display: flex; flex-direction: column; gap: 10px; padding: 28px; background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%, 0 24px); }
 .term-line { display: flex; align-items: flex-start; gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
 .term-prompt { color: var(--accent); padding-top: 10px; }
 .term-line input, .term-line textarea { flex: 1; background: none; border: none; color: var(--text-primary); font-size: 0.85rem; padding: 10px 0; outline: none; font-family: var(--mono); letter-spacing: 0.04em; resize: none; }
@@ -425,31 +448,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hero { flex-direction: column; align-items: flex-start; gap: 24px; justify-content: center; }
   .hero-left { flex: none; }
   .hero-right { flex: none; width: 100%; flex-direction: row; }
-  .hero-module { flex: 1; clip-path: none; }
+  .hero-module { flex: 1; clip-path: none; min-height: 96px; }
   .about-grid { flex-direction: column; gap: 16px; overflow-y: auto; }
   .about-focal { flex: none; clip-path: none; }
   .about-sat { margin-left: 0; padding-left: 0; flex-direction: row; flex-wrap: wrap; }
   .about-stat { flex: 1 1 45%; }
-  .contact-grid { flex-direction: column; align-items: stretch; gap: 16px; overflow-y: auto; }
-  .contact-channels, .contact-term { flex: none; max-width: none; }
+  .contact-hero { grid-template-columns: repeat(2, 1fr); }
+  .contact-form-view { position: static; transform: none; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; margin-top: 16px; }
+  .contact-scroll-cue { display: none; }
+  .contact-stage { overflow-y: auto; }
 }
 
 @media (max-width: 768px) {
   .hud-tabs { display: none; }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
   .project-card { clip-path: none; }
   .project-card + .project-card { margin-left: 0; }
   .project-card:hover { z-index: 2; }
   .exp-grid { flex-direction: column; overflow-y: auto; }
   .exp-panel { flex: none; min-height: 200px; clip-path: none; }
   .section-ghost { font-size: 30vw; }
+  .skill-node { min-width: 82px; padding: 8px 9px; }
+  .skill-node-title { font-size: 0.58rem; }
+  .skill-node-sub { font-size: 0.44rem; }
+  .contact-hero { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .skills-grid { grid-template-columns: 1fr 1fr; }
   .hero-name { font-size: clamp(2.2rem, 12vw, 3.4rem); }
   .hud-status { gap: 12px; font-size: 0.55rem; }
   .hud-hint, #statCoords { display: none; }
+  .skilltree { min-height: 420px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

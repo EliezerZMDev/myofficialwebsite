@@ -208,14 +208,20 @@
           <span class="section-num mono">05</span>
           <h2 class="section-name">Contacto</h2>
         </div>
-        <div class="contact-grid">
-          <div class="contact-channels" id="contactChannels"></div>
-          <form class="contact-term" id="contactForm">
-            <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="text" id="formName" placeholder="NOMBRE" required></div>
-            <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="email" id="formEmail" placeholder="CORREO" required></div>
-            <div class="term-line term-area"><span class="mono term-prompt">&gt;</span><textarea id="formMessage" rows="5" placeholder="MENSAJE" required></textarea></div>
-            <button type="submit" class="term-send"><span class="mono">▸</span> ENVIAR TRANSMISIÓN</button>
-          </form>
+        <div class="contact-stage" id="contactStage">
+          <div class="contact-hero" id="contactHero"></div>
+          <div class="contact-strip" id="contactStrip"></div>
+          <div class="contact-scroll-cue mono" id="contactCue">SCROLL ↓ &nbsp; FORMULARIO DIRECTO</div>
+          <div class="contact-form-view" id="contactFormView">
+            <h3 class="cfv-title">Transmisión directa</h3>
+            <form class="contact-term" id="contactForm">
+              <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="text" id="formName" placeholder="NOMBRE" required></div>
+              <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="email" id="formEmail" placeholder="CORREO" required></div>
+              <div class="term-line term-area"><span class="mono term-prompt">&gt;</span><textarea id="formMessage" rows="5" placeholder="MENSAJE" required></textarea></div>
+              <button type="submit" class="term-send"><span class="mono">▸</span> ENVIAR TRANSMISIÓN</button>
+            </form>
+            <div class="contact-back-cue mono">SCROLL ↑ &nbsp; VOLVER A CANALES</div>
+          </div>
         </div>
       </div>
     </section>

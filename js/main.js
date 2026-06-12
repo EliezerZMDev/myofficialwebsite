@@ -138,6 +138,10 @@
   let currentIndex = 0
   let isTransitioning = false
   let isProjectOpen = false
+  let contactFormOpen = false
+
+  function openContactForm () { var s = q('#contactStage'); if (s) { s.classList.add('form-open'); contactFormOpen = true } }
+  function closeContactForm () { var s = q('#contactStage'); if (s) { s.classList.remove('form-open'); contactFormOpen = false } }
 
   /* =================================================================
      RAIL (índice vertical)
@@ -165,6 +169,7 @@
 
     isTransitioning = true
     closeProjectInfo()
+    closeContactForm()
 
     var current = sections[currentIndex]
     var next = sections[index]
@@ -211,6 +216,11 @@
   sectionsContainer.addEventListener('wheel', function (e) {
     e.preventDefault()
     if (isTransitioning || isProjectOpen) return
+    if (currentIndex === 5) {
+      if (e.deltaY > 0) { if (!contactFormOpen) openContactForm(); return }
+      if (contactFormOpen) { closeContactForm(); return }
+      prevSection(); return
+    }
     if (e.deltaY > 0) nextSection()
     else prevSection()
   }, { passive: false })
@@ -220,8 +230,15 @@
       if (e.key === 'Escape') closeProjectInfo()
       return
     }
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); nextSection() }
-    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); prevSection() }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+      e.preventDefault()
+      if (currentIndex === 5) { if (!contactFormOpen) openContactForm(); return }
+      nextSection()
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+      e.preventDefault()
+      if (currentIndex === 5 && contactFormOpen) { closeContactForm(); return }
+      prevSection()
+    }
   })
 
   tabs.forEach(function (t, i) {
@@ -427,16 +444,24 @@
   }
 
   function renderContact () {
-    var box = q('#contactChannels')
-    if (!box) return
+    var hero = q('#contactHero')
+    var strip = q('#contactStrip')
+    if (!hero) return
     CONTACT_CELLS.forEach(function (cell) {
-      var el = document.createElement('div')
-      el.className = 'contact-cell'
-      el.innerHTML = getIconSVG(cell.icon) +
-        '<span class="contact-cell-label">' + cell.label + '</span>' +
-        '<span class="contact-cell-value">' + cell.value + '</span>'
-      if (cell.href) el.addEventListener('click', function () { window.open(cell.href, '_blank') })
-      box.appendChild(el)
+      if (cell.href) {
+        var tile = document.createElement('div')
+        tile.className = 'contact-tile'
+        tile.innerHTML = getIconSVG(cell.icon) +
+          '<span class="contact-tile-label">' + cell.label + '</span>' +
+          '<span class="contact-tile-value">' + cell.value + '</span>'
+        tile.addEventListener('click', function () { window.open(cell.href, '_blank') })
+        hero.appendChild(tile)
+      } else if (strip) {
+        var item = document.createElement('div')
+        item.className = 'contact-strip-item'
+        item.innerHTML = getIconSVG(cell.icon) + '<span>' + cell.label + ': <b>' + cell.value + '</b></span>'
+        strip.appendChild(item)
+      }
     })
   }
 
