@@ -339,47 +339,47 @@
     var grid = q('#skillsHexGrid')
     if (!grid) return
 
-    var rowLayout = [
-      [null, null, 0, 1, null],
-      [2, null, 3, null, 4],
-      [null, null, 5, 6, null]
-    ]
+    SKILLS.forEach(function (skill) {
+      var cell = document.createElement('div')
+      cell.className = 'hex-cell'
+      cell.dataset.id = skill.id
+      cell.innerHTML =
+        '<div class="hex-cell-title">' + skill.name + '</div>' +
+        '<div class="hex-cell-items">' +
+          skill.items.map(function (item) { return '<span>' + item + '</span>' }).join('') +
+        '</div>'
 
-    rowLayout.forEach(function (row) {
-      row.forEach(function (skillId) {
-        if (skillId === null) {
-          var spacer = document.createElement('div')
-          spacer.style.visibility = 'hidden'
-          spacer.style.pointerEvents = 'none'
-          grid.appendChild(spacer)
-          return
-        }
-        var skill = SKILLS[skillId]
-        if (!skill) return
-        var cell = document.createElement('div')
-        cell.className = 'hex-cell'
-        cell.dataset.id = skill.id
-        cell.innerHTML =
-          '<div class="hex-cell-title">' + skill.name + '</div>' +
-          '<div class="hex-cell-items">' +
-            skill.items.map(function (item) { return '<span>' + item + '</span>' }).join('') +
-          '</div>'
-
-        cell.addEventListener('click', function () {
-          if (skillExpandId === skill.id) {
-            skillExpandId = null
-            cell.classList.remove('is-expanded')
-          } else {
-            if (skillExpandId !== null) {
-              var prev = grid.querySelector('.hex-cell.is-expanded')
-              if (prev) prev.classList.remove('is-expanded')
-            }
-            skillExpandId = skill.id
-            cell.classList.add('is-expanded')
+      cell.addEventListener('click', function () {
+        if (skillExpandId === skill.id) {
+          skillExpandId = null
+          cell.classList.remove('is-expanded')
+        } else {
+          if (skillExpandId !== null) {
+            var prev = grid.querySelector('.hex-cell.is-expanded')
+            if (prev) prev.classList.remove('is-expanded')
           }
-        })
+          skillExpandId = skill.id
+          cell.classList.add('is-expanded')
+        }
+      })
 
-        grid.appendChild(cell)
+      grid.appendChild(cell)
+    })
+  }
+
+  function initProjectHover () {
+    var cards = qa('.project-card', projectsGallery)
+    cards.forEach(function (card) {
+      card.addEventListener('mouseenter', function () {
+        if (isProjectOpen) return
+        card.style.flex = '2.5'
+        card.style.zIndex = '5'
+        cards.forEach(function (c) {
+          if (c !== card) { c.style.flex = '0.65'; c.style.zIndex = '1' }
+        })
+      })
+      card.addEventListener('mouseleave', function () {
+        cards.forEach(function (c) { c.style.flex = ''; c.style.zIndex = '' })
       })
     })
   }
@@ -500,6 +500,7 @@
      ================================================================= */
 
   renderProjects()
+  initProjectHover()
   renderSkills()
   renderContact()
   initCircuit()
