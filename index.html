@@ -12,18 +12,25 @@
 </head>
 <body>
 
-  <nav class="navbar" id="navbar">
-    <div class="navbar-inner">
-      <a href="#inicio" class="nav-logo">ELIEZERDEV</a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#" class="nav-link" data-section="0">Inicio</a></li>
-        <li><a href="#" class="nav-link" data-section="1">Proyectos</a></li>
-        <li><a href="#" class="nav-link" data-section="2">Habilidades</a></li>
-        <li><a href="#" class="nav-link" data-section="3">Experiencia</a></li>
-        <li><a href="#" class="nav-link" data-section="4">Sobre mí</a></li>
-        <li><a href="#" class="nav-link" data-section="5">Contacto</a></li>
-      </ul>
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema">
+  <!-- ===== BOOT INTRO ===== -->
+  <div class="boot" id="boot"><span class="boot-text mono">SYSTEM ONLINE<i class="boot-cursor">_</i></span></div>
+
+  <!-- ===== HUD FRAME (chrome persistente) ===== -->
+  <div class="hud-frame" id="hudFrame">
+    <span class="hud-corner tl"></span><span class="hud-corner tr"></span>
+    <span class="hud-corner bl"></span><span class="hud-corner br"></span>
+
+    <header class="hud-top">
+      <a href="#inicio" class="hud-logo" aria-label="Inicio"><span class="hud-logo-glyph"></span>ELIEZERDEV</a>
+      <nav class="hud-tabs" id="hudTabs">
+        <a href="#" class="hud-tab" data-section="0">Inicio</a>
+        <a href="#" class="hud-tab" data-section="1">Proyectos</a>
+        <a href="#" class="hud-tab" data-section="2">Habilidades</a>
+        <a href="#" class="hud-tab" data-section="3">Experiencia</a>
+        <a href="#" class="hud-tab" data-section="4">Sobre mí</a>
+        <a href="#" class="hud-tab" data-section="5">Contacto</a>
+      </nav>
+      <button class="hud-theme" id="themeToggle" aria-label="Cambiar tema">
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="5"/>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
@@ -32,190 +39,182 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-    </div>
-  </nav>
+    </header>
 
-  <div class="sections-container" id="sectionsContainer">
+    <aside class="hud-rail" id="hudRail"></aside>
 
-    <!-- ===== HERO ===== -->
+    <footer class="hud-status" id="hudStatus">
+      <span class="hud-stat"><i class="hud-led"></i> SYS·ONLINE</span>
+      <span class="hud-stat mono" id="statCoords">LAT 19.40° · LON -99.10°</span>
+      <span class="hud-progress"><i id="statProgress"></i></span>
+      <span class="hud-stat mono" id="statSection">00 / 06</span>
+      <span class="hud-stat mono">2026.06</span>
+      <span class="hud-stat hud-hint">⏎ SCROLL / ↑↓</span>
+    </footer>
+  </div>
+
+  <!-- ===== SECCIONES ===== -->
+  <main class="sections-container" id="sectionsContainer">
+
+    <!-- ① INICIO -->
     <section id="inicio" class="section active" data-index="0">
       <video class="section-video" src="src/videos/fondoweb1.mp4" autoplay muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="hero-container">
-          <div class="hero-side left">
-            <h1 class="hero-name">ELIEZERDEV</h1>
-            <p class="hero-desc">
-              Construyo experiencias digitales con enfoque arquitectónico.
-              Sistemas escalables, interfaces precisas y soluciones que funcionan.
-            </p>
+        <span class="section-ghost">00</span>
+        <div class="hero">
+          <div class="hero-left">
+            <h1 class="hero-name">ELIEZER<span>DEV</span></h1>
+            <div class="hero-roles mono">DESARROLLADOR · ARQUITECTO DE SISTEMAS</div>
+            <p class="hero-desc">Construyo experiencias digitales con enfoque arquitectónico. Sistemas escalables, interfaces precisas y soluciones que funcionan.</p>
+            <div class="hero-status-badge"><i class="hud-led"></i> DISPONIBLE PARA PROYECTOS</div>
           </div>
-          <div class="hero-side right">
-            <button class="hero-btn hero-btn-top" data-section="1">Ver proyectos</button>
-            <button class="hero-btn" data-section="5">Contactar</button>
+          <div class="hero-right">
+            <button class="hero-module" data-section="1"><span class="mono">▸</span> Ver proyectos</button>
+            <button class="hero-module" data-section="5"><span class="mono">▸</span> Contactar</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== PROYECTOS — Diagonal Cut Cards ===== -->
+    <!-- ② PROYECTOS -->
     <section id="proyectos" class="section" data-index="1">
       <video class="section-video" src="src/videos/fondoweb2.mp4" muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="section-header-bar">
-          <span class="section-number">01</span>
-          <h2 class="section-title">Proyectos</h2>
+        <span class="section-ghost">01</span>
+        <div class="section-head">
+          <span class="section-num mono">01</span>
+          <h2 class="section-name">Proyectos</h2>
+          <span class="section-counter mono">05 REGISTROS</span>
         </div>
         <div class="projects-wrapper">
-          <div class="projects-gallery" id="projectsGallery"></div>
+          <div class="projects-gallery" id="projectsGallery">
+            <div class="scanline"></div>
+          </div>
           <div class="project-info-panel" id="projectInfoPanel">
-            <button class="info-close" id="infoClose">← Volver</button>
             <div class="info-body" id="infoBody"></div>
+            <button class="info-close" id="infoClose">◀ VOLVER</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== HABILIDADES — Hexagonal Honeycomb ===== -->
+    <!-- ③ HABILIDADES -->
     <section id="habilidades" class="section" data-index="2">
       <video class="section-video" src="src/videos/fondoweb3.mp4" muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="section-header-bar">
-          <span class="section-number">02</span>
-          <h2 class="section-title">Habilidades</h2>
+        <span class="section-ghost">02</span>
+        <div class="section-head">
+          <span class="section-num mono">02</span>
+          <h2 class="section-name">Habilidades</h2>
+          <span class="section-counter mono">07 MÓDULOS</span>
         </div>
         <div class="skills-wrapper">
-          <div class="skills-hex-grid" id="skillsHexGrid"></div>
+          <div class="skills-grid" id="skillsGrid"></div>
         </div>
       </div>
     </section>
 
-    <!-- ===== EXPERIENCIA — Circuit Board ===== -->
+    <!-- ④ EXPERIENCIA -->
     <section id="experiencia" class="section" data-index="3">
       <video class="section-video" src="src/videos/fondoweb4.mp4" muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="section-header-bar">
-          <span class="section-number">03</span>
-          <h2 class="section-title">Experiencia</h2>
+        <span class="section-ghost">03</span>
+        <div class="section-head">
+          <span class="section-num mono">03</span>
+          <h2 class="section-name">Experiencia</h2>
+          <span class="section-counter mono">03 REGISTROS</span>
         </div>
-        <div class="experience-wrapper">
-          <div class="circuit-container">
-            <div class="circuit-node">
-              <div class="circuit-node-dot"></div>
-              <div class="circuit-node-body">
-                <span class="circuit-node-date">2026</span>
-                <h3 class="circuit-node-title">Portfolio Profesional</h3>
-                <p class="circuit-node-desc">Diseño y desarrollo de portafolio personal con identidad visual ELIEZERDEV, inspirándose en interfaces de videojuegos AAA y sistemas operativos futuristas.</p>
-                <div class="circuit-node-tags">
-                  <span>HTML</span><span>CSS</span><span>JavaScript</span>
-                </div>
-                <p class="circuit-node-learn">Arquitectura visual cinematográfica, transiciones de estado, diseño de interacción.</p>
-              </div>
-            </div>
-            <div class="circuit-node">
-              <div class="circuit-node-dot"></div>
-              <div class="circuit-node-body">
-                <span class="circuit-node-date">2026</span>
-                <h3 class="circuit-node-title">Sistema AGENTCONTEXT</h3>
-                <p class="circuit-node-desc">Creación de sistema de contexto persistente para agentes IA, permitiendo desarrollo asistido con memoria de proyecto entre sesiones.</p>
-                <div class="circuit-node-tags">
-                  <span>Markdown</span><span>Git</span><span>Prompt Engineering</span>
-                </div>
-                <p class="circuit-node-learn">Ingeniería de contexto, documentación automatizada, flujo de trabajo IA-humano.</p>
-              </div>
-            </div>
-            <div class="circuit-node">
-              <div class="circuit-node-dot"></div>
-              <div class="circuit-node-body">
-                <span class="circuit-node-date">2026</span>
-                <h3 class="circuit-node-title">Primer Cliente Recurrente</h3>
-                <p class="circuit-node-desc">Establecimiento de relación profesional con cliente para mantenimiento y desarrollo web continuo, sentando bases de trabajo freelance.</p>
-                <div class="circuit-node-tags">
-                  <span>PHP</span><span>MySQL</span><span>Hosting</span>
-                </div>
-                <p class="circuit-node-learn">Gestión de proyectos freelance, comunicación con cliente, entregas iterativas.</p>
-              </div>
-            </div>
+        <div class="exp-wrapper">
+          <div class="exp-grid">
+            <div class="scanline"></div>
+            <article class="exp-panel">
+              <span class="exp-log mono">LOG_001</span>
+              <span class="exp-date mono">2026</span>
+              <h3 class="exp-title">Portfolio Profesional</h3>
+              <p class="exp-desc">Diseño y desarrollo de portafolio personal con identidad visual ELIEZERDEV, inspirándose en interfaces de videojuegos AAA y sistemas operativos futuristas.</p>
+              <div class="exp-tags"><span>HTML</span><span>CSS</span><span>JavaScript</span></div>
+              <p class="exp-learn">Arquitectura visual cinematográfica, transiciones de estado, diseño de interacción.</p>
+            </article>
+            <article class="exp-panel">
+              <span class="exp-log mono">LOG_002</span>
+              <span class="exp-date mono">2026</span>
+              <h3 class="exp-title">Sistema AGENTCONTEXT</h3>
+              <p class="exp-desc">Creación de sistema de contexto persistente para agentes IA, permitiendo desarrollo asistido con memoria de proyecto entre sesiones.</p>
+              <div class="exp-tags"><span>Markdown</span><span>Git</span><span>Prompt Engineering</span></div>
+              <p class="exp-learn">Ingeniería de contexto, documentación automatizada, flujo de trabajo IA-humano.</p>
+            </article>
+            <article class="exp-panel">
+              <span class="exp-log mono">LOG_003</span>
+              <span class="exp-date mono">2026</span>
+              <h3 class="exp-title">Primer Cliente Recurrente</h3>
+              <p class="exp-desc">Establecimiento de relación profesional con cliente para mantenimiento y desarrollo web continuo, sentando bases de trabajo freelance.</p>
+              <div class="exp-tags"><span>PHP</span><span>MySQL</span><span>Hosting</span></div>
+              <p class="exp-learn">Gestión de proyectos freelance, comunicación con cliente, entregas iterativas.</p>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== SOBRE MÍ — Zigzag Split ===== -->
+    <!-- ⑤ SOBRE MÍ -->
     <section id="sobre-mi" class="section" data-index="4">
       <video class="section-video" src="src/videos/fondoweb5.mp4" muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="section-header-bar">
-          <span class="section-number">04</span>
-          <h2 class="section-title">Sobre mí</h2>
+        <span class="section-ghost">04</span>
+        <div class="section-head">
+          <span class="section-num mono">04</span>
+          <h2 class="section-name">Sobre mí</h2>
         </div>
-        <div class="about-container">
-          <div class="about-side photo">
-            <div class="about-frame">
+        <div class="about-grid">
+          <div class="about-focal">
+            <div class="about-id">
               <span class="about-initials">EZ</span>
+              <span class="about-id-tag mono">ID · ELIEZERDEV</span>
+            </div>
+            <div class="about-bio">
+              <p><strong>Ingeniero en Sistemas</strong>. <span class="text-dim">Empecé construyendo soluciones para problemas reales y descubrí que el desarrollo de software es</span> <strong>mi forma de crear impacto</strong>.</p>
+              <p><strong>Construyo sistemas completos — desde la arquitectura hasta la interfaz</strong>. <span class="text-dim">Me interesa la</span> <strong>inteligencia artificial, el diseño de experiencias, los videojuegos como medio artístico y el ecosistema startup</strong>.</p>
+              <p>Mi visión: <strong>cada línea de código debe tener un propósito</strong>. <strong>No construyo páginas, construyo herramientas que resuelven problemas</strong>.</p>
             </div>
           </div>
-          <div class="about-side bio">
-            <div class="about-bio-inner">
-              <p>
-                <strong>Ingeniero en Sistemas</strong>.
-                <span class="text-dim">Empecé construyendo soluciones para problemas reales
-                y descubrí que el desarrollo de software es</span>
-                <strong>mi forma de crear impacto</strong>.
-              </p>
-              <p>
-                <strong>Construyo sistemas completos — desde la arquitectura hasta la interfaz</strong>.
-                <span class="text-dim">Me interesa la</span>
-                <strong>inteligencia artificial, el diseño de experiencias,
-                los videojuegos como medio artístico y el ecosistema startup</strong>.
-              </p>
-              <p>
-                Mi visión: <strong>cada línea de código debe tener un propósito</strong>.
-                <strong>No construyo páginas, construyo herramientas que resuelven problemas</strong>.
-              </p>
-            </div>
-          </div>
+          <aside class="about-sat">
+            <div class="about-stat"><span class="mono">ROL</span><b>Ing. en Sistemas</b></div>
+            <div class="about-stat"><span class="mono">UBIC</span><b>México</b></div>
+            <div class="about-stat"><span class="mono">IDIOMAS</span><b>ES / EN</b></div>
+            <div class="about-stat"><span class="mono">FOCO</span><b>IA · Sistemas · UX</b></div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <!-- ===== CONTACTO — Matrix Keyboard ===== -->
+    <!-- ⑥ CONTACTO -->
     <section id="contacto" class="section" data-index="5">
       <video class="section-video" src="src/videos/fondo6.mp4" muted loop playsinline></video>
       <div class="section-overlay"></div>
       <div class="section-content">
-        <div class="section-header-bar">
-          <span class="section-number">05</span>
-          <h2 class="section-title">Contacto</h2>
+        <span class="section-ghost">05</span>
+        <div class="section-head">
+          <span class="section-num mono">05</span>
+          <h2 class="section-name">Contacto</h2>
         </div>
-        <div class="contact-wrapper">
-          <div class="contact-matrix" id="contactMatrix"></div>
-        </div>
-        <div class="section-header-bar" style="margin-top:16px;margin-bottom:0;padding:0 48px;">
-          <span class="section-number">Formulario directo</span>
-        </div>
-        <div style="padding:0 48px;display:flex;justify-content:center;margin-top:12px;">
-          <form class="contact-form" id="contactForm" style="display:flex;flex-direction:column;gap:8px;width:100%;max-width:480px;">
-            <div class="form-field">
-              <input type="text" id="formName" placeholder="Nombre" required style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);color:var(--text-primary);font-size:0.8125rem;">
-            </div>
-            <div class="form-field">
-              <input type="email" id="formEmail" placeholder="Correo" required style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);color:var(--text-primary);font-size:0.8125rem;">
-            </div>
-            <div class="form-field">
-              <textarea id="formMessage" rows="4" placeholder="Mensaje" required style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);color:var(--text-primary);font-size:0.8125rem;resize:none;"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Enviar</button>
+        <div class="contact-grid">
+          <div class="contact-channels" id="contactChannels"></div>
+          <form class="contact-term" id="contactForm">
+            <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="text" id="formName" placeholder="NOMBRE" required></div>
+            <div class="term-line"><span class="mono term-prompt">&gt;</span><input type="email" id="formEmail" placeholder="CORREO" required></div>
+            <div class="term-line term-area"><span class="mono term-prompt">&gt;</span><textarea id="formMessage" rows="5" placeholder="MENSAJE" required></textarea></div>
+            <button type="submit" class="term-send"><span class="mono">▸</span> ENVIAR TRANSMISIÓN</button>
           </form>
         </div>
       </div>
     </section>
 
-  </div>
+  </main>
 
   <script src="js/main.js"></script>
 </body>

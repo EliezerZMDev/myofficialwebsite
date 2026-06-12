@@ -1,6 +1,10 @@
 ;(function () {
   'use strict'
 
+  /* =================================================================
+     DATA
+     ================================================================= */
+
   const PROJECTS = [
     {
       id: 0,
@@ -75,46 +79,60 @@
   ]
 
   const SKILLS = [
-    { id: 0, name: 'Frontend', items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'], col: 2 },
-    { id: 1, name: 'Backend', items: ['PHP', 'Node.js', 'APIs REST'], col: 3 },
-    { id: 2, name: 'Arquitectura', items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'], col: 1 },
-    { id: 3, name: 'IA', items: ['Agentes IA', 'Context Engineering', 'Prompting'], col: 2 },
-    { id: 4, name: 'Automatización', items: ['Docs Automatizada', 'Workflows', 'DevOps'], col: 3 },
-    { id: 5, name: 'UX/UI', items: ['Figma', 'Prototipado', 'Sistemas Diseño'], col: 2 },
-    { id: 6, name: 'Gestión', items: ['Git/GitHub', 'VS Code', 'Opencode'], col: 3 }
+    { id: 0, name: 'Frontend', items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'] },
+    { id: 1, name: 'Backend', items: ['PHP', 'Node.js', 'APIs REST'] },
+    { id: 2, name: 'Arquitectura', items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'] },
+    { id: 3, name: 'IA', items: ['Agentes IA', 'Context Engineering', 'Prompting'] },
+    { id: 4, name: 'Automatización', items: ['Docs Automatizada', 'Workflows', 'DevOps'] },
+    { id: 5, name: 'UX/UI', items: ['Figma', 'Prototipado', 'Sistemas Diseño'] },
+    { id: 6, name: 'Gestión', items: ['Git/GitHub', 'VS Code', 'Opencode'] }
   ]
 
   const CONTACT_CELLS = [
-    { label: 'Email', value: 'eliezerzm0312@gmail.com', href: 'mailto:eliezerzm0312@gmail.com', icon: 'mail', cols: 2 },
-    { label: 'GitHub', value: '@EliezerZM', href: 'https://github.com/EliezerZM', icon: 'github', cols: 1 },
-    { label: 'LinkedIn', value: '/in/eliezerzm', href: 'https://linkedin.com/in/eliezerzm', icon: 'linkedin', cols: 1 },
-    { label: 'Instagram', value: '@eliezerzm_03', href: 'https://instagram.com/eliezerzm_03', icon: 'instagram', cols: 1 },
-    { label: 'Facebook', value: '/eliezerzm', href: 'https://facebook.com/eliezerzm', icon: 'facebook', cols: 1 },
-    { label: 'Ubicación', value: 'México', href: null, icon: 'location', cols: 1 },
-    { label: 'Idiomas', value: 'Español / Inglés', href: null, icon: 'globe', cols: 1 }
+    { label: 'Email', value: 'eliezerzm0312@gmail.com', href: 'mailto:eliezerzm0312@gmail.com', icon: 'mail' },
+    { label: 'GitHub', value: '@EliezerZM', href: 'https://github.com/EliezerZM', icon: 'github' },
+    { label: 'LinkedIn', value: '/in/eliezerzm', href: 'https://linkedin.com/in/eliezerzm', icon: 'linkedin' },
+    { label: 'Instagram', value: '@eliezerzm_03', href: 'https://instagram.com/eliezerzm_03', icon: 'instagram' },
+    { label: 'Facebook', value: '/eliezerzm', href: 'https://facebook.com/eliezerzm', icon: 'facebook' },
+    { label: 'Ubicación', value: 'México', href: null, icon: 'location' },
+    { label: 'Idiomas', value: 'Español / Inglés', href: null, icon: 'globe' }
   ]
 
   const TOTAL_SECTIONS = 6
+  const SECTION_NAMES = ['Inicio', 'Proyectos', 'Habilidades', 'Experiencia', 'Sobre mí', 'Contacto']
 
   function q (s, c) { return (c || document).querySelector(s) }
   function qa (s, c) { return [...(c || document).querySelectorAll(s)] }
 
   const sections = qa('.section')
-  const navLinks = qa('.nav-link')
+  const tabs = qa('.hud-tab')
   const sectionsContainer = q('#sectionsContainer')
   const themeToggle = q('#themeToggle')
   const html = document.documentElement
   const projectsGallery = q('#projectsGallery')
   const projectInfoPanel = q('#projectInfoPanel')
   const infoBody = q('#infoBody')
-  const infoClose = q('#infoClose')
-  const contactForm = q('#contactForm')
 
   let currentIndex = 0
   let isTransitioning = false
   let isProjectOpen = false
-  let skillExpandId = null
-  let contactExpandId = null
+
+  /* =================================================================
+     RAIL (índice vertical)
+     ================================================================= */
+
+  function renderRail () {
+    var rail = q('#hudRail')
+    if (!rail) return
+    SECTION_NAMES.forEach(function (name, i) {
+      var item = document.createElement('div')
+      item.className = 'hud-rail-item' + (i === 0 ? ' active' : '')
+      item.textContent = String(i).padStart(2, '0')
+      item.title = name
+      item.addEventListener('click', function () { goToSection(i) })
+      rail.appendChild(item)
+    })
+  }
 
   /* =================================================================
      SECTION NAVIGATION
@@ -126,13 +144,13 @@
     isTransitioning = true
     closeProjectInfo()
 
-    const current = sections[currentIndex]
-    const next = sections[index]
+    var current = sections[currentIndex]
+    var next = sections[index]
 
-    const currentVideo = q('.section-video', current)
-    const nextVideo = q('.section-video', next)
-    if (currentVideo) { currentVideo.pause(); currentVideo.muted = true }
-    if (nextVideo) { nextVideo.play().catch(function () {}); nextVideo.muted = true }
+    var cv = q('.section-video', current)
+    var nv = q('.section-video', next)
+    if (cv) { cv.pause(); cv.muted = true }
+    if (nv) { nv.play().catch(function () {}); nv.muted = true }
 
     current.classList.remove('active')
     current.classList.add('leaving')
@@ -143,20 +161,30 @@
       isTransitioning = false
     }, 350)
 
-    navLinks.forEach(function (link, i) {
-      link.classList.toggle('active', i === index)
-    })
+    tabs.forEach(function (t, i) { t.classList.toggle('active', i === index) })
+    qa('.hud-rail-item').forEach(function (r, i) { r.classList.toggle('active', i === index) })
+    updateTelemetry(index)
+    retriggerAssemble(next)
 
     var id = sections[index].id
-    if (window.location.hash !== '#' + id) {
-      history.pushState(null, null, '#' + id)
-    }
+    if (window.location.hash !== '#' + id) history.pushState(null, null, '#' + id)
 
     currentIndex = index
   }
 
   function nextSection () { goToSection(currentIndex + 1) }
   function prevSection () { goToSection(currentIndex - 1) }
+
+  function retriggerAssemble (section) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    var content = q('.section-content', section)
+    if (!content) return
+    content.querySelectorAll(':scope > :not(.section-ghost)').forEach(function (el) {
+      el.style.animation = 'none'
+      void el.offsetWidth
+      el.style.animation = ''
+    })
+  }
 
   sectionsContainer.addEventListener('wheel', function (e) {
     e.preventDefault()
@@ -170,200 +198,95 @@
       if (e.key === 'Escape') closeProjectInfo()
       return
     }
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-      e.preventDefault()
-      nextSection()
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-      e.preventDefault()
-      prevSection()
-    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); nextSection() }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); prevSection() }
   })
 
-  navLinks.forEach(function (link, i) {
-    link.addEventListener('click', function (e) {
-      e.preventDefault()
-      goToSection(i)
-    })
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function (e) { e.preventDefault(); goToSection(i) })
   })
 
   document.querySelectorAll('[data-section]').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault()
-      var target = parseInt(this.dataset.section, 10)
-      goToSection(target)
+      goToSection(parseInt(this.dataset.section, 10))
     })
   })
 
   window.addEventListener('popstate', function () {
     var hash = window.location.hash || '#inicio'
-    var targetIndex = 0
-    sections.forEach(function (s, i) {
-      if ('#' + s.id === hash) targetIndex = i
-    })
-    goToSection(targetIndex)
+    var t = 0
+    sections.forEach(function (s, i) { if ('#' + s.id === hash) t = i })
+    goToSection(t)
   })
 
   if (window.location.hash) {
-    var initialHash = window.location.hash
     sections.forEach(function (s, i) {
-      if ('#' + s.id === initialHash) {
-        setTimeout(function () { goToSection(i) }, 100)
-      }
+      if ('#' + s.id === window.location.hash) setTimeout(function () { goToSection(i) }, 100)
     })
   }
 
   setTimeout(function () {
-    var heroVideo = document.querySelector('#inicio .section-video')
-    if (heroVideo) heroVideo.play().catch(function () {})
+    var v = q('#inicio .section-video')
+    if (v) v.play().catch(function () {})
   }, 200)
 
   /* =================================================================
-     THEME TOGGLE
+     TELEMETRY
+     ================================================================= */
+
+  function updateTelemetry (index) {
+    var prog = q('#statProgress')
+    var sec = q('#statSection')
+    if (prog) prog.style.width = (((index + 1) / TOTAL_SECTIONS) * 100).toFixed(0) + '%'
+    if (sec) sec.textContent = String(index).padStart(2, '0') + ' / 0' + TOTAL_SECTIONS
+  }
+
+  function initTelemetryFlicker () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    var coords = q('#statCoords')
+    if (!coords) return
+    setInterval(function () {
+      var lat = (19.4 + (Math.random() - 0.5) * 0.04).toFixed(2)
+      var lon = (-99.1 + (Math.random() - 0.5) * 0.04).toFixed(2)
+      coords.textContent = 'LAT ' + lat + '° · LON ' + lon + '°'
+    }, 1800)
+  }
+
+  /* =================================================================
+     THEME
      ================================================================= */
 
   function getPreferredTheme () {
-    var stored = localStorage.getItem('eliezertheme')
-    if (stored) return stored
-    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+    var s = localStorage.getItem('eliezertheme')
+    return s || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
   }
-
-  function setTheme (theme) {
-    html.setAttribute('data-theme', theme)
-    localStorage.setItem('eliezertheme', theme)
-  }
-
+  function setTheme (t) { html.setAttribute('data-theme', t); localStorage.setItem('eliezertheme', t) }
   setTheme(getPreferredTheme())
-
   themeToggle.addEventListener('click', function () {
-    var current = html.getAttribute('data-theme')
-    setTheme(current === 'dark' ? 'light' : 'dark')
+    setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark')
   })
 
   /* =================================================================
-     PROJECTS — Diagonal Cut Cards + Diagonal Separators
+     PROJECTS
      ================================================================= */
 
   function renderProjects () {
-    PROJECTS.forEach(function (project, i) {
+    PROJECTS.forEach(function (p, i) {
       var card = document.createElement('div')
       card.className = 'project-card'
       card.dataset.index = i
-
       card.innerHTML =
-        '<div class="project-card-bg" style="background: ' + project.gradient + '"></div>' +
-        '<div class="card-label-v">' + project.name + '</div>' +
+        '<div class="project-card-bg" style="background:' + p.gradient + '"></div>' +
+        '<div class="card-tel">P-0' + i + ' · 2026 · ' + p.tech.slice(0, 2).join('/') + '</div>' +
+        '<div class="card-label-v">' + p.name + '</div>' +
         '<div class="card-content">' +
-          '<h3 class="card-content-title">' + project.name + '</h3>' +
-          '<div class="card-content-tech">' +
-            project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
-          '</div>' +
-          '<p class="card-content-desc">' + project.description + '</p>' +
-          '<div class="card-content-sections">' +
-            '<div class="cs"><h4>Rol</h4><p>' + project.role + '</p></div>' +
-            '<div class="cs"><h4>Problema</h4><p>' + project.problem + '</p></div>' +
-            '<div class="cs"><h4>Aprendizajes</h4><p>' + project.learnings + '</p></div>' +
-          '</div>' +
-          '<div class="card-content-actions">' +
-            '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
-            '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
-          '</div>' +
+          '<h3 class="card-content-title">' + p.name + '</h3>' +
+          '<div class="card-content-tech">' + p.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') + '</div>' +
+          '<p class="card-content-desc">' + p.description + '</p>' +
         '</div>'
-
-      card.addEventListener('click', function () {
-        openProjectInfo(i)
-      })
-
+      card.addEventListener('click', function () { openProjectInfo(i) })
       projectsGallery.appendChild(card)
-    })
-  }
-
-  function openProjectInfo (index) {
-    if (isProjectOpen) return
-    isProjectOpen = true
-
-    var project = PROJECTS[index]
-
-    projectsGallery.classList.add('is-panel-open')
-
-    infoBody.innerHTML =
-      '<h2>' + project.name + '</h2>' +
-      '<div class="info-tech">' +
-        project.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') +
-      '</div>' +
-      '<p class="info-desc">' + project.description + '</p>' +
-      '<div class="info-section">' +
-        '<h4>Rol</h4>' +
-        '<p>' + project.role + '</p>' +
-      '</div>' +
-      '<div class="info-section">' +
-        '<h4>Problema</h4>' +
-        '<p>' + project.problem + '</p>' +
-      '</div>' +
-      '<div class="info-section">' +
-        '<h4>Aprendizajes</h4>' +
-        '<p>' + project.learnings + '</p>' +
-      '</div>' +
-      '<div class="info-actions">' +
-        '<a href="' + project.url + '" class="btn btn-primary">Ver proyecto</a>' +
-        '<a href="' + project.repo + '" class="btn btn-outline">Repositorio</a>' +
-      '</div>'
-
-    projectInfoPanel.classList.add('open')
-
-    var sectionVideo = document.querySelector('#proyectos .section-video')
-    if (sectionVideo) sectionVideo.pause()
-  }
-
-  function closeProjectInfo () {
-    if (!isProjectOpen) return
-    isProjectOpen = false
-    projectInfoPanel.classList.remove('open')
-
-    projectsGallery.classList.remove('is-panel-open')
-
-    var sectionVideo = document.querySelector('#proyectos .section-video')
-    if (sectionVideo) sectionVideo.play().catch(function () {})
-  }
-
-  infoClose.addEventListener('click', closeProjectInfo)
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && isProjectOpen) closeProjectInfo()
-  })
-
-  /* =================================================================
-     SKILLS — Hexagonal Honeycomb Grid
-     ================================================================= */
-
-  function renderSkills () {
-    var grid = q('#skillsHexGrid')
-    if (!grid) return
-
-    SKILLS.forEach(function (skill) {
-      var cell = document.createElement('div')
-      cell.className = 'hex-cell'
-      cell.dataset.id = skill.id
-      cell.innerHTML =
-        '<div class="hex-cell-title">' + skill.name + '</div>' +
-        '<div class="hex-cell-items">' +
-          skill.items.map(function (item) { return '<span>' + item + '</span>' }).join('') +
-        '</div>'
-
-      cell.addEventListener('click', function () {
-        if (skillExpandId === skill.id) {
-          skillExpandId = null
-          cell.classList.remove('is-expanded')
-        } else {
-          if (skillExpandId !== null) {
-            var prev = grid.querySelector('.hex-cell.is-expanded')
-            if (prev) prev.classList.remove('is-expanded')
-          }
-          skillExpandId = skill.id
-          cell.classList.add('is-expanded')
-        }
-      })
-
-      grid.appendChild(cell)
     })
   }
 
@@ -384,23 +307,62 @@
     })
   }
 
+  function openProjectInfo (index) {
+    if (isProjectOpen) return
+    isProjectOpen = true
+    var p = PROJECTS[index]
+    projectsGallery.classList.add('is-panel-open')
+    infoBody.innerHTML =
+      '<h2>' + p.name + '</h2>' +
+      '<div class="info-tech">' + p.tech.map(function (t) { return '<span>' + t + '</span>' }).join('') + '</div>' +
+      '<p class="info-desc">' + p.description + '</p>' +
+      '<div class="info-section"><h4>Rol</h4><p>' + p.role + '</p></div>' +
+      '<div class="info-section"><h4>Problema</h4><p>' + p.problem + '</p></div>' +
+      '<div class="info-section"><h4>Aprendizajes</h4><p>' + p.learnings + '</p></div>' +
+      '<div class="info-actions"><a href="' + p.url + '" class="ibtn primary">Ver proyecto</a><a href="' + p.repo + '" class="ibtn">Repositorio</a></div>'
+    projectInfoPanel.classList.add('open')
+    var v = q('#proyectos .section-video')
+    if (v) v.pause()
+  }
+
+  function closeProjectInfo () {
+    if (!isProjectOpen) return
+    isProjectOpen = false
+    projectInfoPanel.classList.remove('open')
+    projectsGallery.classList.remove('is-panel-open')
+    var v = q('#proyectos .section-video')
+    if (v) v.play().catch(function () {})
+  }
+
   /* =================================================================
-     EXPERIENCE — Circuit Board (already in HTML)
+     SKILLS
      ================================================================= */
 
-  function initCircuit () {
-    var nodes = qa('.circuit-node')
-    nodes.forEach(function (node) {
-      node.addEventListener('click', function () {
-        var wasExpanded = node.classList.contains('is-expanded')
-        nodes.forEach(function (n) { n.classList.remove('is-expanded') })
-        if (!wasExpanded) node.classList.add('is-expanded')
+  function renderSkills () {
+    var grid = q('#skillsGrid')
+    if (!grid) return
+    var expandId = null
+    SKILLS.forEach(function (skill, i) {
+      var cell = document.createElement('div')
+      cell.className = 'skill-cell'
+      cell.dataset.id = skill.id
+      cell.innerHTML =
+        '<div class="skill-cell-num">MOD·0' + i + '</div>' +
+        '<div class="skill-cell-title">' + skill.name + '</div>' +
+        '<div class="skill-items">' + skill.items.map(function (it) { return '<span>' + it + '</span>' }).join('') + '</div>'
+      cell.addEventListener('click', function () {
+        if (expandId === skill.id) { expandId = null; cell.classList.remove('is-expanded'); return }
+        var prev = grid.querySelector('.skill-cell.is-expanded')
+        if (prev) prev.classList.remove('is-expanded')
+        expandId = skill.id
+        cell.classList.add('is-expanded')
       })
+      grid.appendChild(cell)
     })
   }
 
   /* =================================================================
-     CONTACT — Matrix Keyboard
+     CONTACT
      ================================================================= */
 
   function getIconSVG (type) {
@@ -417,36 +379,16 @@
   }
 
   function renderContact () {
-    var matrix = q('#contactMatrix')
-    if (!matrix) return
-
-    CONTACT_CELLS.forEach(function (cell, i) {
+    var box = q('#contactChannels')
+    if (!box) return
+    CONTACT_CELLS.forEach(function (cell) {
       var el = document.createElement('div')
-      el.className = 'contact-cell' + (cell.cols > 1 ? ' span-' + cell.cols : '')
-      el.dataset.id = i
-
-      el.innerHTML =
-        getIconSVG(cell.icon) +
+      el.className = 'contact-cell'
+      el.innerHTML = getIconSVG(cell.icon) +
         '<span class="contact-cell-label">' + cell.label + '</span>' +
         '<span class="contact-cell-value">' + cell.value + '</span>'
-
-      el.addEventListener('click', function () {
-        if (contactExpandId === i) {
-          contactExpandId = null
-          el.classList.remove('is-expanded')
-          if (cell.href) window.open(cell.href, '_blank')
-        } else {
-          if (contactExpandId !== null) {
-            var prev = matrix.querySelector('.contact-cell.is-expanded')
-            if (prev) prev.classList.remove('is-expanded')
-          }
-          contactExpandId = i
-          el.classList.add('is-expanded')
-          if (cell.href) window.open(cell.href, '_blank')
-        }
-      })
-
-      matrix.appendChild(el)
+      if (cell.href) el.addEventListener('click', function () { window.open(cell.href, '_blank') })
+      box.appendChild(el)
     })
   }
 
@@ -454,72 +396,39 @@
      CONTACT FORM
      ================================================================= */
 
-  contactForm.addEventListener('submit', function (e) {
+  q('#contactForm').addEventListener('submit', function (e) {
     e.preventDefault()
-
     var name = q('#formName').value.trim()
     var email = q('#formEmail').value.trim()
-    var message = q('#formMessage').value.trim()
-
-    if (!name || !email || !message) {
-      alert('Completa todos los campos.')
-      return
-    }
-
-    var mailto = 'mailto:eliezerzm0312@gmail.com?subject=Contacto desde portfolio - ' +
-      encodeURIComponent(name) + '&body=' + encodeURIComponent(
-        'Nombre: ' + name + '\n' +
-        'Correo: ' + email + '\n\n' +
-        'Mensaje:\n' + message
-      )
-
-    window.location.href = mailto
-    contactForm.reset()
+    var msg = q('#formMessage').value.trim()
+    if (!name || !email || !msg) { alert('Completa todos los campos.'); return }
+    window.location.href = 'mailto:eliezerzm0312@gmail.com?subject=' +
+      encodeURIComponent('Contacto desde portfolio - ' + name) + '&body=' +
+      encodeURIComponent('Nombre: ' + name + '\nCorreo: ' + email + '\n\nMensaje:\n' + msg)
+    this.reset()
   })
+
+  q('#infoClose').addEventListener('click', closeProjectInfo)
 
   /* =================================================================
-     MOBILE MENU
+     BOOT INTRO
      ================================================================= */
 
-  var logoToggle = document.querySelector('.nav-logo')
-  logoToggle.addEventListener('click', function (e) {
-    if (window.innerWidth <= 768) {
-      e.preventDefault()
-      document.querySelector('.nav-links').classList.toggle('open')
-    }
-  })
-
-  navLinks.forEach(function (link) {
-    link.addEventListener('click', function () {
-      document.querySelector('.nav-links').classList.remove('open')
-    })
-  })
+  var boot = q('#boot')
+  if (boot) {
+    var delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 200 : 1000
+    setTimeout(function () { boot.classList.add('done') }, delay)
+  }
 
   /* =================================================================
      INIT
      ================================================================= */
 
+  renderRail()
   renderProjects()
   initProjectHover()
   renderSkills()
   renderContact()
-  initCircuit()
-
-  /* =================================================================
-     PRESERVE ABOUT DIAGONAL HOVER (flex expand)
-     ================================================================= */
-  var aboutSides = qa('.about-side')
-  aboutSides.forEach(function (side) {
-    side.addEventListener('mouseenter', function () {
-      aboutSides.forEach(function (s) {
-        if (s !== side) s.style.flex = '0.8'
-      })
-    })
-    side.addEventListener('mouseleave', function () {
-      aboutSides.forEach(function (s) {
-        s.style.flex = '1'
-      })
-    })
-  })
-
+  updateTelemetry(0)
+  initTelemetryFlicker()
 })()
