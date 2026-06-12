@@ -98,6 +98,28 @@
     { label: 'Idiomas', value: 'Español / Inglés', href: null, icon: 'globe' }
   ]
 
+  /* Árbol de habilidades: nodos desbloqueados (actuales) + bloqueados (por desbloquear) */
+  const SKILL_TREE = [
+    { id: 'core', name: 'Desarrollo', x: 50, y: 12, unlocked: true, core: true, items: ['Fundamentos', 'Lógica', 'Algoritmos'] },
+    { id: 'frontend', name: 'Frontend', x: 20, y: 34, unlocked: true, items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'] },
+    { id: 'backend', name: 'Backend', x: 50, y: 34, unlocked: true, items: ['PHP', 'Node.js', 'APIs REST'] },
+    { id: 'arquitectura', name: 'Arquitectura', x: 80, y: 34, unlocked: true, items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'] },
+    { id: 'uxui', name: 'UX/UI', x: 12, y: 58, unlocked: true, items: ['Figma', 'Prototipado', 'Sistemas Diseño'] },
+    { id: 'ia', name: 'IA', x: 42, y: 58, unlocked: true, items: ['Agentes IA', 'Context Engineering', 'Prompting'] },
+    { id: 'automatizacion', name: 'Automatización', x: 64, y: 58, unlocked: true, items: ['Docs Automatizada', 'Workflows', 'DevOps'] },
+    { id: 'gestion', name: 'Gestión', x: 88, y: 58, unlocked: true, items: ['Git/GitHub', 'VS Code', 'Opencode'] },
+    { id: 'web-avanzado', name: 'Web Avanzado', x: 12, y: 84, unlocked: false, items: ['PWA', 'SPA Frameworks', 'WebGL / Three.js'] },
+    { id: 'movil', name: 'Desarrollo Móvil', x: 34, y: 84, unlocked: false, items: ['React Native', 'Flutter', 'Kotlin / Swift'] },
+    { id: 'desktop', name: 'Desktop', x: 54, y: 84, unlocked: false, items: ['Electron', '.NET', 'Tauri'] },
+    { id: 'cloud', name: 'Cloud / DevOps', x: 72, y: 84, unlocked: false, items: ['AWS / Azure', 'Docker', 'Kubernetes'] },
+    { id: 'videojuegos', name: 'Videojuegos', x: 90, y: 84, unlocked: false, items: ['Unity', 'Godot', 'Unreal'] }
+  ]
+  const SKILL_EDGES = [
+    ['core', 'frontend'], ['core', 'backend'], ['core', 'arquitectura'],
+    ['frontend', 'uxui'], ['backend', 'ia'], ['arquitectura', 'automatizacion'], ['arquitectura', 'gestion'],
+    ['uxui', 'web-avanzado'], ['frontend', 'movil'], ['backend', 'desktop'], ['automatizacion', 'cloud'], ['gestion', 'videojuegos']
+  ]
+
   const TOTAL_SECTIONS = 6
   const SECTION_NAMES = ['Inicio', 'Proyectos', 'Habilidades', 'Experiencia', 'Sobre mí', 'Contacto']
 
@@ -338,26 +360,52 @@
      SKILLS
      ================================================================= */
 
-  function renderSkills () {
-    var grid = q('#skillsGrid')
-    if (!grid) return
-    var expandId = null
-    SKILLS.forEach(function (skill, i) {
-      var cell = document.createElement('div')
-      cell.className = 'skill-cell'
-      cell.dataset.id = skill.id
-      cell.innerHTML =
-        '<div class="skill-cell-num">MOD·0' + i + '</div>' +
-        '<div class="skill-cell-title">' + skill.name + '</div>' +
-        '<div class="skill-items">' + skill.items.map(function (it) { return '<span>' + it + '</span>' }).join('') + '</div>'
-      cell.addEventListener('click', function () {
-        if (expandId === skill.id) { expandId = null; cell.classList.remove('is-expanded'); return }
-        var prev = grid.querySelector('.skill-cell.is-expanded')
-        if (prev) prev.classList.remove('is-expanded')
-        expandId = skill.id
-        cell.classList.add('is-expanded')
+  function renderSkillTree () {
+    var tree = q('#skillTree')
+    var svg = q('#skillTreeLines')
+    var detail = q('#skillDetail')
+    if (!tree || !svg) return
+
+    var byId = {}
+    SKILL_TREE.forEach(function (n) { byId[n.id] = n })
+
+    var NS = 'http://www.w3.org/2000/svg'
+    SKILL_EDGES.forEach(function (e) {
+      var a = byId[e[0]], b = byId[e[1]]
+      if (!a || !b) return
+      var line = document.createElementNS(NS, 'line')
+      line.setAttribute('x1', a.x); line.setAttribute('y1', a.y)
+      line.setAttribute('x2', b.x); line.setAttribute('y2', b.y)
+      line.setAttribute('vector-effect', 'non-scaling-stroke')
+      line.setAttribute('class', (a.unlocked && b.unlocked) ? 'active' : 'locked')
+      svg.appendChild(line)
+    })
+
+    var selected = null
+    function showDetail (n) {
+      detail.innerHTML =
+        '<div class="sd-head"><span class="sd-name">' + n.name + '</span>' +
+        '<span class="sd-status ' + (n.unlocked ? 'on' : 'off') + '">' +
+        (n.unlocked ? 'DESBLOQUEADA' : 'BLOQUEADA · POR DESBLOQUEAR') + '</span></div>' +
+        '<div class="sd-items' + (n.unlocked ? '' : ' off') + '">' +
+        n.items.map(function (it) { return '<span>' + it + '</span>' }).join('') + '</div>'
+    }
+
+    SKILL_TREE.forEach(function (n) {
+      var node = document.createElement('div')
+      node.className = 'skill-node ' + (n.core ? 'core ' : '') + (n.unlocked ? 'unlocked' : 'locked')
+      node.style.left = n.x + '%'
+      node.style.top = n.y + '%'
+      node.innerHTML =
+        '<div class="skill-node-title">' + n.name + '</div>' +
+        '<div class="skill-node-sub">' + (n.unlocked ? 'DESBLOQUEADA' : 'BLOQUEADA') + '</div>'
+      node.addEventListener('click', function () {
+        if (selected) selected.classList.remove('selected')
+        node.classList.add('selected')
+        selected = node
+        showDetail(n)
       })
-      grid.appendChild(cell)
+      tree.appendChild(node)
     })
   }
 
@@ -427,7 +475,7 @@
   renderRail()
   renderProjects()
   initProjectHover()
-  renderSkills()
+  renderSkillTree()
   renderContact()
   updateTelemetry(0)
   initTelemetryFlicker()

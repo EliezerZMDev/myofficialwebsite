@@ -303,17 +303,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ③ HABILIDADES — Grid limpio
    ================================================================= */
 
-.skills-wrapper { flex: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 880px; width: 100%; }
-.skill-cell { position: relative; background: var(--hud-panel); border: 1px solid var(--border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 22px 16px; min-height: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all 0.3s ease; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); }
-.skill-cell-num { font-family: var(--mono); font-size: 0.5rem; color: var(--text-muted); letter-spacing: 0.1em; margin-bottom: 6px; }
-.skill-cell-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); transition: all 0.3s ease; }
-.skill-cell:hover { border-color: var(--hud-line); background: var(--surface-hover); }
-.skill-cell:hover .skill-cell-title { color: var(--accent-hover); text-shadow: 0 0 12px rgba(41,121,255,0.55); }
-.skill-cell.is-expanded { border-color: var(--accent); background: var(--surface-active); }
-.skill-items { display: none; flex-direction: column; gap: 3px; margin-top: 10px; }
-.skill-cell.is-expanded .skill-items { display: flex; }
-.skill-items span { font-size: 0.58rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+.skills-wrapper { flex: 1; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
+.skilltree { position: relative; flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; min-height: 320px; }
+.skilltree-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+.skilltree-lines line { stroke: var(--hud-line); }
+.skilltree-lines line.active { stroke: var(--accent); opacity: 0.55; }
+.skilltree-lines line.locked { stroke: var(--text-muted); opacity: 0.4; stroke-dasharray: 3 3; }
+
+.skill-node { position: absolute; transform: translate(-50%, -50%); z-index: 1; min-width: 108px; padding: 11px 14px; text-align: center; cursor: pointer; background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); transition: all 0.3s ease; }
+.skill-node-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); line-height: 1.2; }
+.skill-node-sub { font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 4px; }
+.skill-node.core { background: var(--accent); border-color: var(--accent); }
+.skill-node.core .skill-node-title { color: #fff; }
+.skill-node.core .skill-node-sub { color: rgba(255,255,255,0.75); }
+.skill-node.unlocked:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(41,121,255,0.35); }
+.skill-node.unlocked.selected { border-color: var(--accent); background: var(--surface-active); box-shadow: 0 0 18px rgba(41,121,255,0.4); }
+.skill-node.locked { opacity: 0.5; filter: grayscale(0.6); border-style: dashed; border-color: var(--text-muted); }
+.skill-node.locked .skill-node-title { color: var(--text-secondary); }
+.skill-node.locked:hover { opacity: 0.8; }
+.skill-node.locked.selected { opacity: 0.9; border-color: var(--text-secondary); }
+
+.skilltree-detail { flex-shrink: 0; min-height: 88px; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 14px 22px; background: var(--hud-panel); border: 1px solid var(--border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.sd-hint { font-size: 0.66rem; color: var(--text-muted); letter-spacing: 0.08em; }
+.sd-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.sd-name { font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary); }
+.sd-status { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; padding: 3px 10px; border: 1px solid; }
+.sd-status.on { color: var(--accent); border-color: var(--border-accent); }
+.sd-status.off { color: var(--text-muted); border-color: var(--border); }
+.sd-items { display: flex; flex-wrap: wrap; gap: 6px; }
+.sd-items span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); padding: 3px 9px; border: 1px solid var(--border); }
+.sd-items.off span { color: var(--text-muted); border-style: dashed; }
 
 /* =================================================================
    ④ EXPERIENCIA — 3 paneles full-height
