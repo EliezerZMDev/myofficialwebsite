@@ -233,24 +233,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ① INICIO — Hero asimétrico
    ================================================================= */
 
-.hero { flex: 1; display: flex; align-items: center; gap: 48px; }
-.hero-left { flex: 0 0 58%; }
+.hero { flex: 1; display: flex; align-items: stretch; gap: 32px; }
+.hero-left { flex: 0 0 50%; display: flex; flex-direction: column; justify-content: center; }
 .hero-name { font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
 .hero-name span { color: var(--accent); }
 .hero-roles { font-size: 0.75rem; letter-spacing: 0.25em; color: var(--text-secondary); margin: 18px 0; }
 .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; max-width: 460px; }
 .hero-status-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 8px 16px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--hud-line); background: var(--hud-panel); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .hero-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-.hero-module { display: flex; align-items: center; gap: 12px; padding: 28px 32px; font-size: clamp(0.95rem, 1.6vw, 1.35rem); font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); clip-path: polygon(0 0, 100% 0, 100% 100%, 24px 100%); transition: all var(--transition) ease; }
-.hero-module:hover { background: var(--surface-active); color: var(--accent); padding-left: 44px; }
-.hero-module .mono { color: var(--accent); }
+.hero-module { flex: 1; display: flex; align-items: center; gap: 16px; padding: 0 44px; font-size: clamp(1.3rem, 2.6vw, 2.4rem); font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-primary); background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%); transition: all var(--transition) ease; position: relative; overflow: hidden; }
+.hero-module .mono { color: var(--accent); font-size: 0.8em; transition: transform var(--transition) ease; }
+.hero-module:hover { background: var(--surface-active); color: var(--accent); }
+.hero-module:hover .mono { transform: translateX(10px); }
 
 /* =================================================================
    ② PROYECTOS — Cards trapezoidales
    ================================================================= */
 
 .projects-wrapper { flex: 1; display: flex; overflow: hidden; position: relative; }
-.projects-gallery { display: flex; width: 100%; height: 100%; position: relative; }
+.projects-gallery { display: flex; width: 100%; height: 100%; position: relative; border: 1px solid var(--hud-line); }
+
+/* Marco HUD alrededor del panel completo */
+.panel-frame { position: absolute; inset: 0; pointer-events: none; z-index: 6; }
+.panel-frame .pf { position: absolute; width: 18px; height: 18px; border: 2px solid var(--accent); }
+.panel-frame .pf.tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.panel-frame .pf.tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
+.panel-frame .pf.bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
+.panel-frame .pf.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
 .project-card { flex: 1; height: 100%; position: relative; cursor: pointer; clip-path: polygon(40px 0%, 100% 0%, calc(100% - 40px) 100%, 0% 100%); transition: flex 0.4s cubic-bezier(0.23,1,0.32,1); overflow: hidden; background: var(--hud-panel); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-left: 1px solid var(--hud-line); }
 .project-card + .project-card { margin-left: -40px; }
 .project-card:hover { z-index: 5; }
@@ -259,19 +268,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .card-tel { position: absolute; top: 20px; left: 48px; z-index: 3; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--text-muted); }
 .card-label-v { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; writing-mode: vertical-rl; text-orientation: mixed; font-size: clamp(1.1rem, 2vw, 1.8rem); font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-primary); text-shadow: 0 2px 8px rgba(0,0,0,0.5); pointer-events: none; transition: opacity 0.3s ease; }
 .project-card:hover .card-label-v { opacity: 0; }
-.card-content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: center; padding: 32px 52px; opacity: 0; transition: opacity 0.3s ease 0.15s; pointer-events: none; }
+.card-content { position: absolute; inset: 0; z-index: 3; display: flex; flex-direction: column; justify-content: center; gap: 10px; padding: 28px 46px; opacity: 0; transition: opacity 0.3s ease 0.15s; pointer-events: none; }
 .project-card:hover .card-content { opacity: 1; }
 .projects-gallery.is-panel-open .project-card:hover .card-content { opacity: 0; }
-.card-content-title { font-size: clamp(1.2rem, 2.4vw, 1.9rem); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.1; color: var(--text-primary); margin-bottom: 8px; }
-.card-content-tech { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
-.card-content-tech span { font-size: 0.55rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-secondary); }
-.card-content-desc { font-size: 0.72rem; color: var(--text-secondary); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card-content-title { font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.05; color: var(--text-primary); }
+.card-content-tech { display: flex; gap: 4px; flex-wrap: wrap; }
+.card-content-tech span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-secondary); }
+.card-content-desc { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
 .project-info-panel { position: absolute; inset: 0; display: none; z-index: 10; background: rgba(3,5,10,0.86); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--hud-line); animation: panelIn 0.4s cubic-bezier(0.23,1,0.32,1); }
 [data-theme="light"] .project-info-panel { background: rgba(238,240,243,0.9); }
-.project-info-panel.open { display: flex; }
+.project-info-panel.open { display: flex; flex-direction: row; }
 @keyframes panelIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
-.info-body { flex: 1; padding: 48px 56px 88px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; max-width: 760px; }
+.info-body { flex: 1; padding: 48px 56px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
 .info-body h2 { font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; margin-bottom: 6px; }
 .info-tech { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
 .info-tech span { padding: 4px 12px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background: var(--accent-dim); border: 1px solid var(--border-accent); color: var(--accent); }
@@ -284,8 +293,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .info-actions .ibtn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
 .info-actions .ibtn:hover { background: var(--surface-hover); }
 .info-actions .ibtn.primary:hover { background: var(--accent-hover); }
-.info-close { position: absolute; bottom: 0; left: 0; width: 100%; height: 56px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--accent); color: #fff; z-index: 20; transition: background var(--transition) ease; }
-.info-close:hover { background: var(--accent-hover); }
+.info-close { flex: 0 0 44%; position: relative; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--accent); color: #fff; overflow: hidden; border: none; border-left: 1px solid var(--hud-line); }
+.info-close::before { content: ''; position: absolute; inset: 0; background: var(--accent-hover); transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.23,1,0.32,1); z-index: 0; }
+.info-close:hover::before { transform: translateX(0); }
+.ic-label { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; font-size: clamp(1.3rem, 2.8vw, 2.4rem); font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; transition: transform 0.45s cubic-bezier(0.23,1,0.32,1); }
+.info-close:hover .ic-label { transform: translateX(-10px); }
 
 /* =================================================================
    ③ HABILIDADES — Grid limpio
@@ -309,10 +321,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .exp-wrapper { flex: 1; display: flex; overflow: hidden; }
 .exp-grid { display: flex; width: 100%; height: 100%; gap: 1px; position: relative; }
-.exp-panel { flex: 1; height: 100%; display: flex; flex-direction: column; padding: 40px 32px; background: rgba(3,5,10,0.5); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); transition: background 0.3s ease; overflow-y: auto; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
-[data-theme="light"] .exp-panel { background: rgba(238,240,243,0.5); }
-.exp-panel:hover { background: rgba(3,5,10,0.66); border-color: var(--hud-line); }
-[data-theme="light"] .exp-panel:hover { background: rgba(238,240,243,0.7); }
+.exp-panel { flex: 1; height: 100%; display: flex; flex-direction: column; padding: 40px 32px; background: rgba(3,5,10,0.72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--hud-line); transition: background 0.3s ease; overflow-y: auto; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
+[data-theme="light"] .exp-panel { background: rgba(244,246,249,0.82); }
+.exp-panel:hover { background: rgba(3,5,10,0.82); border-color: var(--accent); }
+[data-theme="light"] .exp-panel:hover { background: rgba(244,246,249,0.92); }
 .exp-log { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); }
 .exp-date { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 4px; }
 .exp-title { font-size: 1.15rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin: 16px 0 12px; }
