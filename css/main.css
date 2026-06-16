@@ -105,29 +105,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section.active { opacity: 1; visibility: visible; z-index: 1; }
 .section.leaving { opacity: 0; visibility: visible; z-index: 2; }
 
-.section-video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-
-.section-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(3,5,10,0.82) 0%, rgba(3,5,10,0.45) 50%, rgba(3,5,10,0.7) 100%);
-  z-index: 1;
-}
-
-[data-theme="light"] .section-overlay {
-  background: linear-gradient(135deg, rgba(238,240,243,0.85) 0%, rgba(238,240,243,0.4) 50%, rgba(238,240,243,0.7) 100%);
-}
-
-#experiencia .section-overlay {
-  background: linear-gradient(135deg, rgba(3,5,10,0.45) 0%, rgba(3,5,10,0.18) 50%, rgba(3,5,10,0.38) 100%);
-}
 
 .section-content {
   position: relative;
@@ -264,7 +241,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .project-card + .project-card { margin-left: -40px; }
 .project-card:hover { z-index: 5; }
 .project-card-bg { position: absolute; inset: 0; z-index: 0; opacity: 0.14; }
-.project-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, var(--bg-primary) 100%); z-index: 1; pointer-events: none; }
 .card-tel { position: absolute; top: 20px; left: 48px; z-index: 3; font-family: var(--mono); font-size: 0.55rem; letter-spacing: 0.1em; color: var(--text-muted); }
 .card-label-v { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 2; writing-mode: vertical-rl; text-orientation: mixed; font-size: clamp(1.1rem, 2vw, 1.8rem); font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-primary); text-shadow: 0 2px 8px rgba(0,0,0,0.5); pointer-events: none; transition: opacity 0.3s ease; }
 .project-card:hover .card-label-v { opacity: 0; }
@@ -276,8 +252,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .card-content-tech span { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--border); color: var(--text-secondary); }
 .card-content-desc { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 
-.project-info-panel { position: absolute; inset: 0; display: none; z-index: 10; background: rgba(3,5,10,0.86); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--hud-line); animation: panelIn 0.4s cubic-bezier(0.23,1,0.32,1); }
-[data-theme="light"] .project-info-panel { background: rgba(238,240,243,0.9); }
+.project-info-panel { position: absolute; inset: 0; display: none; z-index: 10; background: var(--bg-secondary); border: 1px solid var(--hud-line); animation: panelIn 0.4s cubic-bezier(0.23,1,0.32,1); }
 .project-info-panel.open { display: flex; flex-direction: row; }
 @keyframes panelIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 .info-body { flex: 1; padding: 48px 56px; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; }
@@ -305,7 +280,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .skills-wrapper { flex: 1; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
 .skilltree { position: relative; flex: 1; width: 100%; max-width: 1000px; margin: 0 auto; min-height: 340px; }
-.skilltree::before { content: ''; position: absolute; left: 50%; top: 50%; width: 72%; height: 86%; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, var(--accent-dim), transparent 70%); opacity: 0.6; pointer-events: none; z-index: 0; }
 .skilltree-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
 .skilltree-lines path.branch-trunk { stroke: var(--accent); stroke-width: 6; fill: none; }
 .skilltree-lines path.branch-active { stroke: var(--accent); stroke-width: 2; fill: none; opacity: 0.85; }
@@ -359,8 +333,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .exp-wrapper { flex: 1; display: flex; overflow: hidden; }
 .exp-grid { display: flex; width: 100%; height: 100%; gap: 1px; position: relative; }
-.exp-panel { flex: 1; height: 100%; display: flex; flex-direction: column; padding: 40px 32px; background: rgba(3,5,10,0.72); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--hud-line); transition: background 0.3s ease; overflow-y: auto; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
-[data-theme="light"] .exp-panel { background: rgba(244,246,249,0.82); }
+.exp-panel { flex: 1; height: 100%; display: flex; flex-direction: column; padding: 40px 32px; background: var(--bg-secondary); border: 1px solid var(--hud-line); transition: background 0.3s ease; overflow-y: auto; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
 .exp-panel:hover { background: rgba(3,5,10,0.82); border-color: var(--accent); }
 [data-theme="light"] .exp-panel:hover { background: rgba(244,246,249,0.92); }
 .exp-log { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); }
@@ -417,8 +390,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @keyframes cueBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 
 /* Vista formulario (aparece al último scroll) */
-.contact-form-view { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: rgba(3,5,10,0.92); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
-[data-theme="light"] .contact-form-view { background: rgba(238,240,243,0.94); }
+.contact-form-view { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: var(--bg-primary); transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
 .contact-stage.form-open .contact-form-view { transform: translateY(0); }
 .contact-stage.form-open .contact-scroll-cue { opacity: 0; }
 .cfv-title { font-size: 1.2rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-primary); }
@@ -445,7 +417,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section.active .section-content > :nth-child(4) { animation-delay: 0.12s; }
 
 @keyframes scanSweep { 0% { transform: translateY(-100%); } 100% { transform: translateY(120vh); } }
-.scanline { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.18; pointer-events: none; z-index: 4; animation: scanSweep 5s linear infinite; }
+.scanline { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--accent); opacity: 0.18; pointer-events: none; z-index: 4; animation: scanSweep 5s linear infinite; }
 
 /* =================================================================
    BOOT INTRO
