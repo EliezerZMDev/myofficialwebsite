@@ -382,8 +382,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ================================================================= */
 
 .about-grid { flex: 1; display: flex; overflow: hidden; }
-.about-photo-panel { flex: 0 0 32%; position: relative; overflow: hidden; clip-path: polygon(0 0, 100% 0, 76% 100%, 0 100%); z-index: 1; }
-.about-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.about-photo-panel { flex: 0 0 32%; position: relative; overflow: hidden; clip-path: polygon(0 0, 100% 0, 76% 100%, 0 100%); z-index: 1; align-self: stretch; }
+.about-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 .about-focal { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 48px 56px 48px 88px; margin-left: -56px; background: var(--bg-primary); border: 1px solid var(--border); position: relative; }
 .about-id-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); font-family: var(--mono); }
 .about-headline { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; margin: 0; }
