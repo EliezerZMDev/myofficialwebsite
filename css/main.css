@@ -4,8 +4,8 @@
    ================================================================= */
 
 :root {
-  --bg-primary: #03050a;
-  --bg-secondary: #0a0e1a;
+  --bg-primary: #13151c;
+  --bg-secondary: #1a1d27;
   --surface: rgba(255, 255, 255, 0.03);
   --surface-hover: rgba(255, 255, 255, 0.06);
   --surface-active: rgba(41, 121, 255, 0.1);
@@ -21,7 +21,7 @@
 
   /* HUD */
   --hud-line: rgba(41, 121, 255, 0.35);
-  --hud-panel: rgba(3, 5, 10, 0.40);
+  --hud-panel: rgba(255, 255, 255, 0.05);
   --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
   --frame-pad: 18px;
   --rail-w: 64px;
@@ -30,21 +30,21 @@
 }
 
 [data-theme="light"] {
-  --bg-primary: #eef0f3;
-  --bg-secondary: #ffffff;
+  --bg-primary: #f2f0ec;
+  --bg-secondary: #e8e4dc;
   --surface: rgba(0, 0, 0, 0.02);
   --surface-hover: rgba(0, 0, 0, 0.04);
-  --surface-active: rgba(41, 121, 255, 0.06);
+  --surface-active: rgba(192, 57, 43, 0.06);
   --border: rgba(0, 0, 0, 0.06);
-  --border-accent: rgba(41, 121, 255, 0.2);
-  --accent: #1a5fd9;
-  --accent-dim: rgba(26, 95, 217, 0.08);
-  --accent-hover: #2979ff;
-  --text-primary: #0a0e1a;
-  --text-secondary: #4a5568;
+  --border-accent: rgba(192, 57, 43, 0.25);
+  --accent: #c0392b;
+  --accent-dim: rgba(192, 57, 43, 0.08);
+  --accent-hover: #e74c3c;
+  --text-primary: #111318;
+  --text-secondary: #4a5263;
   --text-muted: #8892a4;
-  --hud-line: rgba(26, 95, 217, 0.3);
-  --hud-panel: rgba(238, 240, 243, 0.45);
+  --hud-line: rgba(192, 57, 43, 0.35);
+  --hud-panel: rgba(0, 0, 0, 0.04);
 }
 
 *, *::before, *::after {
