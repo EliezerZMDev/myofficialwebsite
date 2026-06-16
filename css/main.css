@@ -382,20 +382,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ================================================================= */
 
 .about-grid { flex: 1; display: flex; overflow: hidden; }
-.about-focal { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 40px 56px; background: var(--hud-panel); border: 1px solid var(--border); }
-.about-id { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-.about-photo { width: 56px; height: 56px; object-fit: cover; object-position: center top; border: 1px solid var(--hud-line); flex-shrink: 0; }
-.about-id-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); border-left: 1px solid var(--hud-line); padding-left: 16px; }
-.about-bio { display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
-.about-stats-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; margin-top: 32px; }
-.about-bio p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; }
+.about-photo-panel { flex: 0 0 32%; position: relative; overflow: hidden; clip-path: polygon(0 0, 100% 0, 76% 100%, 0 100%); z-index: 1; }
+.about-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.about-focal { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 48px 56px 48px 88px; margin-left: -56px; background: var(--bg-primary); border: 1px solid var(--border); position: relative; }
+.about-id-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); font-family: var(--mono); }
+.about-headline { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.02em; margin: 0; }
+.about-meta { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--accent); font-family: var(--mono); margin: 0; }
+.about-bio { display: flex; flex-direction: column; gap: 14px; max-width: 620px; }
+.about-bio p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; }
 .about-bio strong { color: var(--text-primary); font-weight: 700; }
 .about-bio .text-dim { color: var(--text-muted); }
-.about-sat { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1px; margin-left: -40px; padding-left: 52px; }
-.about-stat { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; display: flex; flex-direction: column; gap: 4px; transition: all 0.3s ease; }
-.about-stat:hover { border-color: var(--hud-line); background: var(--surface-hover); }
-.about-stat span { font-size: 0.55rem; letter-spacing: 0.18em; color: var(--text-muted); }
-.about-stat b { font-size: 0.9rem; color: var(--text-primary); font-weight: 700; }
 
 /* =================================================================
    ⑥ CONTACTO — Canales + formulario terminal
@@ -476,8 +472,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hero-terminal { display: none; }
   .hero-right { flex: none; width: 100%; flex-direction: row; }
   .hero-module { flex: 1; flex-basis: auto; clip-path: none; min-height: 96px; }
-  .about-focal { padding: 28px 24px; }
-  .about-stats-grid { grid-template-columns: repeat(3, 1fr); }
+  .about-photo-panel { flex: 0 0 38%; clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%); }
+  .about-focal { padding: 32px 32px 32px 64px; margin-left: -40px; }
   .contact-hero { grid-template-columns: repeat(2, 1fr); }
   .contact-form-view { position: static; transform: none; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; margin-top: 16px; }
   .contact-scroll-cue { display: none; }
@@ -486,7 +482,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 768px) {
   .hud-tabs { display: none; }
-  .about-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { flex-direction: column; }
+  .about-photo-panel { flex: 0 0 220px; clip-path: none; }
+  .about-focal { margin-left: 0; padding: 24px; }
   .project-card { clip-path: none; }
   .project-card + .project-card { margin-left: 0; }
   .project-card:hover { z-index: 2; }
