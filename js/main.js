@@ -651,7 +651,7 @@
      ================================================================= */
 
   /* Para formulario real: crea un form gratis en formspree.io y reemplaza YOUR_FORMSPREE_ID */
-  var FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID'
+  var FORM_ENDPOINT = 'https://formspree.io/f/xkoaeekb'
 
   q('#contactForm').addEventListener('submit', function (e) {
     e.preventDefault()
