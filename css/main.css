@@ -116,6 +116,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-direction: column;
 }
 
+.section-content::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--rail-w) + 24px);
+  top: calc(var(--top-h) + 28px);
+  width: 65%;
+  height: 2px;
+  background: var(--accent);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .section-ghost {
   position: absolute;
   top: 4%;
