@@ -15,7 +15,7 @@
       role: 'Desarrollador Frontend',
       problem: 'La organización carecía de presencia digital para difundir su labor y recibir apoyo comunitario.',
       learnings: 'Diseño centrado en accesibilidad, componentes reutilizables, optimización móvil.',
-      gradient: 'linear-gradient(135deg, #1a5fd9, #0d3a8c)',
+      color: '#1a5fd9',
       initials: 'CA',
       url: '#',
       repo: '#'
@@ -29,7 +29,7 @@
       role: 'Desarrollador Fullstack',
       problem: 'El artista necesitaba centralizar su música, videos y redes en una sola plataforma profesional.',
       learnings: 'Integración de APIs de streaming, optimización de medios, identidad de marca digital.',
-      gradient: 'linear-gradient(135deg, #7c3aed, #4c1d95)',
+      color: '#7c3aed',
       initials: 'AM',
       url: '#',
       repo: '#'
@@ -43,7 +43,7 @@
       role: 'Arquitecto de Sistemas',
       problem: 'Proyecto en fase de planificación y desarrollo de arquitectura.',
       learnings: 'Arquitectura de sistemas transaccionales, pasarelas de pago, gestión de inventario.',
-      gradient: 'linear-gradient(135deg, #0d9488, #065f46)',
+      color: '#0d9488',
       initials: 'EC',
       url: '#',
       repo: '#'
@@ -57,7 +57,7 @@
       role: 'Desarrollador Fullstack',
       problem: 'Los datos del negocio estaban dispersos sin una vista unificada para la toma de decisiones.',
       learnings: 'Visualización de datos, rendimiento con grandes volúmenes, diseño de dashboards.',
-      gradient: 'linear-gradient(135deg, #dc2626, #991b1b)',
+      color: '#dc2626',
       initials: 'DA',
       url: '#',
       repo: '#'
@@ -71,7 +71,7 @@
       role: 'Ingeniero Backend',
       problem: 'Los sistemas legacy no tenían una API unificada para integrar servicios.',
       learnings: 'Seguridad en APIs, CI/CD, documentación técnica, patrones REST.',
-      gradient: 'linear-gradient(135deg, #ca8a04, #854d0e)',
+      color: '#ca8a04',
       initials: 'API',
       url: '#',
       repo: '#'
@@ -239,11 +239,6 @@
     var current = sections[currentIndex]
     var next = sections[index]
 
-    var cv = q('.section-video', current)
-    var nv = q('.section-video', next)
-    if (cv) { cv.pause(); cv.muted = true }
-    if (nv) { nv.play().catch(function () {}); nv.muted = true }
-
     current.classList.remove('active')
     current.classList.add('leaving')
     next.classList.add('active')
@@ -330,11 +325,6 @@
     })
   }
 
-  setTimeout(function () {
-    var v = q('#inicio .section-video')
-    if (v) v.play().catch(function () {})
-  }, 200)
-
   /* =================================================================
      TELEMETRY
      ================================================================= */
@@ -381,7 +371,7 @@
       card.className = 'project-card'
       card.dataset.index = i
       card.innerHTML =
-        '<div class="project-card-bg" style="background:' + p.gradient + '"></div>' +
+        '<div class="project-card-bg" style="background:' + p.color + '"></div>' +
         '<div class="card-tel">P-0' + i + ' · 2026 · ' + p.tech.slice(0, 2).join('/') + '</div>' +
         '<div class="card-label-v">' + p.name + '</div>' +
         '<div class="card-content">' +
@@ -425,8 +415,6 @@
       '<div class="info-section"><h4>Aprendizajes</h4><p>' + p.learnings + '</p></div>' +
       '<div class="info-actions"><a href="' + p.url + '" class="ibtn primary">Ver proyecto</a><a href="' + p.repo + '" class="ibtn">Repositorio</a></div>'
     projectInfoPanel.classList.add('open')
-    var v = q('#proyectos .section-video')
-    if (v) v.pause()
   }
 
   function closeProjectInfo () {
@@ -434,8 +422,6 @@
     isProjectOpen = false
     projectInfoPanel.classList.remove('open')
     projectsGallery.classList.remove('is-panel-open')
-    var v = q('#proyectos .section-video')
-    if (v) v.play().catch(function () {})
   }
 
   /* =================================================================
