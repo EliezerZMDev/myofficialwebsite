@@ -271,3 +271,58 @@
 - **JS:** PROJECTS — propiedad `gradient` renombrada a `color` con valor sólido hex
 
 ### Revertir: `git revert dd68a1f 78af328 3eb653c 4f379c2 940f7a1`
+
+---
+
+## [2026-06-16] — Sesión No-Videos Color Redesign (docs)
+
+### Commit: `1e0e6f9`
+### Mensaje: docs: changelog + plan rediseno sin videos
+### Archivos:
+- `AGENTCONTEXT/changelog.md`
+- `docs/superpowers/plans/2026-06-16-no-videos-color-redesign.md`
+
+### Detalle:
+- Plan de implementación escrito y guardado en `docs/superpowers/plans/`
+- Changelog actualizado con entradas de Skill Tree y No-Videos Color Redesign
+
+### Revertir: `git revert 1e0e6f9`
+
+---
+
+## [2026-06-16] — Sesión UX Improvements (terminal + imágenes + formulario)
+
+### Commit: `8894a45`
+### Mensaje: feat: terminal animado en hero, imagenes reales en proyectos, formulario con fetch
+
+### Archivos:
+- `index.html`
+- `css/main.css`
+- `js/main.js`
+
+### Detalle:
+- **Terminal animado en hero:** `<div class="hero-terminal" id="heroTerminal">` en `.hero-right`. Simula CLI con typewriter (`setTimeout` recursivo, 52ms/char). Secuencia: git clone → npm install → npm run dev → fetch API → reinicia tras 3s. Los 2 botones hero quedan debajo con `flex: 0 0 80px` (altura fija). Terminal oculto en ≤1024px.
+- **Imágenes Unsplash en proyectos:** 5 fotos relevantes al tipo de cada proyecto. Opacity 0.28, sube a 0.5 en hover. `object-fit: cover`. URLs base sin query — se añaden `?w=800&q=70&fit=crop&auto=format` al renderizar.
+- **Formulario con fetch/Formspree:** `FORM_ENDPOINT` constante en JS. Si contiene `YOUR_FORMSPREE_ID` → fallback a `mailto:`. Si está configurado → POST JSON a Formspree, muestra `.form-success` en éxito. El usuario debe crear cuenta en formspree.io y reemplazar el placeholder.
+- **CSS nuevas clases:** `.hero-terminal`, `.hero-terminal-bar`, `.ht-dot.r/y/g`, `.ht-title`, `.hero-terminal-body`, `.ht-line`, `.ht-prompt`, `.ht-text`, `.ht-output`, `.ht-cursor`, `.form-success`
+- **JS nueva función:** `initHeroTerminal()` — llamada en bloque INIT
+
+### Revertir: `git revert 8894a45`
+
+---
+
+## [2026-06-16] — Sesión Deploy + Limpieza
+
+### Commits relacionados:
+- `752ab78` — chore: eliminar videos grandes del repo (fondoweb3.mp4, fondoweb4.mp4)
+- `a52ba1e` — chore: eliminar carpetas videos e images del repo
+
+### Archivos:
+- `src/videos/` (eliminada)
+- `src/images/` (eliminada)
+
+### Detalle:
+- **Deploy:** Repo creado en GitHub (`EliezerZMDev/myofficialwebsite`), GitHub Pages activado. URL: https://eliezerzmdev.github.io/myofficialwebsite/
+- **Limpieza:** Eliminados todos los archivos de `src/videos/` (6 mp4) y `src/images/` del repo y del disco. Los videos ya no se usaban desde la sesión No-Videos Color Redesign.
+
+### Revertir: `git revert a52ba1e 752ab78`
