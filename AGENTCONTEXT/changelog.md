@@ -238,3 +238,36 @@
 - **Responsive** actualizado para nuevos tamaños de nodo
 
 ### Revertir: `git revert c4e2463 80629cb 4bfa8b9 0fb21bd`
+
+---
+
+## [2026-06-16] — Sesión No-Videos Color Redesign
+
+### Commits relacionados:
+- `4f17232` — docs: spec rediseno sin videos, sin gradientes, colores dark/light
+- `940f7a1` — style: nuevos tokens dark #13151c+blue / light #f2f0ec+red
+- `4f379c2` — style: eliminar section-video, overlays, gradientes y glassmorphism de video
+- `3eb653c` — style: linea decorativa horizontal de acento en section-content
+- `78af328` — chore: eliminar elementos video y section-overlay de las 6 secciones
+- `dd68a1f` — refactor: eliminar gestion de video en JS, colores solidos en proyectos
+
+### Archivos:
+- `css/main.css`
+- `index.html`
+- `js/main.js`
+- `docs/superpowers/specs/2026-06-16-no-videos-color-redesign.md`
+- `docs/superpowers/plans/2026-06-16-no-videos-color-redesign.md`
+
+### Detalle:
+- **Tokens dark mode:** `--bg-primary: #13151c`, `--bg-secondary: #1a1d27`, `--accent: #2979ff`, `--hud-panel: rgba(255,255,255,0.05)`
+- **Tokens light mode:** `--bg-primary: #f2f0ec`, `--bg-secondary: #e8e4dc`, `--accent: #c0392b`, `--hud-line: rgba(192,57,43,0.35)` — rojo en modo claro
+- **Eliminados:** `.section-video`, `.section-overlay` y sus variantes de light mode y #experiencia
+- **Eliminados:** `radial-gradient` de `.skilltree::before`, `linear-gradient` de `.project-card::after`
+- **Reemplazado:** `.scanline` gradient por `background: var(--accent)` sólido
+- **Actualizados:** `.exp-panel`, `.project-info-panel`, `.contact-form-view` de rgba hardcodeado a `var(--bg-secondary)` / `var(--bg-primary)`
+- **Añadido:** `.section-content::before` — línea horizontal de 2px en `--accent`, 65% ancho, posicionada encima del encabezado de sección
+- **HTML:** removidos 6 `<video>` y 6 `<div class="section-overlay">` (12 elementos)
+- **JS:** removido play/pause en `goToSection()`, `openProjectInfo()`, `closeProjectInfo()` y setTimeout inicial de video
+- **JS:** PROJECTS — propiedad `gradient` renombrada a `color` con valor sólido hex
+
+### Revertir: `git revert dd68a1f 78af328 3eb653c 4f379c2 940f7a1`
