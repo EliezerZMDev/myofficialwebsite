@@ -205,3 +205,36 @@
 - **Projects:** añadido flex-expand real: `.hovered { flex: 2.2 }`, `.dimmed { flex: 0.6 }`
 
 ### Revertir: `git revert 1f95c22`
+
+---
+
+## [2026-06-16] — Sesión Skill Tree Redesign
+
+### Commits relacionados:
+- `0fb21bd` — feat: add skilltree-legend element to skills wrapper
+- `4bfa8b9` — feat: actualizar CSS skills — paths bezier, nodos con SVG, panel detalle, limpiar skill-tip
+- `80629cb` — feat: actualizar SKILL_TREE — posiciones árbol bottom-up + íconos SVG inline
+- `c4e2463` — feat: reescribir renderSkillTree — bezier paths, tronco, íconos SVG, etiquetas, leyenda
+
+### Archivos:
+- `index.html`
+- `css/main.css`
+- `js/main.js`
+
+### Detalle:
+- **Árbol de habilidades** rediseñado como árbol-dibujo tech-luminoso (crece de abajo hacia arriba)
+- **Tronco SVG** desde la base del contenedor hasta el nodo raíz (DESARROLLO en y=76%)
+- **Ramas Bezier cúbicas** reemplazan las `<line>` rectas — curvas S orgánicas entre nodos
+- **Filtro glow SVG** (`feGaussianBlur` + `feMerge`) en tronco y ramas activas
+- **Ramas bloqueadas** en gris punteado (`stroke-dasharray: 4 3`, opacity 0.4)
+- **Íconos SVG inline** en cada hexágono: Lucide (stroke) para conceptos, Simple Icons (fill) para marcas
+  - core: Terminal, frontend: HTML5, backend: Server, arquitectura: Layers, uxui: Figma
+  - ia: CPU, automatizacion: Zap, gestion: GitHub
+  - locked: React Atom, Smartphone, Monitor, Cloud, Gamepad
+- **Etiquetas** bajo cada hexágono (`.skill-node-label`)
+- **Panel de detalle** estilizado con `.sd-head`, `.sd-name`, `.sd-status`, `.sd-items`
+- **Leyenda** renderizada por JS en `#skillLegend`
+- **Limpieza:** eliminado bloque `.skill-tip` completo (CSS huérfano)
+- **Responsive** actualizado para nuevos tamaños de nodo
+
+### Revertir: `git revert c4e2463 80629cb 4bfa8b9 0fb21bd`
