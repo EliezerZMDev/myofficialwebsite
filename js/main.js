@@ -446,31 +446,67 @@
     var tree = q('#skillTree')
     var svg = q('#skillTreeLines')
     var detail = q('#skillDetail')
+    var legend = q('#skillLegend')
     if (!tree || !svg) return
 
+    var NS = 'http://www.w3.org/2000/svg'
+
+    /* SVG: defs (filtro glow) + tronco + ramas */
+    svg.innerHTML = ''
+
+    var defs = document.createElementNS(NS, 'defs')
+    defs.innerHTML =
+      '<filter id="branch-glow" x="-30%" y="-30%" width="160%" height="160%">' +
+        '<feGaussianBlur stdDeviation="2" result="blur"/>' +
+        '<feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>' +
+      '</filter>'
+    svg.appendChild(defs)
+
+    /* Tronco */
+    var trunk = document.createElementNS(NS, 'path')
+    trunk.setAttribute('d', 'M 50,100 C 50,90 50,83 50,76')
+    trunk.setAttribute('class', 'branch-trunk')
+    trunk.setAttribute('filter', 'url(#branch-glow)')
+    trunk.setAttribute('vector-effect', 'non-scaling-stroke')
+    svg.appendChild(trunk)
+
+    /* Ramas como Bezier cúbicos */
     var byId = {}
     SKILL_TREE.forEach(function (n) { byId[n.id] = n })
 
-    var NS = 'http://www.w3.org/2000/svg'
     SKILL_EDGES.forEach(function (e) {
       var a = byId[e[0]], b = byId[e[1]]
       if (!a || !b) return
-      var line = document.createElementNS(NS, 'line')
-      line.setAttribute('x1', a.x); line.setAttribute('y1', a.y)
-      line.setAttribute('x2', b.x); line.setAttribute('y2', b.y)
-      line.setAttribute('vector-effect', 'non-scaling-stroke')
-      line.setAttribute('class', (a.unlocked && b.unlocked) ? 'active' : 'locked')
-      svg.appendChild(line)
+      var midY = (a.y + b.y) / 2
+      var d = 'M ' + a.x + ',' + a.y +
+              ' C ' + a.x + ',' + midY +
+              ' ' + b.x + ',' + midY +
+              ' ' + b.x + ',' + b.y
+      var path = document.createElementNS(NS, 'path')
+      path.setAttribute('d', d)
+      var isActive = a.unlocked && b.unlocked
+      path.setAttribute('class', isActive ? 'branch-active' : 'branch-locked')
+      if (isActive) path.setAttribute('filter', 'url(#branch-glow)')
+      path.setAttribute('vector-effect', 'non-scaling-stroke')
+      svg.appendChild(path)
     })
 
+    /* Nodos y etiquetas */
+    qa('.skill-node, .skill-node-label', tree).forEach(function (el) { el.remove() })
+
     var selected = null
+
     function showDetail (n) {
       detail.innerHTML =
-        '<div class="sd-head"><span class="sd-name">' + n.name + '</span>' +
-        '<span class="sd-status ' + (n.unlocked ? 'on' : 'off') + '">' +
-        (n.unlocked ? 'DESBLOQUEADA' : 'BLOQUEADA · POR DESBLOQUEAR') + '</span></div>' +
+        '<div class="sd-head">' +
+          '<span class="sd-name">' + n.name + '</span>' +
+          '<span class="sd-status ' + (n.unlocked ? 'on' : 'off') + '">' +
+          (n.unlocked ? 'DESBLOQUEADA' : 'BLOQUEADA · POR DESBLOQUEAR') +
+          '</span>' +
+        '</div>' +
         '<div class="sd-items' + (n.unlocked ? '' : ' off') + '">' +
-        n.items.map(function (it) { return '<span>' + it + '</span>' }).join('') + '</div>'
+        n.items.map(function (it) { return '<span>' + it + '</span>' }).join('') +
+        '</div>'
     }
 
     SKILL_TREE.forEach(function (n) {
@@ -478,9 +514,12 @@
       node.className = 'skill-node ' + (n.core ? 'core ' : '') + (n.unlocked ? 'unlocked' : 'locked')
       node.style.left = n.x + '%'
       node.style.top = n.y + '%'
-      node.innerHTML =
-        '<div class="skill-node-title">' + n.name + '</div>' +
-        '<div class="skill-node-sub">' + (n.unlocked ? 'DESBLOQUEADA' : 'BLOQUEADA') + '</div>'
+
+      var svgAttrs = n.iconType === 'stroke'
+        ? 'fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"'
+        : 'fill="currentColor"'
+      node.innerHTML = '<svg viewBox="0 0 24 24" ' + svgAttrs + '>' + n.icon + '</svg>'
+
       node.addEventListener('click', function () {
         if (selected) selected.classList.remove('selected')
         node.classList.add('selected')
@@ -488,7 +527,23 @@
         showDetail(n)
       })
       tree.appendChild(node)
+
+      /* Etiqueta debajo del hexágono */
+      var label = document.createElement('div')
+      label.className = 'skill-node-label'
+      label.textContent = n.name
+      label.style.left = n.x + '%'
+      var halfH = n.core ? 43 : (n.unlocked ? 31 : 26)
+      label.style.top = 'calc(' + n.y + '% + ' + halfH + 'px + 5px)'
+      tree.appendChild(label)
     })
+
+    /* Leyenda */
+    if (legend) {
+      legend.innerHTML =
+        '<span><i class="lg-dot on"></i> Desbloqueada</span>' +
+        '<span><i class="lg-dot off"></i> Bloqueada</span>'
+    }
   }
 
   /* =================================================================
