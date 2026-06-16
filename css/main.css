@@ -172,6 +172,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--hud-line);
+  box-shadow: 0 4px 28px rgba(0,0,0,0.35);
+  padding: 0 24px;
 }
 
 .hud-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.9rem; color: var(--text-primary); transition: color var(--transition) ease; }
@@ -230,7 +234,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; max-width: 460px; }
 .hero-status-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 8px 16px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--hud-line); background: var(--hud-panel); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
 .hero-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-.hero-module { flex: 0 0 80px; display: flex; align-items: center; gap: 16px; padding: 0 44px; font-size: clamp(1.3rem, 2.6vw, 2.4rem); font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-primary); background: var(--hud-panel); border: 1px solid var(--hud-line); clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%); transition: all var(--transition) ease; position: relative; overflow: hidden; }
+.hero-module { flex: 0 0 80px; display: flex; align-items: center; gap: 16px; padding: 0 44px; font-size: clamp(1.3rem, 2.6vw, 2.4rem); font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-primary); background: var(--hud-panel); border: 1px solid var(--hud-line); clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%); transition: all var(--transition) ease; position: relative; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); }
 .hero-module .mono { color: var(--accent); font-size: 0.8em; transition: transform var(--transition) ease; }
 .hero-module:hover { background: var(--surface-active); color: var(--accent); }
 .hero-module:hover .mono { transform: translateX(10px); }
@@ -264,7 +268,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .panel-frame .pf.tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
 .panel-frame .pf.bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
 .panel-frame .pf.br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
-.project-card { flex: 1; height: 100%; position: relative; cursor: pointer; clip-path: polygon(40px 0%, 100% 0%, calc(100% - 40px) 100%, 0% 100%); transition: flex 0.4s cubic-bezier(0.23,1,0.32,1); overflow: hidden; background: var(--hud-panel); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-left: 1px solid var(--hud-line); }
+.project-card { flex: 1; height: 100%; position: relative; cursor: pointer; clip-path: polygon(40px 0%, 100% 0%, calc(100% - 40px) 100%, 0% 100%); transition: flex 0.4s cubic-bezier(0.23,1,0.32,1); overflow: hidden; background: var(--bg-secondary); border-left: 1px solid var(--hud-line); }
 .project-card + .project-card { margin-left: -40px; }
 .project-card:hover { z-index: 5; }
 .project-card-bg { position: absolute; inset: 0; z-index: 0; opacity: 0.28; transition: opacity 0.35s ease; overflow: hidden; }
@@ -380,7 +384,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .about-grid { flex: 1; display: flex; gap: 1px; overflow: hidden; }
 .about-focal { flex: 0 0 64%; display: flex; flex-direction: column; justify-content: center; padding: 40px 48px; background: var(--hud-panel); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--border); clip-path: polygon(0 0, 100% 0, calc(100% - 40px) 100%, 0 100%); }
 .about-id { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-.about-initials { font-size: 2.6rem; font-weight: 900; color: var(--accent); letter-spacing: 0.04em; }
+.about-photo { width: 76px; height: 76px; object-fit: cover; object-position: center top; border: 1px solid var(--hud-line); flex-shrink: 0; }
 .about-id-tag { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--text-muted); border-left: 1px solid var(--hud-line); padding-left: 16px; }
 .about-bio { display: flex; flex-direction: column; gap: 16px; max-width: 600px; }
 .about-bio p { font-size: 1rem; color: var(--text-secondary); line-height: 1.8; }
