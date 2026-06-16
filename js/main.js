@@ -16,6 +16,7 @@
       problem: 'La organización carecía de presencia digital para difundir su labor y recibir apoyo comunitario.',
       learnings: 'Diseño centrado en accesibilidad, componentes reutilizables, optimización móvil.',
       color: '#1a5fd9',
+      image: 'https://images.unsplash.com/photo-1453749024858-4bca89bd9edc',
       initials: 'CA',
       url: '#',
       repo: '#'
@@ -30,6 +31,7 @@
       problem: 'El artista necesitaba centralizar su música, videos y redes en una sola plataforma profesional.',
       learnings: 'Integración de APIs de streaming, optimización de medios, identidad de marca digital.',
       color: '#7c3aed',
+      image: 'https://images.unsplash.com/photo-1574232861722-d1e837e4b0f0',
       initials: 'AM',
       url: '#',
       repo: '#'
@@ -44,6 +46,7 @@
       problem: 'Proyecto en fase de planificación y desarrollo de arquitectura.',
       learnings: 'Arquitectura de sistemas transaccionales, pasarelas de pago, gestión de inventario.',
       color: '#0d9488',
+      image: 'https://images.unsplash.com/photo-1658297063569-162817482fb6',
       initials: 'EC',
       url: '#',
       repo: '#'
@@ -58,6 +61,7 @@
       problem: 'Los datos del negocio estaban dispersos sin una vista unificada para la toma de decisiones.',
       learnings: 'Visualización de datos, rendimiento con grandes volúmenes, diseño de dashboards.',
       color: '#dc2626',
+      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71',
       initials: 'DA',
       url: '#',
       repo: '#'
@@ -72,6 +76,7 @@
       problem: 'Los sistemas legacy no tenían una API unificada para integrar servicios.',
       learnings: 'Seguridad en APIs, CI/CD, documentación técnica, patrones REST.',
       color: '#ca8a04',
+      image: 'https://images.unsplash.com/photo-1760670399462-f5e479452c27',
       initials: 'API',
       url: '#',
       repo: '#'
@@ -371,7 +376,7 @@
       card.className = 'project-card'
       card.dataset.index = i
       card.innerHTML =
-        '<div class="project-card-bg" style="background:' + p.color + '"></div>' +
+        '<div class="project-card-bg"><img src="' + p.image + '?w=800&q=70&fit=crop&auto=format" alt="' + p.name + '" loading="lazy"></div>' +
         '<div class="card-tel">P-0' + i + ' · 2026 · ' + p.tech.slice(0, 2).join('/') + '</div>' +
         '<div class="card-label-v">' + p.name + '</div>' +
         '<div class="card-content">' +
@@ -572,8 +577,81 @@
   }
 
   /* =================================================================
+     HERO TERMINAL
+     ================================================================= */
+
+  function initHeroTerminal () {
+    var container = q('#heroTerminal')
+    if (!container) return
+    container.innerHTML =
+      '<div class="hero-terminal-bar">' +
+        '<span class="ht-dot r"></span>' +
+        '<span class="ht-dot y"></span>' +
+        '<span class="ht-dot g"></span>' +
+        '<span class="ht-title">eliezerdev · ~/portfolio</span>' +
+      '</div>' +
+      '<div class="hero-terminal-body" id="htBody"></div>'
+    var body = q('#htBody')
+    var sequence = [
+      { cmd: 'git clone github.com/EliezerZM/portfolio' },
+      { out: 'Cloning... done. 47 objects.' },
+      { cmd: 'npm install' },
+      { out: '✓ 312 packages installed' },
+      { cmd: 'npm run dev' },
+      { out: '→ Local:   localhost:3000' },
+      { cmd: "fetch('/api/projects').then(r=>r.json())" },
+      { out: "[{id:0, name:'Coraz\xf3n Azul VH',...}]" }
+    ]
+    var lineIdx = 0
+    var charIdx = 0
+    function addLine (type, text) {
+      var el = document.createElement('div')
+      el.className = 'ht-line'
+      if (type === 'cmd') {
+        el.innerHTML = '<span class="ht-prompt">$</span><span class="ht-text"></span><span class="ht-cursor"></span>'
+      } else {
+        el.innerHTML = '<span class="ht-output">' + text + '</span>'
+      }
+      body.appendChild(el)
+      while (body.children.length > 10) body.removeChild(body.firstChild)
+      return el
+    }
+    function run () {
+      if (lineIdx >= sequence.length) {
+        addLine('cmd', '')
+        setTimeout(function () { body.innerHTML = ''; lineIdx = 0; charIdx = 0; run() }, 3000)
+        return
+      }
+      var item = sequence[lineIdx]
+      if (item.out !== undefined) {
+        addLine('out', item.out)
+        lineIdx++
+        setTimeout(run, 160)
+      } else {
+        var el = addLine('cmd', '')
+        var textEl = el.querySelector('.ht-text')
+        var cmd = item.cmd;
+        (function typeChar () {
+          if (charIdx < cmd.length) {
+            textEl.textContent += cmd[charIdx++]
+            setTimeout(typeChar, 52)
+          } else {
+            el.querySelector('.ht-cursor').style.display = 'none'
+            lineIdx++; charIdx = 0
+            setTimeout(run, 420)
+          }
+        })()
+      }
+    }
+    run()
+  }
+
+  /* =================================================================
      CONTACT FORM
      ================================================================= */
+
+  /* Para formulario real: crea un form gratis en formspree.io y reemplaza YOUR_FORMSPREE_ID */
+  var FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID'
 
   q('#contactForm').addEventListener('submit', function (e) {
     e.preventDefault()
@@ -581,10 +659,29 @@
     var email = q('#formEmail').value.trim()
     var msg = q('#formMessage').value.trim()
     if (!name || !email || !msg) { alert('Completa todos los campos.'); return }
-    window.location.href = 'mailto:eliezerzm0312@gmail.com?subject=' +
-      encodeURIComponent('Contacto desde portfolio - ' + name) + '&body=' +
-      encodeURIComponent('Nombre: ' + name + '\nCorreo: ' + email + '\n\nMensaje:\n' + msg)
-    this.reset()
+    if (FORM_ENDPOINT.indexOf('YOUR_FORMSPREE_ID') !== -1) {
+      window.location.href = 'mailto:eliezerzm0312@gmail.com?subject=' +
+        encodeURIComponent('Contacto desde portfolio - ' + name) + '&body=' +
+        encodeURIComponent('Nombre: ' + name + '\nCorreo: ' + email + '\n\nMensaje:\n' + msg)
+      return
+    }
+    var btn = q('.term-send')
+    var origHTML = btn.innerHTML
+    btn.textContent = 'ENVIANDO...'
+    btn.disabled = true
+    fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ nombre: name, correo: email, mensaje: msg })
+    }).then(function (res) {
+      if (res.ok) {
+        q('#contactForm').innerHTML = '<p class="form-success">▸ TRANSMISI\xd3N ENVIADA \xb7 GRACIAS</p>'
+      } else {
+        btn.innerHTML = origHTML; btn.disabled = false
+      }
+    }).catch(function () {
+      btn.innerHTML = origHTML; btn.disabled = false
+    })
   })
 
   q('#infoClose').addEventListener('click', closeProjectInfo)
@@ -608,6 +705,7 @@
   initProjectHover()
   renderSkillTree()
   renderContact()
+  initHeroTerminal()
   updateTelemetry(0)
   initTelemetryFlicker()
 })()
