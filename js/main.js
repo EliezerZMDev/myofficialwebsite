@@ -100,19 +100,84 @@
 
   /* Árbol de habilidades: nodos desbloqueados (actuales) + bloqueados (por desbloquear) */
   const SKILL_TREE = [
-    { id: 'core', name: 'Desarrollo', x: 50, y: 12, unlocked: true, core: true, items: ['Fundamentos', 'Lógica', 'Algoritmos'] },
-    { id: 'frontend', name: 'Frontend', x: 20, y: 34, unlocked: true, items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'] },
-    { id: 'backend', name: 'Backend', x: 50, y: 34, unlocked: true, items: ['PHP', 'Node.js', 'APIs REST'] },
-    { id: 'arquitectura', name: 'Arquitectura', x: 80, y: 34, unlocked: true, items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'] },
-    { id: 'uxui', name: 'UX/UI', x: 12, y: 58, unlocked: true, items: ['Figma', 'Prototipado', 'Sistemas Diseño'] },
-    { id: 'ia', name: 'IA', x: 42, y: 58, unlocked: true, items: ['Agentes IA', 'Context Engineering', 'Prompting'] },
-    { id: 'automatizacion', name: 'Automatización', x: 64, y: 58, unlocked: true, items: ['Docs Automatizada', 'Workflows', 'DevOps'] },
-    { id: 'gestion', name: 'Gestión', x: 88, y: 58, unlocked: true, items: ['Git/GitHub', 'VS Code', 'Opencode'] },
-    { id: 'web-avanzado', name: 'Web Avanzado', x: 12, y: 84, unlocked: false, items: ['PWA', 'SPA Frameworks', 'WebGL / Three.js'] },
-    { id: 'movil', name: 'Desarrollo Móvil', x: 34, y: 84, unlocked: false, items: ['React Native', 'Flutter', 'Kotlin / Swift'] },
-    { id: 'desktop', name: 'Desktop', x: 54, y: 84, unlocked: false, items: ['Electron', '.NET', 'Tauri'] },
-    { id: 'cloud', name: 'Cloud / DevOps', x: 72, y: 84, unlocked: false, items: ['AWS / Azure', 'Docker', 'Kubernetes'] },
-    { id: 'videojuegos', name: 'Videojuegos', x: 90, y: 84, unlocked: false, items: ['Unity', 'Godot', 'Unreal'] }
+    {
+      id: 'core', name: 'Desarrollo', x: 50, y: 76, unlocked: true, core: true,
+      items: ['Fundamentos', 'Lógica', 'Algoritmos'],
+      iconType: 'stroke',
+      icon: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>'
+    },
+    {
+      id: 'frontend', name: 'Frontend', x: 20, y: 54, unlocked: true,
+      items: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
+      iconType: 'fill',
+      icon: '<path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>'
+    },
+    {
+      id: 'backend', name: 'Backend', x: 50, y: 54, unlocked: true,
+      items: ['PHP', 'Node.js', 'APIs REST'],
+      iconType: 'stroke',
+      icon: '<rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>'
+    },
+    {
+      id: 'arquitectura', name: 'Arquitectura', x: 80, y: 54, unlocked: true,
+      items: ['Diseño de Sistemas', 'Patrones', 'Escalabilidad'],
+      iconType: 'stroke',
+      icon: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>'
+    },
+    {
+      id: 'uxui', name: 'UX/UI', x: 8, y: 32, unlocked: true,
+      items: ['Figma', 'Prototipado', 'Sistemas Diseño'],
+      iconType: 'fill',
+      icon: '<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"/>'
+    },
+    {
+      id: 'ia', name: 'IA', x: 38, y: 32, unlocked: true,
+      items: ['Agentes IA', 'Context Engineering', 'Prompting'],
+      iconType: 'stroke',
+      icon: '<rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>'
+    },
+    {
+      id: 'automatizacion', name: 'Automatización', x: 62, y: 32, unlocked: true,
+      items: ['Docs Automatizada', 'Workflows', 'DevOps'],
+      iconType: 'stroke',
+      icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
+    },
+    {
+      id: 'gestion', name: 'Gestión', x: 90, y: 32, unlocked: true,
+      items: ['Git/GitHub', 'VS Code', 'Opencode'],
+      iconType: 'fill',
+      icon: '<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>'
+    },
+    {
+      id: 'web-avanzado', name: 'Web Avanzado', x: 8, y: 11, unlocked: false,
+      items: ['PWA', 'SPA Frameworks', 'WebGL / Three.js'],
+      iconType: 'stroke',
+      icon: '<circle cx="12" cy="12" r="1"/><path d="M20.2 20.2c2.04-2.03.02-7.36-4.5-11.9-4.54-4.52-9.87-6.54-11.9-4.5-2.04 2.03-.02 7.36 4.5 11.9 4.54 4.52 9.87 6.54 11.9 4.5z"/><path d="M15.7 15.7c4.52-4.54 6.54-9.87 4.5-11.9-2.03-2.04-7.36-.02-11.9 4.5-4.52 4.54-6.54 9.87-4.5 11.9 2.03 2.04 7.36.02 11.9-4.5z"/>'
+    },
+    {
+      id: 'movil', name: 'Móvil', x: 28, y: 11, unlocked: false,
+      items: ['React Native', 'Flutter', 'Kotlin / Swift'],
+      iconType: 'stroke',
+      icon: '<rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>'
+    },
+    {
+      id: 'desktop', name: 'Desktop', x: 48, y: 11, unlocked: false,
+      items: ['Electron', '.NET', 'Tauri'],
+      iconType: 'stroke',
+      icon: '<rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>'
+    },
+    {
+      id: 'cloud', name: 'Cloud / DevOps', x: 68, y: 11, unlocked: false,
+      items: ['AWS / Azure', 'Docker', 'Kubernetes'],
+      iconType: 'stroke',
+      icon: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>'
+    },
+    {
+      id: 'videojuegos', name: 'Videojuegos', x: 88, y: 11, unlocked: false,
+      items: ['Unity', 'Godot', 'Unreal'],
+      iconType: 'stroke',
+      icon: '<line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/>'
+    }
   ]
   const SKILL_EDGES = [
     ['core', 'frontend'], ['core', 'backend'], ['core', 'arquitectura'],
