@@ -303,36 +303,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ③ HABILIDADES — Grid limpio
    ================================================================= */
 
-.skills-wrapper { flex: 1; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
-.skilltree { position: relative; flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; min-height: 320px; }
-.skilltree-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-.skilltree-lines line { stroke: var(--hud-line); }
-.skilltree-lines line.active { stroke: var(--accent); opacity: 0.55; }
-.skilltree-lines line.locked { stroke: var(--text-muted); opacity: 0.4; stroke-dasharray: 3 3; }
+.skills-wrapper { flex: 1; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+.skilltree { position: relative; flex: 1; width: 100%; max-width: 1000px; margin: 0 auto; min-height: 340px; }
+.skilltree::before { content: ''; position: absolute; left: 50%; top: 50%; width: 72%; height: 86%; transform: translate(-50%, -50%); background: radial-gradient(ellipse at center, var(--accent-dim), transparent 70%); opacity: 0.6; pointer-events: none; z-index: 0; }
+.skilltree-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
+.skilltree-lines path.branch-trunk { stroke: var(--accent); stroke-width: 6; fill: none; }
+.skilltree-lines path.branch-active { stroke: var(--accent); stroke-width: 2; fill: none; opacity: 0.85; }
+.skilltree-lines path.branch-locked { stroke: var(--text-muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; opacity: 0.4; }
 
-.skill-node { position: absolute; transform: translate(-50%, -50%); z-index: 1; min-width: 108px; padding: 11px 14px; text-align: center; cursor: pointer; background: var(--hud-panel); border: 1px solid var(--hud-line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); transition: all 0.3s ease; }
-.skill-node-title { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--accent); line-height: 1.2; }
-.skill-node-sub { font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 4px; }
-.skill-node.core { background: var(--accent); border-color: var(--accent); }
-.skill-node.core .skill-node-title { color: #fff; }
-.skill-node.core .skill-node-sub { color: rgba(255,255,255,0.75); }
-.skill-node.unlocked:hover { border-color: var(--accent); box-shadow: 0 0 18px rgba(41,121,255,0.35); }
-.skill-node.unlocked.selected { border-color: var(--accent); background: var(--surface-active); box-shadow: 0 0 18px rgba(41,121,255,0.4); }
-.skill-node.locked { opacity: 0.5; filter: grayscale(0.6); border-style: dashed; border-color: var(--text-muted); }
-.skill-node.locked .skill-node-title { color: var(--text-secondary); }
-.skill-node.locked:hover { opacity: 0.8; }
-.skill-node.locked.selected { opacity: 0.9; border-color: var(--text-secondary); }
+/* Nodo hexagonal */
+.skill-node { position: absolute; transform: translate(-50%, -50%); z-index: 2; width: 56px; height: 62px; display: flex; align-items: center; justify-content: center; cursor: pointer; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); transition: transform 0.3s ease, filter 0.3s ease; }
+.skill-node::before { content: ''; position: absolute; inset: 2px; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); background: rgba(3,5,10,0.9); z-index: 0; }
+[data-theme="light"] .skill-node::before { background: rgba(238,240,243,0.92); }
+.skill-node svg { position: relative; z-index: 1; width: 22px; height: 22px; }
 
-.skilltree-detail { flex-shrink: 0; min-height: 88px; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 14px 22px; background: var(--hud-panel); border: 1px solid var(--border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.sd-hint { font-size: 0.66rem; color: var(--text-muted); letter-spacing: 0.08em; }
-.sd-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.sd-name { font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-primary); }
-.sd-status { font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.12em; padding: 3px 10px; border: 1px solid; }
+.skill-node.unlocked { background: var(--accent); filter: drop-shadow(0 0 6px rgba(41,121,255,0.7)); }
+.skill-node.unlocked svg { color: var(--accent); }
+.skill-node.unlocked:hover { transform: translate(-50%, -50%) scale(1.14); filter: drop-shadow(0 0 13px rgba(41,121,255,0.95)); z-index: 5; }
+.skill-node.selected { transform: translate(-50%, -50%) scale(1.12) !important; filter: drop-shadow(0 0 18px rgba(41,121,255,1)) !important; z-index: 6 !important; }
+
+.skill-node.core { width: 78px; height: 86px; background: var(--accent); filter: drop-shadow(0 0 14px rgba(41,121,255,0.9)); }
+.skill-node.core::before { background: rgba(41,121,255,0.22); }
+.skill-node.core svg { width: 32px; height: 32px; color: #fff; }
+.skill-node.core:hover { transform: translate(-50%, -50%) scale(1.1); }
+
+.skill-node.locked { background: var(--text-muted); filter: grayscale(0.7); opacity: 0.4; }
+.skill-node.locked svg { color: var(--text-secondary); }
+.skill-node.locked:hover { opacity: 0.7; transform: translate(-50%, -50%) scale(1.08); z-index: 5; }
+
+/* Etiqueta debajo del nodo */
+.skill-node-label { position: absolute; transform: translateX(-50%); z-index: 3; font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-muted); white-space: nowrap; pointer-events: none; text-align: center; }
+
+/* Panel de detalle */
+.skilltree-detail { flex-shrink: 0; padding: 14px 20px; min-height: 80px; background: var(--hud-panel); border: 1px solid var(--border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; flex-direction: column; justify-content: center; }
+.sd-hint { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; color: var(--text-muted); text-align: center; }
+.sd-head { display: flex; align-items: center; gap: 16px; margin-bottom: 10px; }
+.sd-name { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+.sd-status { font-family: var(--mono); font-size: 0.56rem; letter-spacing: 0.12em; padding: 3px 10px; border: 1px solid; }
 .sd-status.on { color: var(--accent); border-color: var(--border-accent); }
 .sd-status.off { color: var(--text-muted); border-color: var(--border); }
-.sd-items { display: flex; flex-wrap: wrap; gap: 6px; }
-.sd-items span { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary); padding: 3px 9px; border: 1px solid var(--border); }
-.sd-items.off span { color: var(--text-muted); border-style: dashed; }
+.sd-items { display: flex; gap: 6px; flex-wrap: wrap; }
+.sd-items span { padding: 3px 10px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.04em; background: var(--accent-dim); border: 1px solid var(--border-accent); color: var(--accent); }
+.sd-items.off span { background: var(--surface); border-color: var(--border); color: var(--text-muted); }
+
+/* Leyenda */
+.skilltree-legend { flex-shrink: 0; display: flex; gap: 22px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 10px; font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em; color: var(--text-muted); border-top: 1px solid var(--border); }
+.skilltree-legend span { display: flex; align-items: center; gap: 7px; }
+.lg-dot { width: 9px; height: 9px; display: inline-block; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.lg-dot.on { background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+.lg-dot.off { background: var(--text-muted); opacity: 0.5; }
 
 /* =================================================================
    ④ EXPERIENCIA — 3 paneles full-height
@@ -467,9 +486,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .exp-grid { flex-direction: column; overflow-y: auto; }
   .exp-panel { flex: none; min-height: 200px; clip-path: none; }
   .section-ghost { font-size: 30vw; }
-  .skill-node { min-width: 82px; padding: 8px 9px; }
-  .skill-node-title { font-size: 0.58rem; }
-  .skill-node-sub { font-size: 0.44rem; }
+  .skill-node { width: 40px; height: 44px; }
+  .skill-node svg { width: 16px; height: 16px; }
+  .skill-node.core { width: 54px; height: 60px; }
+  .skill-node.core svg { width: 22px; height: 22px; }
+  .skill-node.locked { width: 34px; height: 38px; }
+  .skill-node-label { font-size: 0.42rem; }
+  .skilltree-detail { min-height: 96px; }
   .contact-hero { grid-template-columns: 1fr; }
 }
 
