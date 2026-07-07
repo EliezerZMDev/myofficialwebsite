@@ -214,26 +214,64 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hero-roles { font-size: 0.75rem; letter-spacing: 0.25em; color: var(--text-secondary); margin: 18px 0; }
 .hero-desc { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; max-width: 460px; }
 .hero-status-badge { display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; padding: 8px 16px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--hud-line); background: var(--hud-panel); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.hero-right { flex: 1; display: flex; flex-direction: column; gap: 12px; }
-.hero-module { flex: 0 0 80px; display: flex; align-items: center; gap: 16px; padding: 0 44px; font-size: clamp(1.3rem, 2.6vw, 2.4rem); font-weight: 900; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-primary); background: var(--hud-panel); border: 1px solid var(--hud-line); clip-path: polygon(0 0, 100% 0, 100% 100%, 32px 100%); transition: all var(--transition) ease; position: relative; overflow: hidden; box-shadow: 0 6px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); }
-.hero-module .mono { color: var(--accent); font-size: 0.8em; transition: transform var(--transition) ease; }
-.hero-module:hover { background: var(--surface-active); color: var(--accent); }
-.hero-module:hover .mono { transform: translateX(10px); }
+.hero-right { flex: 1; display: flex; align-items: center; justify-content: center; }
 
-/* Hero terminal */
-.hero-terminal { flex: 1; min-height: 160px; background: var(--bg-secondary); border: 1px solid var(--hud-line); display: flex; flex-direction: column; overflow: hidden; }
-.hero-terminal-bar { display: flex; align-items: center; gap: 6px; padding: 9px 14px; border-bottom: 1px solid var(--hud-line); flex-shrink: 0; }
-.ht-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.ht-dot.r { background: #ff5f57; }
-.ht-dot.y { background: #ffbd2e; }
-.ht-dot.g { background: #28c840; }
-.ht-title { font-family: var(--mono); font-size: 0.58rem; color: var(--text-muted); letter-spacing: 0.08em; margin-left: 6px; }
-.hero-terminal-body { flex: 1; min-height: 0; padding: 14px 16px; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; overflow: hidden; }
-.ht-line { display: flex; align-items: baseline; gap: 8px; font-family: var(--mono); font-size: 0.72rem; line-height: 1.6; white-space: nowrap; overflow: hidden; }
-.ht-prompt { color: var(--accent); flex-shrink: 0; }
-.ht-text { color: var(--text-primary); }
-.ht-output { color: var(--text-muted); padding-left: 16px; font-size: 0.68rem; }
-.ht-cursor { display: inline-block; width: 7px; height: 0.85em; background: var(--accent); vertical-align: text-bottom; margin-left: 1px; animation: blink 0.8s step-end infinite; }
+/* Hero dial — círculo partido en vertical */
+.hero-dial {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1;
+  margin: auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--accent);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.hero-dial-half {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 22px;
+  background: var(--hud-panel);
+  color: var(--text-primary);
+  font-size: clamp(0.95rem, 1.7vw, 1.3rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  transition: width var(--transition) ease, background var(--transition) ease, color var(--transition) ease;
+}
+.hero-dial-half.left { left: 0; border-right: 1px solid var(--hud-line); }
+.hero-dial-half.right { right: 0; }
+.hero-dial-half:hover {
+  width: 100%;
+  z-index: 2;
+  background: var(--accent);
+  color: var(--bg-primary);
+  border-right: none;
+}
+.hd-label { line-height: 1.1; }
+.hero-dial-half:hover .hd-label::after { content: ' \25B8'; }
+.hd-sub {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: none;
+  opacity: 0;
+  max-height: 0;
+  transition: opacity var(--transition) ease;
+}
+.hero-dial-half:hover .hd-sub { opacity: 1; max-height: 2em; }
 
 /* =================================================================
    ② PROYECTOS — Cards trapezoidales
@@ -447,9 +485,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .section-content { padding-left: 24px; padding-right: 24px; }
   .hero { flex-direction: column; align-items: flex-start; gap: 24px; justify-content: center; }
   .hero-left { flex: none; }
-  .hero-terminal { display: none; }
-  .hero-right { flex: none; width: 100%; flex-direction: row; }
-  .hero-module { flex: 1; flex-basis: auto; clip-path: none; min-height: 96px; }
+  .hero-right { flex: none; width: 100%; }
+  .hero-dial {
+    max-width: none;
+    aspect-ratio: auto;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hero-dial-half {
+    position: static;
+    width: 100%;
+    height: auto;
+    min-height: 88px;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 18px 24px;
+    border: 1px solid var(--hud-line);
+    text-align: left;
+  }
+  .hero-dial-half.left { border-right: 1px solid var(--hud-line); }
+  .hero-dial-half:hover { width: 100%; }
+  .hd-sub { opacity: 1; max-height: none; font-size: 0.6rem; }
   .about-photo-panel { flex: 0 0 38%; clip-path: polygon(0 0, 100% 0, 72% 100%, 0 100%); }
   .about-focal { padding: 32px 32px 32px 64px; margin-left: -40px; }
   .contact-hero { grid-template-columns: repeat(2, 1fr); }
