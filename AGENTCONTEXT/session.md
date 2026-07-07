@@ -20,7 +20,7 @@
 ```
 ESTADO: CERRADA_LIMPIAMENTE
 FECHA:  2026-07-07
-ÚLTIMO COMMIT: 2f25121
+ÚLTIMO COMMIT: 8e2b590 (+ commit de docs pendiente)
 ```
 
 > **Si ESTADO = `INTERRUMPIDA` o `EN_CURSO`:** No confíes en la sección "Sesión en curso" — puede estar incompleta.
@@ -33,29 +33,33 @@ FECHA:  2026-07-07
 > Esta sección solo se sobreescribe al cerrar una sesión limpiamente. Es la fuente de verdad entre sesiones.
 
 - **Fecha:** 2026-07-07
-- **Objetivo:** Sincronizar AGENTCONTEXT con la realidad del repo — documentar 6 commits sin registrar, commitear docs y ADRs pendientes
-- **Último commit:** `2f25121`
+- **Objetivo:** Rediseño hero (dial circular), Experiencia (timeline), y limpieza de HUD (scanlines + barra inferior). Antes: sincronización de AGENTCONTEXT + URL Corazón Azul VH.
+- **Último commit:** `8e2b590` (+ commit de docs de esta entrada)
 - **Branch:** `master`
 
 ### Qué quedó funcionando
 - Dark mode (`#13151c` + azul `#2979ff`) y light mode (`#f2f0ec` + rojo `#c0392b`) completamente funcionales
 - Skill tree SVG con ramas Bezier y glow
-- Terminal animado en hero (typewriter recursivo)
+- **Hero dial circular** partido en vertical (reemplaza la terminal animada); hover rellena el círculo + subtítulo
+- **Experiencia como timeline horizontal** conectada, nodos 01/02/03 (sin LOG ni fecha)
+- Sin scanlines ni barra inferior de estado HUD
 - Imágenes Unsplash en los 5 proyectos (opacity 0.28 → 0.5 en hover)
-- **Formulario con Formspree REAL configurado** (`https://formspree.io/f/xkoaeekb`) — ya no usa fallback mailto
-- **Sección "Sobre mí" rediseñada:** foto real (`src/me.png`) en split diagonal foto/contenido
+- Formulario con Formspree REAL (`https://formspree.io/f/xkoaeekb`)
+- "Sobre mí" con foto real (`src/me.png`) en split diagonal
 - Deploy activo en GitHub Pages: https://eliezerzmdev.github.io/myofficialwebsite/
 
-### Trabajo de sincronización realizado esta sesión
-- Documentados en `changelog.md` los 6 commits sin registrar (`6a526fd` → `51439b7`)
-- `knowledge.md`: Formspree marcado como configurado, añadida entrada de `src/me.png`, fecha verificación → 2026-07-07
-- `decisions.md`: commiteados los 2 ADRs pendientes (no-videos, dualidad de color) + nuevo ADR "Sobre mí" split diagonal
-- Commiteados los docs sin rastrear del skill tree (spec + plan)
+### Trabajo de esta sesión
+- Sincronización de AGENTCONTEXT (6 commits sin registrar) + URL real Corazón Azul VH (`b3b7c89`)
+- Rediseño: scanlines (`18ffaff`), barra HUD (`4436fad`), hero dial (`dd3031f`), timeline (`8e2b590`)
+- Spec + plan en `docs/superpowers/`; ADR nuevo en `decisions.md`
+
+### Verificación pendiente
+- [ ] **Confirmación visual del usuario** del hero dial (hover/relleno) y la timeline en navegador — falta validar en pantalla real antes de considerar 100% cerrado.
 
 ### Pendientes para la próxima sesión
-- [ ] **URLs reales de proyectos:** Todos tienen `url: '#'` y `repo: '#'`
-- [ ] **Contenido de experiencia:** Las 3 entradas son genéricas — necesita historial real
-- [ ] **Peso de `src/me.png`:** ~1.8 MB — considerar optimizar/comprimir para el deploy
+- [ ] **URLs reales del resto de proyectos:** siguen con `url: '#'`
+- [ ] **Contenido de experiencia:** las 3 entradas son genéricas — necesita historial real
+- [ ] **Peso de `src/me.png`:** ~1.8 MB — considerar optimizar
 
 ---
 

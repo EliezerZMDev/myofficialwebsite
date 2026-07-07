@@ -393,3 +393,28 @@
 - Proyecto "Corazón Azul VH" (`id: 0`) — `url` cambiada de `'#'` a `'https://corazonazulvh.com'` (sitio real en producción). El resto de proyectos siguen con `url: '#'` pendientes.
 
 ### Revertir: `git revert b3b7c89`
+
+---
+
+## [2026-07-07] — Sesión Hero Dial + Experiencia Timeline + Limpieza HUD
+
+### Commits relacionados:
+- `18ffaff` — style: eliminar scanlines (barra de escaneo vertical) de todas las secciones
+- `4436fad` — refactor: eliminar barra inferior de estado HUD y su telemetria JS
+- `dd3031f` — feat: hero dial circular partido en vertical (reemplaza terminal animada)
+- `8e2b590` — feat: experiencia como timeline horizontal conectada (sin log ni fecha)
+
+### Archivos:
+- `index.html`
+- `css/main.css`
+- `js/main.js`
+- `docs/superpowers/specs/2026-07-07-hero-dial-experiencia-timeline-limpieza-hud.md`
+- `docs/superpowers/plans/2026-07-07-hero-dial-experiencia-timeline-limpieza-hud.md`
+
+### Detalle:
+- **Scanlines eliminadas:** removidos los 2 `<div class="scanline">` (Proyectos y Experiencia), la regla `.scanline`, el `@keyframes scanSweep` y la regla en `prefers-reduced-motion`.
+- **Barra inferior HUD eliminada:** removido el `<footer class="hud-status">` completo (SYS·ONLINE, coordenadas LAT/LON, barra de progreso, contador `00/06`, fecha, hint de scroll). CSS: eliminadas `.hud-status`, `.hud-stat`, `.hud-progress`, `.hud-hint` (se **conserva** `.hud-led`, usada por el badge y el boot). JS: eliminadas `updateTelemetry()`, `initTelemetryFlicker()` y sus llamadas.
+- **Hero dial circular:** eliminada la terminal animada (`.hero-terminal` + `initHeroTerminal()`). La zona derecha del hero ahora es un círculo partido en vertical: izquierda "Ver proyectos", derecha "Contactar". Hover en una mitad la expande hasta rellenar el círculo completo (tapa la otra), se pinta de acento y muestra flecha `▸` + subtítulo. Navegación vía `[data-section]` existente. Móvil (≤1024px): fallback a 2 botones apilados con subtítulos visibles.
+- **Experiencia timeline:** los 3 `.exp-panel` trapezoidales pasan a `.exp-item` en una timeline horizontal conectada por línea de acento (`.exp-grid::before`) con nodos circulares numerados (`.exp-node` 01/02/03). Eliminados `LOG_00x` (`.exp-log`) y la fecha (`.exp-date`). Hover en un ítem rellena su nodo con glow. Móvil: apilado vertical sin la línea.
+
+### Revertir: `git revert 8e2b590 dd3031f 4436fad 18ffaff`

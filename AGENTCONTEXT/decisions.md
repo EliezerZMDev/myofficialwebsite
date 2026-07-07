@@ -141,4 +141,27 @@ Split diagonal (opción 3): la foto llena un panel diagonal (`.about-photo` con 
 
 ---
 
+## [2026-07-07] Hero dial circular + Experiencia timeline + limpieza de HUD
+
+### Contexto
+El usuario consideró innecesarios varios elementos "de relleno" tipo HUD de videojuego: la ventana de terminal animada del hero, la barra de escaneo vertical (scanlines) de las secciones, y la barra inferior de telemetría falsa (SYS·ONLINE, coordenadas, fecha, progreso). Además, la sección de Experiencia (3 columnas altas) se veía vacía.
+
+### Opciones consideradas
+- **Hero:** botones apilados grandes / botones con índice+subtítulo / **dial circular partido** con expansión en hover → el usuario eligió el dial circular partido en vertical.
+- **Experiencia:** filas numeradas / **timeline horizontal conectada** / 3 paneles con número marca de agua → el usuario eligió la timeline horizontal.
+- **Barra inferior:** conservar contador+hint / **eliminar completa** → el usuario eligió eliminarla completa.
+
+### Decisión
+- Hero: círculo partido en vertical, cada mitad un botón; hover expande la mitad hasta rellenar el círculo completo, con subtítulo y flecha. Fallback móvil a 2 botones apilados.
+- Experiencia: timeline horizontal con nodos numerados (01/02/03) conectados por línea de acento; sin `LOG_00x` ni fecha.
+- Se eliminan scanlines y la barra inferior HUD por completo (se conserva `.hud-led`, compartida con el badge y el boot; y el `hud-rail` lateral).
+
+### Consecuencias
+- Menos "ruido" visual tipo HUD; la página se siente más limpia y enfocada.
+- El dial es el elemento distintivo del hero; usa `border-radius` (excepción consciente a la regla "sin border-radius", igual que los nodos de la timeline).
+- Se eliminó JS de telemetría y de la terminal (`updateTelemetry`, `initTelemetryFlicker`, `initHeroTerminal`).
+- Commits: `18ffaff`, `4436fad`, `dd3031f`, `8e2b590`
+
+---
+
 *Próxima entrada aquí tras la próxima decisión importante.*
