@@ -20,7 +20,7 @@
 ```
 ESTADO: CERRADA_LIMPIAMENTE
 FECHA:  2026-07-07
-ÚLTIMO COMMIT: (commit de sincronización de esta sesión)
+ÚLTIMO COMMIT: 2f25121
 ```
 
 > **Si ESTADO = `INTERRUMPIDA` o `EN_CURSO`:** No confíes en la sección "Sesión en curso" — puede estar incompleta.
@@ -34,6 +34,7 @@ FECHA:  2026-07-07
 
 - **Fecha:** 2026-07-07
 - **Objetivo:** Sincronizar AGENTCONTEXT con la realidad del repo — documentar 6 commits sin registrar, commitear docs y ADRs pendientes
+- **Último commit:** `2f25121`
 - **Branch:** `master`
 
 ### Qué quedó funcionando

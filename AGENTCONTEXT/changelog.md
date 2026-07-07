@@ -370,7 +370,7 @@
 
 ## [2026-06-16] — Sesión Skill Tree Redesign (docs pendientes)
 
-### Commit: (registrar tras commit de sincronización)
+### Commit: `2f25121`
 ### Archivos:
 - `docs/superpowers/specs/2026-06-16-skilltree-redesign.md` (nuevo)
 - `docs/superpowers/plans/2026-06-16-skilltree-redesign.md` (nuevo)
