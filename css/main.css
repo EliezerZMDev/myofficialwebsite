@@ -447,9 +447,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section.active .section-content > :nth-child(3) { animation-delay: 0.06s; }
 .section.active .section-content > :nth-child(4) { animation-delay: 0.12s; }
 
-@keyframes scanSweep { 0% { transform: translateY(-100%); } 100% { transform: translateY(120vh); } }
-.scanline { position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--accent); opacity: 0.18; pointer-events: none; z-index: 4; animation: scanSweep 5s linear infinite; }
-
 /* =================================================================
    BOOT INTRO
    ================================================================= */
@@ -510,6 +507,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (prefers-reduced-motion: reduce) {
   .section.active .section-content > :not(.section-ghost) { animation: none; }
-  .scanline { display: none; }
   .boot-cursor { animation: none; }
 }
