@@ -379,3 +379,17 @@
 ### Detalle:
 - Spec y plan del rediseño del skill tree (implementado en commits `c4e2463`..`0fb21bd`) que habían quedado sin rastrear en git. Se commitean ahora para preservar el registro.
 - `decisions.md`: se commitean los 2 ADRs (eliminar videos / dualidad de color dark-light) que estaban en el working tree sin commitear.
+
+---
+
+## [2026-07-07] — Sesión Sincronización (URL real Corazón Azul VH)
+
+### Commit: `b3b7c89`
+### Mensaje: feat: URL real de Corazon Azul VH (corazonazulvh.com)
+### Archivos:
+- `js/main.js`
+
+### Detalle:
+- Proyecto "Corazón Azul VH" (`id: 0`) — `url` cambiada de `'#'` a `'https://corazonazulvh.com'` (sitio real en producción). El resto de proyectos siguen con `url: '#'` pendientes.
+
+### Revertir: `git revert b3b7c89`
