@@ -380,17 +380,50 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .lg-dot.off { background: var(--text-muted); opacity: 0.5; }
 
 /* =================================================================
-   ④ EXPERIENCIA — 3 paneles full-height
+   ④ EXPERIENCIA — Timeline horizontal conectada
    ================================================================= */
 
 .exp-wrapper { flex: 1; display: flex; overflow: hidden; }
-.exp-grid { display: flex; width: 100%; height: 100%; gap: 1px; position: relative; }
-.exp-panel { flex: 1; height: 100%; display: flex; flex-direction: column; padding: 40px 32px; background: var(--bg-secondary); border: 1px solid var(--hud-line); transition: background 0.3s ease; overflow-y: auto; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%); }
-.exp-panel:hover { background: rgba(3,5,10,0.82); border-color: var(--accent); }
-[data-theme="light"] .exp-panel:hover { background: rgba(244,246,249,0.92); }
-.exp-log { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--accent); }
-.exp-date { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-muted); margin-top: 4px; }
-.exp-title { font-size: 1.15rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin: 16px 0 12px; }
+.exp-grid { display: flex; width: 100%; height: 100%; gap: 24px; position: relative; padding: 60px 12px 12px; }
+.exp-grid::before {
+  content: '';
+  position: absolute;
+  top: 84px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.5;
+  z-index: 0;
+}
+.exp-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  padding: 0 18px;
+  overflow-y: auto;
+}
+.exp-node {
+  align-self: center;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg-primary);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  transition: all 0.3s ease;
+}
+.exp-item:hover .exp-node { background: var(--accent); color: var(--bg-primary); box-shadow: 0 0 16px var(--accent); }
+.exp-title { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; margin: 0 0 12px; text-align: center; }
 .exp-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; }
 .exp-tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 16px 0; }
 .exp-tags span { padding: 3px 9px; font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--border-accent); color: var(--accent); }
@@ -528,8 +561,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .project-card { clip-path: none; }
   .project-card + .project-card { margin-left: 0; }
   .project-card:hover { z-index: 2; }
-  .exp-grid { flex-direction: column; overflow-y: auto; }
-  .exp-panel { flex: none; min-height: 200px; clip-path: none; }
+  .exp-grid { flex-direction: column; overflow-y: auto; gap: 20px; padding: 20px 10px; }
+  .exp-grid::before { display: none; }
+  .exp-item { flex: none; padding: 0; overflow-y: visible; }
+  .exp-node { align-self: flex-start; margin-bottom: 16px; }
+  .exp-title { text-align: left; }
   .section-ghost { font-size: 30vw; }
   .skill-node { width: 40px; height: 44px; }
   .skill-node svg { width: 16px; height: 16px; }
