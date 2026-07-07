@@ -67,7 +67,7 @@
 
 ---
 
-## CONTEXTUAL — Estado verificado: 2026-06-16
+## CONTEXTUAL — Estado verificado: 2026-07-07
 
 > Verificar en cada sesión. Si algo cambió, actualizar o eliminar la entrada.
 
@@ -108,17 +108,21 @@
 | Dashboard Analytics | `https://images.unsplash.com/photo-1551288049-bebda4e38f71` |
 | API RESTful | `https://images.unsplash.com/photo-1760670399462-f5e479452c27` |
 
-### Pendiente de configurar
+### Formulario de contacto — CONFIGURADO
 
-- `FORM_ENDPOINT` en `js/main.js` (buscar `YOUR_FORMSPREE_ID`) — crear cuenta gratis en formspree.io
+- `FORM_ENDPOINT` en `js/main.js` = `https://formspree.io/f/xkoaeekb` (cuenta real, activa desde 2026-06-16). Ya no cae al fallback `mailto:`.
+
+### Foto real del usuario
+
+- `src/me.png` es la foto real usada en la sección "Sobre mí". `src/` ya no está vacía (contiene solo `me.png`).
 
 ### Deploy activo
 
 - **URL:** https://eliezerzmdev.github.io/myofficialwebsite/
 - **Repo:** https://github.com/EliezerZMDev/myofficialwebsite
 - **Branch:** `master` → raíz `/`
-- `src/videos/` y `src/images/` eliminadas del repo y del disco (2026-06-16)
+- `src/videos/` y `src/images/` eliminadas del repo y del disco (2026-06-16). `src/` ahora contiene solo `me.png`.
 
 ---
 
-*Última actualización: 2026-06-16*
+*Última actualización: 2026-07-07*

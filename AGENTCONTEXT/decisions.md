@@ -79,4 +79,66 @@ Regions layout — cada proyecto muestra 3 imágenes en vertical con flechas de 
 
 ---
 
+## [2026-06-16] Eliminar videos de fondo — colores sólidos
+
+### Contexto
+El portfolio tenía 6 videos de fondo (`<video>`) que hacían la página pesada y complicaban el mantenimiento. El usuario quería quitar videos y gradientes para un diseño más limpio y nítido.
+
+### Opciones consideradas
+- **Colores sólidos con gradientes sutiles:** Más suave visualmente, pero el usuario pidió explícitamente sin gradientes
+- **Colores completamente planos:** Limpio pero quizá aburrido — el usuario pidió algún elemento de diseño
+- **Colores sólidos + elemento decorativo puntual:** Línea horizontal de acento — limpio, con personalidad
+
+### Decisión
+Colores sólidos sin gradientes. Una línea decorativa horizontal de 2px en `--accent` sobre el encabezado de cada sección (`.section-content::before`) como único elemento de diseño no-plano.
+
+### Consecuencias
+- Página carga más rápido (sin 6 videos de video)
+- CSS más simple y mantenible (sin `backdrop-filter` en la mayoría de elementos)
+- `src/videos/` puede eliminarse para liberar espacio en el repo
+- Commits: `4f379c2`, `78af328`, `dd68a1f`
+
+---
+
+## [2026-06-16] Dualidad de color dark/light (azul vs. rojo)
+
+### Contexto
+Con la decisión de usar colores sólidos, se necesitaba una paleta concreta. El usuario quería dark mode y light mode con personalidad. Su color favorito es el azul, pero también le gustaba la idea de rojo para el modo claro.
+
+### Opciones consideradas
+- **Ambos modos con azul:** Consistente pero sin contraste de personalidad entre temas
+- **Ambos modos con rojo:** Sin el azul favorito del usuario
+- **Dark=azul / Light=rojo:** Dualidad, cada modo tiene su propia identidad de color
+
+### Decisión
+Dark mode con `--accent: #2979ff` (azul eléctrico) sobre fondo `#13151c` (negro grisáceo). Light mode con `--accent: #c0392b` (rojo suave) sobre fondo `#f2f0ec` (blanco cremoso). El usuario aprobó esta "dualidad" explícitamente.
+
+### Consecuencias
+- Todo el CSS usa `var(--accent)` / `var(--hud-line)` — el color cambia automáticamente al cambiar tema
+- Los marcos HUD, la línea decorativa, los bordes activos, las partículas — todo sigue al tema
+- Light mode se siente como un tema distinto, no solo "el mismo con fondo blanco"
+- Commit: `940f7a1`
+
+---
+
+## [2026-06-16] Sección "Sobre mí" — split diagonal foto/contenido
+
+### Contexto
+La sección "Sobre mí" tenía un placeholder de foto y bio genérica. El usuario aportó su foto real (`src/me.png`) y quería una presentación con más personalidad. Se iteró sobre varias opciones de layout.
+
+### Opciones consideradas
+- **Avatar pequeño + bio completa + grid de 6 stats:** informativa, pero cargada y con la foto minimizada
+- **Split diagonal foto/contenido (opción 3):** foto grande en panel diagonal, contenido con headline y meta inline — más visual y coherente con la estética de diagonales del resto del sitio
+- **Foto centrada tradicional:** segura pero sin personalidad
+
+### Decisión
+Split diagonal (opción 3): la foto llena un panel diagonal (`.about-photo` con `position: absolute`) y el contenido va al lado con headline y metadatos inline. Coherente con las diagonales usadas en hero y proyectos.
+
+### Consecuencias
+- `.about-photo` requiere `position: absolute` para llenar el panel diagonal sin dejar huecos
+- La foto real `src/me.png` (~1.8 MB) vive en el repo — único asset binario grande restante
+- Commits: `c047ff5`, `81481f3`, `51ca561`, `51439b7`
+
+---
+
 *Próxima entrada aquí tras la próxima decisión importante.*

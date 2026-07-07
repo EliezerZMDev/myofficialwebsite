@@ -19,8 +19,8 @@
 
 ```
 ESTADO: CERRADA_LIMPIAMENTE
-FECHA:  2026-06-16
-ÚLTIMO COMMIT: 8894a45
+FECHA:  2026-07-07
+ÚLTIMO COMMIT: (commit de sincronización de esta sesión)
 ```
 
 > **Si ESTADO = `INTERRUMPIDA` o `EN_CURSO`:** No confíes en la sección "Sesión en curso" — puede estar incompleta.
@@ -32,9 +32,8 @@ FECHA:  2026-06-16
 
 > Esta sección solo se sobreescribe al cerrar una sesión limpiamente. Es la fuente de verdad entre sesiones.
 
-- **Fecha:** 2026-06-16
-- **Objetivo:** Rediseño visual completo (sin videos, nueva paleta) + 3 mejoras UX (terminal hero, imágenes proyectos, formulario fetch)
-- **Último commit:** `8894a45`
+- **Fecha:** 2026-07-07
+- **Objetivo:** Sincronizar AGENTCONTEXT con la realidad del repo — documentar 6 commits sin registrar, commitear docs y ADRs pendientes
 - **Branch:** `master`
 
 ### Qué quedó funcionando
@@ -42,32 +41,20 @@ FECHA:  2026-06-16
 - Skill tree SVG con ramas Bezier y glow
 - Terminal animado en hero (typewriter recursivo)
 - Imágenes Unsplash en los 5 proyectos (opacity 0.28 → 0.5 en hover)
-- Formulario con fetch/Formspree + fallback mailto (pendiente configurar Formspree ID)
+- **Formulario con Formspree REAL configurado** (`https://formspree.io/f/xkoaeekb`) — ya no usa fallback mailto
+- **Sección "Sobre mí" rediseñada:** foto real (`src/me.png`) en split diagonal foto/contenido
+- Deploy activo en GitHub Pages: https://eliezerzmdev.github.io/myofficialwebsite/
+
+### Trabajo de sincronización realizado esta sesión
+- Documentados en `changelog.md` los 6 commits sin registrar (`6a526fd` → `51439b7`)
+- `knowledge.md`: Formspree marcado como configurado, añadida entrada de `src/me.png`, fecha verificación → 2026-07-07
+- `decisions.md`: commiteados los 2 ADRs pendientes (no-videos, dualidad de color) + nuevo ADR "Sobre mí" split diagonal
+- Commiteados los docs sin rastrear del skill tree (spec + plan)
 
 ### Pendientes para la próxima sesión
-- [ ] **Configurar Formspree:** Crear cuenta en formspree.io, reemplazar `YOUR_FORMSPREE_ID` en `js/main.js` (buscar `FORM_ENDPOINT`)
 - [ ] **URLs reales de proyectos:** Todos tienen `url: '#'` y `repo: '#'`
 - [ ] **Contenido de experiencia:** Las 3 entradas son genéricas — necesita historial real
-- [ ] **Sección "Sobre mí":** Foto real y bio personal (actualmente placeholder)
-- [ ] **Deploy:** Página no publicada aún (GitHub Pages / Netlify / Vercel)
-- [ ] **`src/images/`:** Carpeta no rastreada en git — verificar si tiene contenido útil o eliminar
-
-### Todos los commits de esta sesión
-
-| SHA | Mensaje |
-|-----|---------|
-| `0fb21bd` | feat: add skilltree-legend element to skills wrapper |
-| `4bfa8b9` | feat: actualizar CSS skills — paths bezier, nodos con SVG, panel detalle |
-| `80629cb` | feat: actualizar SKILL_TREE — posiciones árbol bottom-up + íconos SVG inline |
-| `c4e2463` | feat: reescribir renderSkillTree — bezier paths, tronco, íconos SVG, leyenda |
-| `4f17232` | docs: spec rediseno sin videos, sin gradientes, colores dark/light |
-| `940f7a1` | style: nuevos tokens dark #13151c+blue / light #f2f0ec+red |
-| `4f379c2` | style: eliminar section-video, overlays, gradientes y glassmorphism de video |
-| `3eb653c` | style: linea decorativa horizontal de acento en section-content |
-| `78af328` | chore: eliminar elementos video y section-overlay de las 6 secciones |
-| `dd68a1f` | refactor: eliminar gestion de video en JS, colores solidos en proyectos |
-| `1e0e6f9` | docs: changelog + plan rediseno sin videos |
-| `8894a45` | feat: terminal animado en hero, imagenes reales en proyectos, formulario con fetch |
+- [ ] **Peso de `src/me.png`:** ~1.8 MB — considerar optimizar/comprimir para el deploy
 
 ---
 
@@ -76,18 +63,7 @@ FECHA:  2026-06-16
 > Esta sección se actualiza constantemente durante la sesión activa. Puede estar incompleta.
 > Al iniciar una sesión nueva: borra esta sección y empieza a llenarla desde cero.
 
-**Fecha:** 2026-06-16
-**Objetivo:** Publicar el portfolio en GitHub Pages + limpiar archivos pesados del repo
-
-**Acción actual:** Documentando sesión
-**Archivos tocados:** `AGENTCONTEXT/session.md`, `AGENTCONTEXT/changelog.md`, `AGENTCONTEXT/knowledge.md`
-
-### Commits de esta sesión
-
-| SHA | Mensaje |
-|-----|---------|
-| `752ab78` | chore: eliminar videos grandes del repo (fondoweb3, fondoweb4) |
-| `a52ba1e` | chore: eliminar carpetas videos e images del repo |
+_(Sin sesión en curso — la última se cerró limpiamente. Al iniciar una nueva, llena esta sección desde cero.)_
 
 ---
 
@@ -104,4 +80,4 @@ Antes de terminar una sesión, verificar:
 
 ---
 
-*Última actualización: 2026-06-16*
+*Última actualización: 2026-07-07*

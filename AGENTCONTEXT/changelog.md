@@ -326,3 +326,56 @@
 - **Limpieza:** Eliminados todos los archivos de `src/videos/` (6 mp4) y `src/images/` del repo y del disco. Los videos ya no se usaban desde la sesión No-Videos Color Redesign.
 
 ### Revertir: `git revert a52ba1e 752ab78`
+
+---
+
+## [2026-06-16] — Sesión Deploy (docs)
+
+### Commit: `6a526fd`
+### Mensaje: docs: registrar deploy GitHub Pages y limpieza de assets en AGENTCONTEXT
+### Archivos:
+- `AGENTCONTEXT/` (session/changelog/knowledge)
+
+### Detalle:
+- Registro en AGENTCONTEXT del deploy en GitHub Pages y la eliminación de `src/videos/` y `src/images/`.
+
+### Revertir: `git revert 6a526fd`
+
+---
+
+## [2026-06-16] — Sesión Rediseño "Sobre mí" + Formspree
+
+### Commits relacionados:
+- `c047ff5` — feat: foto real en sobre-mi, sombras en nav y botones, fix filtro blanco en proyectos
+- `a2d2e79` — feat: configurar Formspree endpoint en formulario de contacto
+- `81481f3` — feat: rediseno sobre-mi — avatar pequeño, bio completa, grid 6 stats con datos personales
+- `51ca561` — feat: sobre-mi opcion3 — split diagonal foto/contenido con headline y meta inline
+- `51439b7` — fix: about-photo position absolute para llenar panel diagonal correctamente
+
+### Archivos:
+- `index.html`
+- `css/main.css`
+- `js/main.js`
+- `src/me.png` (nuevo — foto real del usuario)
+
+### Detalle:
+- **Foto real:** añadida `src/me.png` en la sección "Sobre mí" (reemplaza el placeholder). Corregido un filtro blanco no deseado en las imágenes de proyectos. Sombras añadidas al navbar y a los botones.
+- **Formspree configurado:** `FORM_ENDPOINT` en `js/main.js` ahora apunta a `https://formspree.io/f/xkoaeekb` (cuenta real). El formulario ya no cae al fallback `mailto:`.
+- **Rediseño "Sobre mí" (iteración final = opción 3):** split diagonal foto / contenido, con headline y meta inline. Iteraciones previas: avatar pequeño + bio completa + grid de 6 stats con datos personales, luego simplificado al split diagonal.
+- **Fix diagonal:** `.about-photo` con `position: absolute` para llenar correctamente el panel diagonal.
+
+### Revertir: `git revert 51439b7 51ca561 81481f3 a2d2e79 c047ff5`
+
+---
+
+## [2026-06-16] — Sesión Skill Tree Redesign (docs pendientes)
+
+### Commit: (registrar tras commit de sincronización)
+### Archivos:
+- `docs/superpowers/specs/2026-06-16-skilltree-redesign.md` (nuevo)
+- `docs/superpowers/plans/2026-06-16-skilltree-redesign.md` (nuevo)
+- `AGENTCONTEXT/decisions.md` (2 ADRs: no-videos, dualidad de color)
+
+### Detalle:
+- Spec y plan del rediseño del skill tree (implementado en commits `c4e2463`..`0fb21bd`) que habían quedado sin rastrear en git. Se commitean ahora para preservar el registro.
+- `decisions.md`: se commitean los 2 ADRs (eliminar videos / dualidad de color dark-light) que estaban en el working tree sin commitear.
