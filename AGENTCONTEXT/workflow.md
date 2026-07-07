@@ -52,6 +52,23 @@
 8. Actualizar session.md (archivos modificados, progreso)
 ```
 
+### Fase 2.5: Smoke check post-deploy (OBLIGATORIO tras `git push`)
+
+> **Regla dura:** después de cualquier `git push` a `master` (que dispara el deploy en GitHub Pages), NO declares el trabajo terminado sin este chequeo. Los errores que más nos han costado (CSS viejo cacheado, `<script>` sin cerrar que atasca el boot) solo se detectan **cargando la página real**, no leyendo el código.
+
+```
+1. Esperar a que Pages propague (~1-2 min). Puede requerir sondeo.
+2. Descargar el HTML/CSS/JS EN VIVO con cache-buster, p. ej.:
+   Invoke-WebRequest "https://eliezerzmdev.github.io/myofficialwebsite/index.html?cb=<rand>"
+3. Verificar de forma concreta (con evidencia, no suposición):
+   - El asset desplegado contiene los cambios nuevos (grep de una clase/regla nueva).
+   - `index.html` está bien formado: <script src="js/main.js?v=..."></script> con su cierre.
+   - Los enlaces a assets llevan el ?v= actualizado (ver knowledge.md: cache-busting).
+4. Idealmente, confirmar en navegador que la página PASA del boot "SYSTEM ONLINE"
+   (si el JS no ejecuta, se queda atascada ahí) y que se ve la sección de inicio.
+5. Si algo falla → volver a Fase 2, NO cerrar la sesión.
+```
+
 ### Fase 3: Revertir cambios (cuando el usuario lo pida)
 
 ```
@@ -82,7 +99,8 @@
 - **Cada commit debe ser atómico**: un cambio lógico por commit
 - **Los SHAs son obligatorios** en changelog.md — sin SHA no vale
 - **Si el usuario dice "revisa AGENTCONTEXT/"** → ve directo a Fase 1
+- **Tras cada `git push` → Fase 2.5 (smoke check).** No cierres la sesión ni digas "listo" sin cargar/descargar la página desplegada. La memoria da contexto; solo la verificación confirma que funciona.
 
 ---
 
-*Última actualización: 2026-06-01*
+*Última actualización: 2026-07-07*
