@@ -55,6 +55,7 @@
 - **`clip-path` en hijos de flex:** No usar `clip-path` en elementos que necesitan mostrar overflow (hijos, tooltips, dropdowns) — el clip los corta. Usar `::before/::after` para diagonales decorativas.
 - **Unsplash premium:** Fotos de `plus.unsplash.com` requieren suscripción. Usar solo las de `images.unsplash.com`. Las de plus dan 403 o imagen degradada sin login.
 - **Git LF/CRLF en Windows:** Los warnings de LF→CRLF en commits son normales en Windows, no indican error.
+- **Cache-busting en GitHub Pages (IMPORTANTE):** Los enlaces a assets en `index.html` llevan versión: `css/main.css?v=YYYYMMDD` y `js/main.js?v=YYYYMMDD`. GitHub Pages + navegadores cachean `main.css`/`main.js` de forma agresiva; sin la versión, tras un deploy el navegador sirve el CSS viejo cacheado con el HTML nuevo → los estilos nuevos NO se ven (síntoma típico: elementos nuevos salen como "texto plano sin estilo", aunque el clic funcione). **Regla:** cada vez que cambies `css/main.css` o `js/main.js`, sube el número `?v=` en ambos enlaces del `index.html`. Diagnóstico rápido si "local se ve bien pero Pages no": descargar el asset desplegado (`Invoke-WebRequest .../css/main.css?cb=rand`) y verificar si contiene las reglas nuevas — si las contiene, es caché de navegador (Ctrl+Shift+R), no un bug del código. Introducido en commit `3faaeed` (2026-07-07).
 
 ---
 
