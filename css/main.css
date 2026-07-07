@@ -201,26 +201,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .hud-rail-item:hover { color: var(--text-secondary); }
 .hud-rail-item.active { color: var(--accent); font-size: 0.85rem; font-weight: 700; }
 
-.hud-status {
-  position: absolute;
-  bottom: var(--frame-pad);
-  left: calc(var(--frame-pad) + 32px);
-  right: calc(var(--frame-pad) + 32px);
-  height: var(--status-h);
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-.hud-stat { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-.hud-stat.mono { font-family: var(--mono); }
 .hud-led { width: 7px; height: 7px; background: var(--accent); display: inline-block; }
-.hud-progress { flex: 1; max-width: 160px; height: 2px; background: var(--border); position: relative; }
-.hud-progress i { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); width: 16%; transition: width 0.4s ease; }
-.hud-hint { margin-left: auto; }
 
 /* =================================================================
    ① INICIO — Hero asimétrico
@@ -500,8 +481,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 480px) {
   .hero-name { font-size: clamp(2.2rem, 12vw, 3.4rem); }
-  .hud-status { gap: 12px; font-size: 0.55rem; }
-  .hud-hint, #statCoords { display: none; }
   .skilltree { min-height: 420px; }
 }
 

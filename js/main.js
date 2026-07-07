@@ -255,7 +255,6 @@
 
     tabs.forEach(function (t, i) { t.classList.toggle('active', i === index) })
     qa('.hud-rail-item').forEach(function (r, i) { r.classList.toggle('active', i === index) })
-    updateTelemetry(index)
     retriggerAssemble(next)
 
     var id = sections[index].id
@@ -333,24 +332,6 @@
   /* =================================================================
      TELEMETRY
      ================================================================= */
-
-  function updateTelemetry (index) {
-    var prog = q('#statProgress')
-    var sec = q('#statSection')
-    if (prog) prog.style.width = (((index + 1) / TOTAL_SECTIONS) * 100).toFixed(0) + '%'
-    if (sec) sec.textContent = String(index).padStart(2, '0') + ' / 0' + TOTAL_SECTIONS
-  }
-
-  function initTelemetryFlicker () {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    var coords = q('#statCoords')
-    if (!coords) return
-    setInterval(function () {
-      var lat = (19.4 + (Math.random() - 0.5) * 0.04).toFixed(2)
-      var lon = (-99.1 + (Math.random() - 0.5) * 0.04).toFixed(2)
-      coords.textContent = 'LAT ' + lat + '° · LON ' + lon + '°'
-    }, 1800)
-  }
 
   /* =================================================================
      THEME
@@ -705,7 +686,4 @@
   initProjectHover()
   renderSkillTree()
   renderContact()
-  initHeroTerminal()
-  updateTelemetry(0)
-  initTelemetryFlicker()
 })()
