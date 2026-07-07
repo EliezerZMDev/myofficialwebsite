@@ -18,7 +18,7 @@
       color: '#1a5fd9',
       image: 'https://images.unsplash.com/photo-1453749024858-4bca89bd9edc',
       initials: 'CA',
-      url: '#',
+      url: 'https://corazonazulvh.com',
       repo: '#'
     },
     {
